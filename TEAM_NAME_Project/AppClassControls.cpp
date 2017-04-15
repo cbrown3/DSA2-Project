@@ -52,6 +52,7 @@ void AppClass::ProcessKeyboard(void)
 		m_v3Position += vector3(0.1f, 0.0f, 0.0f);
 		m_pBS0->SetModelMatrix(glm::translate(m_v3Position));
 	}
+	//if the camera is orthographic, move in the negative z axis, if not, move in the positive y axis
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
 	{
 		if (m_pCameraMngr->GetCameraMode() == CAMROTHOY)
@@ -81,6 +82,7 @@ void AppClass::ProcessKeyboard(void)
 			}
 		}
 	}
+	//if the camera is orthographic, move in the positive z axis, if not, move in the negative y axis
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
 	{
 		if (m_pCameraMngr->GetCameraMode() == CAMROTHOY)
@@ -119,6 +121,17 @@ void AppClass::ProcessKeyboard(void)
 	static bool bFPSControll = false;
 	ON_KEY_PRESS_RELEASE(F, bFPSControll = !bFPSControll, m_pCameraMngr->SetFPS(bFPSControll));
 #pragma endregion
+
+#pragma region Load Models
+	//if you press Num 1, it will select the current model as the Master Sword
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num1))
+		currentModel = "Sword";
+
+	//if you press Num 2, it will select the current model as the Hylian Shield
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num2))
+		currentModel = "Shield";
+#pragma endregion
+
 }
 void AppClass::ProcessMouse(void)
 {

@@ -9,23 +9,44 @@ void AppClass::InitVariables(void)
 	//Set the camera position in orthographic position
 	m_pCameraMngr->SetCameraMode(CAMROTHOY);
 	//Load a model onto the Mesh manager
-	m_pMeshMngr->LoadModel("Minecraft\\Zombie.obj", "Zombie");
-	m_pMeshMngr->LoadModel("Minecraft\\Steve.obj", "Steve");
+	m_pMeshMngr->LoadModel("Zelda\\MasterSword.bto", "Sword");
+	m_pMeshMngr->LoadModel("Zelda\\HylianShield.bto", "Shield");
 	m_pMeshMngr->LoadModel("Minecraft\\Cow.obj", "Cow");
-	//creating bounding spheres for both models
-	m_pBS0 = new MyBoundingBoxClass(m_pMeshMngr->GetVertexList("Zombie"));
-	m_pBS1 = new MyBoundingBoxClass(m_pMeshMngr->GetVertexList("Steve"));
-	m_pBS2 = new MyBoundingBoxClass(m_pMeshMngr->GetVertexList("Cow"));
 
-	matrix4 m4Position = glm::translate(vector3(3.0, 0.0, 0.0));
-	m_pMeshMngr->SetModelMatrix(m4Position, "Steve");
+	//create a list of models to load
+	modelNames = new String[10];
 
-	matrix4 m4Position2 = glm::translate(vector3(2.5, 2.0, 0.0));
+	//set the model names in the array
+	modelNames[0] = "Sword";
+	modelNames[1] = "Shield";
+
+	//set intial current model
+	currentModel = "Sword";
+
+	//creating bounding spheres for a placeholder model, the sword, the shield, and the cow
+	m_pBS0 = new MyBoundingBoxClass(m_pMeshMngr->GetVertexList(currentModel));
+	m_pBS0a = new MyBoundingBoxClass(m_pMeshMngr->GetVertexList("Sword"));
+	m_pBS0b = new MyBoundingBoxClass(m_pMeshMngr->GetVertexList("Shield"));
+	m_pBS1 = new MyBoundingBoxClass(m_pMeshMngr->GetVertexList("Cow"));
+	//m_pBS2 = new MyBoundingBoxClass(m_pMeshMngr->GetVertexList("Cow"));
+
+	matrix4 m4Position2 = glm::translate(vector3(2.5, 0.0, 0.0));
 	m_pMeshMngr->SetModelMatrix(m4Position2, "Cow");
 }
 
 void AppClass::Update(void)
 {
+	//if the current model is the sword, make the main/placeholder model equal the correct model being selected.
+	if (currentModel == "Sword")
+	{
+		m_pBS0 = m_pBS0a;
+	}
+	else if (currentModel == "Shield")
+	{
+		m_pBS0 = m_pBS0b;
+	}
+
+
 	//Update the system's time
 	m_pSystem->UpdateTime();
 
@@ -52,28 +73,28 @@ void AppClass::Update(void)
 
 	//set the translate to create the transform matrix
 	matrix4 m4Transform = glm::translate(m_v3Position) * ToMatrix4(m_qArcBall);
-	m_pMeshMngr->SetModelMatrix(m4Transform, "Zombie"); //set the matrix to the model
-	m_pBS0->SetModelMatrix(m_pMeshMngr->GetModelMatrix("Zombie"));
+	m_pMeshMngr->SetModelMatrix(m4Transform, currentModel); //set the matrix to the model
+	m_pBS0->SetModelMatrix(m_pMeshMngr->GetModelMatrix(currentModel));
 	m_pBS0->RenderSphere();//render the bounding sphere
 		
 
-	m_pMeshMngr->SetModelMatrix(mTranslation, "Steve");
-	m_pBS1->SetModelMatrix(m_pMeshMngr->GetModelMatrix("Steve"));
+	m_pMeshMngr->SetModelMatrix(mTranslation, "Cow");
+	m_pBS1->SetModelMatrix(m_pMeshMngr->GetModelMatrix("Cow"));
 	m_pBS1->RenderSphere();
 
-	m_pBS2->SetModelMatrix(m_pMeshMngr->GetModelMatrix("Cow"));
-	m_pBS2->RenderSphere();
+	//m_pBS2->SetModelMatrix(m_pMeshMngr->GetModelMatrix("Cow"));
+	//m_pBS2->RenderSphere();
 
 	m_pBS0->SetColliding(false);
 	m_pBS1->SetColliding(false);
-	m_pBS2->SetColliding(false);
+	//m_pBS2->SetColliding(false);
 
 	if (m_pBS0->IsColliding(m_pBS1))
 	{
 		m_pBS0->SetColliding(true);
 		m_pBS1->SetColliding(true);
 	}
-	if (m_pBS0->IsColliding(m_pBS2))
+	/*if (m_pBS0->IsColliding(m_pBS2))
 	{
 		m_pBS0->SetColliding(true);
 		m_pBS2->SetColliding(true);
@@ -82,7 +103,7 @@ void AppClass::Update(void)
 	{
 		m_pBS1->SetColliding(true);
 		m_pBS2->SetColliding(true);
-	}
+	}*/
 
 	if (fPercentage > 1.0f)
 	{
@@ -92,7 +113,9 @@ void AppClass::Update(void)
 
 	//Adds all loaded instance to the render list
 	m_pMeshMngr->AddSkyboxToRenderList();
-	m_pMeshMngr->AddInstanceToRenderList("ALL");
+
+	m_pMeshMngr->AddInstanceToRenderList(currentModel);
+	m_pMeshMngr->AddInstanceToRenderList("Cow");
 
 	//Indicate the FPS
 	int nFPS = m_pSystem->GetFPS();
@@ -123,6 +146,6 @@ void AppClass::Release(void)
 {
 	SafeDelete(m_pBS0);
 	SafeDelete(m_pBS1);
-	SafeDelete(m_pBS2);
+	//SafeDelete(m_pBS2);
 	super::Release(); //release the memory of the inherited fields
 }
