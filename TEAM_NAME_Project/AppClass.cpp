@@ -1,16 +1,13 @@
 #include "AppClass.h"
 void AppClass::InitWindow(String a_sWindowName)
 {
-	super::InitWindow("Bounding Spheres DEMO");
+	super::InitWindow("Team Name Project");
 }
 
 void AppClass::InitVariables(void)
 {
-	//Set the camera position
-	m_pCameraMngr->SetPositionTargetAndView(
-		vector3(0.0f, 2.5f, 15.0f),//Camera position
-		vector3(0.0f, 2.5f, 0.0f),//What Im looking at
-		REAXISY);//What is up
+	//Set the camera position in orthographic position
+	m_pCameraMngr->SetCameraMode(CAMROTHOY);
 	//Load a model onto the Mesh manager
 	m_pMeshMngr->LoadModel("Minecraft\\Zombie.obj", "Zombie");
 	m_pMeshMngr->LoadModel("Minecraft\\Steve.obj", "Steve");
@@ -105,18 +102,10 @@ void AppClass::Update(void)
 	m_pMeshMngr->PrintLine("");//Add a line on top
 	m_pMeshMngr->PrintLine(m_pSystem->GetAppName(), REYELLOW);
 
-	m_pMeshMngr->Print("Radius: ");
-	m_pMeshMngr->PrintLine(std::to_string(m_pBS0->GetRadius()), RERED);
-	m_pMeshMngr->Print("Center: (");
-	m_pMeshMngr->Print(std::to_string(m_pBS0->GetCenterGlobal().x), RERED);
-	m_pMeshMngr->Print(" , ");
-	m_pMeshMngr->Print(std::to_string(m_pBS0->GetCenterGlobal().y), RERED);
-	m_pMeshMngr->Print(" , ");
-	m_pMeshMngr->Print(std::to_string(m_pBS0->GetCenterGlobal().z), RERED);
-	m_pMeshMngr->PrintLine(")");
-
+	/*
 	m_pMeshMngr->Print("FPS:");
 	m_pMeshMngr->Print(std::to_string(nFPS), RERED);
+	*/
 }
 
 void AppClass::Display(void)

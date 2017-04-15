@@ -54,28 +54,60 @@ void AppClass::ProcessKeyboard(void)
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
 	{
-		if (!bModifier)
+		if (m_pCameraMngr->GetCameraMode() == CAMROTHOY)
 		{
-			m_v3Position += vector3(0.0f, 0.1f, 0.0f);
-			m_pBS0->SetModelMatrix(glm::translate(m_v3Position));
+			if (!bModifier)
+			{
+				m_v3Position += vector3(0.0f, 0.0f, -0.1f);
+				m_pBS0->SetModelMatrix(glm::translate(m_v3Position));
+			}
+			else
+			{
+				m_v3Position += vector3(0.0f, 0.1f, 0.0f);
+				m_pBS0->SetModelMatrix(glm::translate(m_v3Position));
+			}
 		}
 		else
 		{
-			m_v3Position += vector3(0.0f, 0.0f,-0.1f);
-			m_pBS0->SetModelMatrix(glm::translate(m_v3Position));
+			if (!bModifier)
+			{
+				m_v3Position += vector3(0.0f, 0.1f, 0.0f);
+				m_pBS0->SetModelMatrix(glm::translate(m_v3Position));
+			}
+			else
+			{
+				m_v3Position += vector3(0.0f, 0.0f, -0.1f);
+				m_pBS0->SetModelMatrix(glm::translate(m_v3Position));
+			}
 		}
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
 	{
-		if (!bModifier)
+		if (m_pCameraMngr->GetCameraMode() == CAMROTHOY)
 		{
-			m_v3Position += vector3(0.0f, -0.1f, 0.0f);
-			m_pBS0->SetModelMatrix(glm::translate(m_v3Position));
+			if (!bModifier)
+			{
+				m_v3Position += vector3(0.0f, 0.0f, 0.1f);
+				m_pBS0->SetModelMatrix(glm::translate(m_v3Position));
+			}
+			else
+			{
+				m_v3Position += vector3(0.0f, -0.1f, 0.0f);
+				m_pBS0->SetModelMatrix(glm::translate(m_v3Position));
+			}
 		}
 		else
 		{
-			m_v3Position += vector3(0.0f, 0.0f, 0.1f);
-			m_pBS0->SetModelMatrix(glm::translate(m_v3Position));
+			if (!bModifier)
+			{
+				m_v3Position += vector3(0.0f, -0.1f, 0.0f);
+				m_pBS0->SetModelMatrix(glm::translate(m_v3Position));
+			}
+			else
+			{
+				m_v3Position += vector3(0.0f, 0.0f, 0.1f);
+				m_pBS0->SetModelMatrix(glm::translate(m_v3Position));
+			}
 		}
 	}
 #pragma endregion
