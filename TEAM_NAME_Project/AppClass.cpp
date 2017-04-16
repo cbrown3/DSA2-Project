@@ -75,6 +75,7 @@ void AppClass::Update(void)
 	matrix4 m4Transform = glm::translate(m_v3Position) * ToMatrix4(m_qArcBall);
 	m_pMeshMngr->SetModelMatrix(m4Transform, currentModel); //set the matrix to the model
 	m_pBS0->SetModelMatrix(m_pMeshMngr->GetModelMatrix(currentModel));
+	m_pBS0->ReAlignAxis(m_pMeshMngr->GetModelMatrix(currentModel));
 	m_pBS0->RenderSphere();//render the bounding sphere
 		
 

@@ -49,6 +49,7 @@ MyBoundingBoxClass::MyBoundingBoxClass(std::vector<vector3> vertexList)
 
 	m_v3MinG = m_v3Min;
 	m_v3MaxG = m_v3Max;
+	m_v3SizeG = m_v3MaxG - m_v3MinG;
 	
 	//m_v3Size.x = glm::distance(vector3(m_v3Min.x, 0.0, 0.0), vector3(m_v3Max.x, 0.0, 0.0));
 	//m_v3Size.y = glm::distance(vector3(0.0, m_v3Min.y, 0.0), vector3(0.0, m_v3Max.y, 0.0));
@@ -66,7 +67,45 @@ void MyBoundingBoxClass::RenderSphere()
 		glm::translate(m_v3CenterLocal) *
 		glm::scale(m_v3Size),
 		v3Color, WIRE);
+
+	m_pMeshMngr->AddCubeToRenderList(
+		glm::translate(m_v3CenterGlobal) *
+		glm::scale(m_v3SizeG),
+		REBLUE, WIRE);
 }
+
+void MyBoundingBoxClass::ReAlignAxis(matrix4 a_m4ToWorld)
+{
+	if (m_v3MaxG.x < m_v3MinG.x)
+	{
+		m_v3SizeG.x = m_v3MinG.x - m_v3MaxG.x;
+	}
+	else
+	{
+		m_v3SizeG.x = m_v3MaxG.x - m_v3MinG.x;
+	}
+
+	if (m_v3MaxG.y < m_v3MinG.y)
+	{
+		m_v3SizeG.y = m_v3MinG.y - m_v3MaxG.y;
+	}
+	else
+	{
+		m_v3SizeG.y = m_v3MaxG.y - m_v3MinG.y;
+	}
+
+	if (m_v3MaxG.z < m_v3MinG.z)
+	{
+		m_v3SizeG.z = m_v3MinG.z - m_v3MaxG.z;
+	}
+	else
+	{
+		m_v3SizeG.z = m_v3MaxG.z - m_v3MinG.z;
+	}
+
+	m_v3CenterGlobal = vector3(a_m4ToWorld * vector4(m_v3CenterLocal, 1.0f));
+}
+
 void MyBoundingBoxClass::SetModelMatrix(matrix4 a_m4ToWorld)
 {
 	if (m_m4ToWorld == a_m4ToWorld)

@@ -65,6 +65,7 @@ public:
 	Renders the sphere based on the radius and the center in global space
 	*/
 	void RenderSphere();
+	void ReAlignAxis(matrix4 a_m4ToWorld);
 	/*
 	Sets the transform from the local to world matrix
 	*/
