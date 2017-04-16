@@ -169,7 +169,8 @@ void AppClass::ProcessMouse(void)
 		}
 	}
 	
-	if(sf::Mouse::isButtonPressed(sf::Mouse::Button::Middle))
+	//added functionality to rotate if no middle mouse button
+	if(sf::Mouse::isButtonPressed(sf::Mouse::Button::Middle) || sf::Keyboard::isKeyPressed(sf::Keyboard::R))
 		m_bArcBall = true;
 	
 	if(sf::Mouse::isButtonPressed(sf::Mouse::Button::Right))

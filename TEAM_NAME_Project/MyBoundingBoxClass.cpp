@@ -47,6 +47,7 @@ MyBoundingBoxClass::MyBoundingBoxClass(std::vector<vector3> vertexList)
 	m_pMeshMngr = MeshManagerSingleton::GetInstance();
 	m_v3Size = m_v3Max - m_v3Min;
 
+	//default for global versons
 	m_v3MinG = m_v3Min;
 	m_v3MaxG = m_v3Max;
 	m_v3SizeG = m_v3MaxG - m_v3MinG;
@@ -68,14 +69,17 @@ void MyBoundingBoxClass::RenderSphere()
 		glm::scale(m_v3Size),
 		v3Color, WIRE);
 
+	//render the re-aligned box 
 	m_pMeshMngr->AddCubeToRenderList(
 		glm::translate(m_v3CenterGlobal) *
 		glm::scale(m_v3SizeG),
 		REBLUE, WIRE);
 }
 
+//this will recalculate the global variants of the vector3s
 void MyBoundingBoxClass::ReAlignAxis(matrix4 a_m4ToWorld)
 {
+	//check if the values have changed and reset the minG, maxG, an sizeG values
 	if (m_v3MaxG.x < m_v3MinG.x)
 	{
 		m_v3SizeG.x = m_v3MinG.x - m_v3MaxG.x;
@@ -103,6 +107,7 @@ void MyBoundingBoxClass::ReAlignAxis(matrix4 a_m4ToWorld)
 		m_v3SizeG.z = m_v3MaxG.z - m_v3MinG.z;
 	}
 
+	//recalculate the global center
 	m_v3CenterGlobal = vector3(a_m4ToWorld * vector4(m_v3CenterLocal, 1.0f));
 }
 

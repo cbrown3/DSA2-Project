@@ -15,6 +15,7 @@ private:
 	vector3 m_v3Min;
 	vector3 m_v3Size;
 
+	//the global versions of the vector3s
 	vector3 m_v3MaxG;
 	vector3 m_v3MinG;
 	vector3 m_v3SizeG;
@@ -65,6 +66,9 @@ public:
 	Renders the sphere based on the radius and the center in global space
 	*/
 	void RenderSphere();
+	/*
+	Re-aligns the bounding box to the view (Axis-Aligned)
+	*/
 	void ReAlignAxis(matrix4 a_m4ToWorld);
 	/*
 	Sets the transform from the local to world matrix
