@@ -42,6 +42,117 @@ public:
 		return m_pInstance;
 	};
 
+	void ChangeVisible(String args)
+	{
+		for (int i = 0; i < names.size; i++)
+		{
+			if (names[i] == args)
+			{
+				boxes[i];
+			}
+		}
+	};
+
+	void SetColor(String args, vector3 ColorArgs)
+	{
+		for (int i = 0; i < names.size; i++)
+		{
+			if (names[i] == args)
+			{
+				boxes[i].SetColor(ColorArgs);
+			}
+		}
+	};
+
+	void RederOptions(int RenderArgs)
+	{
+		if (RenderArgs > boxes.size) return;
+
+		switch (RenderArgs)
+		{
+		case 0:
+			for (int i = 0; i < boxes.size; i++)
+			{
+				boxes[i].RenderSphere(false);
+			}
+			break;
+		case 1:
+			for (int i = 0; i < boxes.size; i++)
+			{
+				boxes[i].RenderSphere(false);
+				boxes[0].RenderSphere(true);
+			}
+			break;
+		case 2:
+			for (int i = 0; i < boxes.size; i++)
+			{
+				boxes[i].RenderSphere(false);
+				boxes[1].RenderSphere(true);
+			}
+			break;
+		case 3:
+			for (int i = 0; i < boxes.size; i++)
+			{
+				boxes[i].RenderSphere(false);
+				boxes[2].RenderSphere(true);
+			}
+			break;
+		case 4:
+			for (int i = 0; i < boxes.size; i++)
+			{
+				boxes[i].RenderSphere(false);
+				boxes[3].RenderSphere(true);
+			}
+			break;
+		case 5:
+			for (int i = 0; i < boxes.size; i++)
+			{
+				boxes[i].RenderSphere(false);
+				boxes[4].RenderSphere(true);
+			}
+			break;
+		case 6:
+			for (int i = 0; i < boxes.size; i++)
+			{
+				boxes[i].RenderSphere(false);
+				boxes[5].RenderSphere(true);
+			}
+			break;
+		case 7:
+			for (int i = 0; i < boxes.size; i++)
+			{
+				boxes[i].RenderSphere(false);
+				boxes[6].RenderSphere(true);
+			}
+			break;
+		case 8:
+			for (int i = 0; i < boxes.size; i++)
+			{
+				boxes[i].RenderSphere(false);
+				boxes[7].RenderSphere(true);
+			}
+			break;
+		case 9:
+			for (int i = 0; i < boxes.size; i++)
+			{
+				boxes[i].RenderSphere(false);
+				boxes[8].RenderSphere(true);
+			}
+			break;
+		default:
+			break;
+		}
+	};
+
+	void CheckCollisions()
+	{
+		
+	};
+
+	void DoCollisions()
+	{
+	};
+
 	//clear/reser instance of the manager
 	static void ReleaseInstance()
 	{
