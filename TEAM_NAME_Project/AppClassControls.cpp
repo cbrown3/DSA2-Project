@@ -120,6 +120,13 @@ void AppClass::ProcessKeyboard(void)
 	ON_KEY_PRESS_RELEASE(F2, NULL, m_pCameraMngr->SetCameraMode(CAMPERSP));
 	static bool bFPSControll = false;
 	ON_KEY_PRESS_RELEASE(F, bFPSControll = !bFPSControll, m_pCameraMngr->SetFPS(bFPSControll));
+
+	//toggle visibility of box
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::V))
+		if (renderBox)
+			renderBox = false;
+		else
+			renderBox = true;
 #pragma endregion
 
 #pragma region Load Models
@@ -169,8 +176,8 @@ void AppClass::ProcessMouse(void)
 		}
 	}
 	
-	//added functionality to rotate if no middle mouse button
-	if(sf::Mouse::isButtonPressed(sf::Mouse::Button::Middle) || sf::Keyboard::isKeyPressed(sf::Keyboard::R))
+	//added functionality to rotate with the r button for those without a middle mouse button
+	if(sf::Mouse::isButtonPressed(sf::Mouse::Button::Middle)|| sf::Keyboard::isKeyPressed(sf::Keyboard::R) )
 		m_bArcBall = true;
 	
 	if(sf::Mouse::isButtonPressed(sf::Mouse::Button::Right))

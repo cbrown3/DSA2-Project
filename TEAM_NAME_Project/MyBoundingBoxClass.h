@@ -10,12 +10,13 @@ private:
 	matrix4 m_m4ToWorld = IDENTITY_M4; //matrix that takes you from local to global space
 	MeshManagerSingleton* m_pMeshMngr = nullptr; //for drawing the sphere
 	bool m_bColliding = false;
+	vector3 m_v3Color;
 
 	vector3 m_v3Max;
 	vector3 m_v3Min;
 	vector3 m_v3Size;
 
-	//the global versions of the vector3s
+	//global versions of the vectors
 	vector3 m_v3MaxG;
 	vector3 m_v3MinG;
 	vector3 m_v3SizeG;
@@ -57,7 +58,30 @@ public:
 	Gets radius of the sphere
 	*/
 	float GetRadius(void);
-	
+	/*
+	get the global center of the object 
+	*/
+	vector3 GetCentroid();
+	/*
+	get the global min values of the object
+	*/
+	vector3 GetMinGlobal();
+	/*
+	get the global max values of the object
+	*/
+	vector3 GetMaxGlobal();
+	/*
+	get the current view matrix
+	*/
+	matrix4 GetMatrixToWorld();
+	/*
+	set the current view matrix
+	*/
+	void SetMatrixToWorld(matrix4 a_m4ToWorld);
+	/*
+	set the color of the bounding object
+	*/
+	void SetColor(vector3 a_color);
 	/*
 	Constructor, needs a vertex list
 	*/
@@ -65,16 +89,15 @@ public:
 	/*
 	Renders the sphere based on the radius and the center in global space
 	*/
-	void RenderSphere();
+	void RenderSphere(bool a_renderBox);
 	/*
-	Re-aligns the bounding box to the view (Axis-Aligned)
+	update the aligned bounding box
 	*/
 	void ReAlignAxis(matrix4 a_m4ToWorld);
 	/*
 	Sets the transform from the local to world matrix
 	*/
 	void SetModelMatrix(matrix4 a_m4ToWorld);
-
 	/*
 	Will check the collision with another object
 	*/

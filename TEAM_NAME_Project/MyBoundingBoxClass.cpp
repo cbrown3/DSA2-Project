@@ -2,6 +2,7 @@
 
 MyBoundingBoxClass::MyBoundingBoxClass(std::vector<vector3> vertexList)
 {
+	m_v3Color = REBLUE;
 	m_bColliding = false;
 	m_fRadius = 0.0f;
 	m_v3CenterGlobal = vector3(0.0f);
@@ -47,7 +48,7 @@ MyBoundingBoxClass::MyBoundingBoxClass(std::vector<vector3> vertexList)
 	m_pMeshMngr = MeshManagerSingleton::GetInstance();
 	m_v3Size = m_v3Max - m_v3Min;
 
-	//default for global versons
+	//set defaults for global versons of the vector3s
 	m_v3MinG = m_v3Min;
 	m_v3MaxG = m_v3Max;
 	m_v3SizeG = m_v3MaxG - m_v3MinG;
@@ -57,7 +58,7 @@ MyBoundingBoxClass::MyBoundingBoxClass(std::vector<vector3> vertexList)
 	//m_v3Size.z = glm::distance(vector3(0.0, 0.0, m_v3Min.z), vector3(0.0, 0.0, m_v3Max.z));
 }
 
-void MyBoundingBoxClass::RenderSphere()
+void MyBoundingBoxClass::RenderSphere(bool a_renderBox)
 {
 	vector3 v3Color = REGREEN;
 	if (true == m_bColliding)
@@ -69,17 +70,18 @@ void MyBoundingBoxClass::RenderSphere()
 		glm::scale(m_v3Size),
 		v3Color, WIRE);
 
-	//render the re-aligned box 
-	m_pMeshMngr->AddCubeToRenderList(
-		glm::translate(m_v3CenterGlobal) *
-		glm::scale(m_v3SizeG),
-		REBLUE, WIRE);
+	//render the new axis aligned bounding box
+	if(a_renderBox)
+		m_pMeshMngr->AddCubeToRenderList(
+			glm::translate(m_v3CenterGlobal) *
+			glm::scale(m_v3SizeG),
+			m_v3Color, WIRE);
 }
 
-//this will recalculate the global variants of the vector3s
+//calculate the new azis aligned bounding box based on rotation and view
 void MyBoundingBoxClass::ReAlignAxis(matrix4 a_m4ToWorld)
 {
-	//check if the values have changed and reset the minG, maxG, an sizeG values
+	//update global min, max, and size
 	if (m_v3MaxG.x < m_v3MinG.x)
 	{
 		m_v3SizeG.x = m_v3MinG.x - m_v3MaxG.x;
@@ -106,8 +108,7 @@ void MyBoundingBoxClass::ReAlignAxis(matrix4 a_m4ToWorld)
 	{
 		m_v3SizeG.z = m_v3MaxG.z - m_v3MinG.z;
 	}
-
-	//recalculate the global center
+	//update global center
 	m_v3CenterGlobal = vector3(a_m4ToWorld * vector4(m_v3CenterLocal, 1.0f));
 }
 
@@ -121,7 +122,37 @@ void MyBoundingBoxClass::SetModelMatrix(matrix4 a_m4ToWorld)
 	m_v3MinG = vector3(m_m4ToWorld * vector4(m_v3Min, 1.0f));
 	m_v3MaxG = vector3(m_m4ToWorld * vector4(m_v3Max, 1.0f));
 }
+//get the global center of the object
+vector3 MyBoundingBoxClass::GetCentroid()
+{
+	return m_v3CenterGlobal;
+}
+//get the global min values of the object
+vector3 MyBoundingBoxClass::GetMinGlobal()
+{
+	return m_v3MinG;
+}
+//get the global max values of the object
+vector3 MyBoundingBoxClass::GetMaxGlobal()
+{
+	return m_v3MaxG;
+}
 
+matrix4 MyBoundingBoxClass::GetMatrixToWorld()
+{
+	return m_m4ToWorld;
+}
+
+void MyBoundingBoxClass::SetMatrixToWorld(matrix4 a_m4ToWorld)
+{
+	m_m4ToWorld = a_m4ToWorld;
+}
+//set color of bounding box
+void MyBoundingBoxClass::SetColor(vector3 a_color)
+{
+	m_v3Color = a_color;
+}
+//check for collisions
 bool MyBoundingBoxClass::IsColliding(MyBoundingBoxClass* a_other)
 {
 	if (this->m_v3MaxG.x < a_other->m_v3MinG.x)

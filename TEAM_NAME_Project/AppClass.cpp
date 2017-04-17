@@ -14,11 +14,12 @@ void AppClass::InitVariables(void)
 	m_pMeshMngr->LoadModel("Minecraft\\Cow.obj", "Cow");
 
 	//create a list of models to load
-	modelNames = new String[10];
+	//modelNames = new String[10];
 
 	//set the model names in the array
-	modelNames[0] = "Sword";
-	modelNames[1] = "Shield";
+	//modelNames[0] = "Sword";
+	//modelNames[1] = "Shield";
+
 
 	//set intial current model
 	currentModel = "Sword";
@@ -28,10 +29,15 @@ void AppClass::InitVariables(void)
 	m_pBS0a = new MyBoundingBoxClass(m_pMeshMngr->GetVertexList("Sword"));
 	m_pBS0b = new MyBoundingBoxClass(m_pMeshMngr->GetVertexList("Shield"));
 	m_pBS1 = new MyBoundingBoxClass(m_pMeshMngr->GetVertexList("Cow"));
-	//m_pBS2 = new MyBoundingBoxClass(m_pMeshMngr->GetVertexList("Cow"));
 
 	matrix4 m4Position2 = glm::translate(vector3(2.5, 0.0, 0.0));
 	m_pMeshMngr->SetModelMatrix(m4Position2, "Cow");
+	
+	m_pBoundingObjectMngr->addBoundingBox(m_pBS0, "Empty");
+	m_pBoundingObjectMngr->addBoundingBox(m_pBS0a, "Sword");
+	m_pBoundingObjectMngr->addBoundingBox(m_pBS0b, "Shield");
+	m_pBoundingObjectMngr->addBoundingBox(m_pBS1, "Cow");
+
 }
 
 void AppClass::Update(void)
@@ -75,36 +81,22 @@ void AppClass::Update(void)
 	matrix4 m4Transform = glm::translate(m_v3Position) * ToMatrix4(m_qArcBall);
 	m_pMeshMngr->SetModelMatrix(m4Transform, currentModel); //set the matrix to the model
 	m_pBS0->SetModelMatrix(m_pMeshMngr->GetModelMatrix(currentModel));
-	m_pBS0->ReAlignAxis(m_pMeshMngr->GetModelMatrix(currentModel)); //update the realigned bounding box
-	m_pBS0->RenderSphere();//render the bounding sphere
+	m_pBS0->ReAlignAxis(m_pMeshMngr->GetModelMatrix(currentModel)); //recalculate the axis aligned bounding box
+	m_pBS0->RenderSphere(renderBox);//render the bounding sphere
 		
 
 	m_pMeshMngr->SetModelMatrix(mTranslation, "Cow");
 	m_pBS1->SetModelMatrix(m_pMeshMngr->GetModelMatrix("Cow"));
-	m_pBS1->RenderSphere();
-
-	//m_pBS2->SetModelMatrix(m_pMeshMngr->GetModelMatrix("Cow"));
-	//m_pBS2->RenderSphere();
+	m_pBS1->RenderSphere(renderBox);
 
 	m_pBS0->SetColliding(false);
 	m_pBS1->SetColliding(false);
-	//m_pBS2->SetColliding(false);
 
 	if (m_pBS0->IsColliding(m_pBS1))
 	{
 		m_pBS0->SetColliding(true);
 		m_pBS1->SetColliding(true);
 	}
-	/*if (m_pBS0->IsColliding(m_pBS2))
-	{
-		m_pBS0->SetColliding(true);
-		m_pBS2->SetColliding(true);
-	}
-	if (m_pBS1->IsColliding(m_pBS2))
-	{
-		m_pBS1->SetColliding(true);
-		m_pBS2->SetColliding(true);
-	}*/
 
 	if (fPercentage > 1.0f)
 	{
@@ -147,6 +139,5 @@ void AppClass::Release(void)
 {
 	SafeDelete(m_pBS0);
 	SafeDelete(m_pBS1);
-	//SafeDelete(m_pBS2);
 	super::Release(); //release the memory of the inherited fields
 }

@@ -44,6 +44,9 @@
     <ClInclude Include="MyBoundingBoxClass.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="MyBoundingObjectManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="..\res\BTO.rc">
