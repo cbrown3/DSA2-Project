@@ -10,7 +10,7 @@ class MyBoundingObjectManager
 {
 
 	static MyBoundingObjectManager* m_pInstance; // instance pointer
-	std::vector<MyBoundingBoxClass> boxes; //list of bounding objects
+	std::vector<MyBoundingBoxClass*> boxes; //list of bounding objects
 	std::vector<String> names; // corresponding names of the objects
 
 
@@ -44,7 +44,7 @@ public:
 
 	void ChangeVisible(String args)
 	{
-		for (int i = 0; i < names.size; i++)
+		for (int i = 0; i < names.size(); i++)
 		{
 			if (names[i] == args)
 			{
@@ -55,88 +55,88 @@ public:
 
 	void SetColor(String args, vector3 ColorArgs)
 	{
-		for (int i = 0; i < names.size; i++)
+		for (int i = 0; i < names.size(); i++)
 		{
 			if (names[i] == args)
 			{
-				boxes[i].SetColor(ColorArgs);
+				boxes[i]->SetColor(ColorArgs);
 			}
 		}
 	};
 
 	void RederOptions(int RenderArgs)
 	{
-		if (RenderArgs > boxes.size) return;
+		if (RenderArgs > boxes.size()) return;
 
 		switch (RenderArgs)
 		{
 		case 0:
-			for (int i = 0; i < boxes.size; i++)
+			for (int i = 0; i < boxes.size(); i++)
 			{
-				boxes[i].RenderSphere(false);
+				boxes[i]->RenderSphere(false);
 			}
 			break;
 		case 1:
-			for (int i = 0; i < boxes.size; i++)
+			for (int i = 0; i < boxes.size(); i++)
 			{
-				boxes[i].RenderSphere(false);
-				boxes[0].RenderSphere(true);
+				boxes[i]->RenderSphere(false);
+				boxes[0]->RenderSphere(true);
 			}
 			break;
 		case 2:
-			for (int i = 0; i < boxes.size; i++)
+			for (int i = 0; i < boxes.size(); i++)
 			{
-				boxes[i].RenderSphere(false);
-				boxes[1].RenderSphere(true);
+				boxes[i]->RenderSphere(false);
+				boxes[1]->RenderSphere(true);
 			}
 			break;
 		case 3:
-			for (int i = 0; i < boxes.size; i++)
+			for (int i = 0; i < boxes.size(); i++)
 			{
-				boxes[i].RenderSphere(false);
-				boxes[2].RenderSphere(true);
+				boxes[i]->RenderSphere(false);
+				boxes[2]->RenderSphere(true);
 			}
 			break;
 		case 4:
-			for (int i = 0; i < boxes.size; i++)
+			for (int i = 0; i < boxes.size(); i++)
 			{
-				boxes[i].RenderSphere(false);
-				boxes[3].RenderSphere(true);
+				boxes[i]->RenderSphere(false);
+				boxes[3]->RenderSphere(true);
 			}
 			break;
 		case 5:
-			for (int i = 0; i < boxes.size; i++)
+			for (int i = 0; i < boxes.size(); i++)
 			{
-				boxes[i].RenderSphere(false);
-				boxes[4].RenderSphere(true);
+				boxes[i]->RenderSphere(false);
+				boxes[4]->RenderSphere(true);
 			}
 			break;
 		case 6:
-			for (int i = 0; i < boxes.size; i++)
+			for (int i = 0; i < boxes.size(); i++)
 			{
-				boxes[i].RenderSphere(false);
-				boxes[5].RenderSphere(true);
+				boxes[i]->RenderSphere(false);
+				boxes[5]->RenderSphere(true);
 			}
 			break;
 		case 7:
-			for (int i = 0; i < boxes.size; i++)
+			for (int i = 0; i < boxes.size(); i++)
 			{
-				boxes[i].RenderSphere(false);
-				boxes[6].RenderSphere(true);
+				boxes[i]->RenderSphere(false);
+				boxes[6]->RenderSphere(true);
 			}
 			break;
 		case 8:
-			for (int i = 0; i < boxes.size; i++)
+			for (int i = 0; i < boxes.size(); i++)
 			{
-				boxes[i].RenderSphere(false);
-				boxes[7].RenderSphere(true);
+				boxes[i]->RenderSphere(false);
+				boxes[7]->RenderSphere(true);
 			}
 			break;
 		case 9:
-			for (int i = 0; i < boxes.size; i++)
+			for (int i = 0; i < boxes.size(); i++)
 			{
-				boxes[i].RenderSphere(false);
-				boxes[8].RenderSphere(true);
+				boxes[i]->RenderSphere(false);
+				boxes[8]->RenderSphere(true);
 			}
 			break;
 		default:
@@ -146,12 +146,24 @@ public:
 
 	void CheckCollisions()
 	{
-		
+		for (int i = 0; i < boxes.size(); i++)
+		{
+			for (int j = 1; j < boxes.size(); j++)
+			{
+				if (j > boxes.size())
+				{
+					j = 0;
+				}
+				boxes[i]->IsColliding(boxes[j]);
+			}
+		}
 	};
 
-	void DoCollisions()
-	{
-	};
+	//Is handelded in the IsColliding Method
+	//void DoCollisions()
+	//{
+	//
+	//};
 
 	//clear/reser instance of the manager
 	static void ReleaseInstance()
@@ -166,7 +178,7 @@ public:
 	//add a new bounding object to data
 	void addBoundingBox(MyBoundingBoxClass* a_newBox, String a_name)
 	{
-		boxes.push_back(*a_newBox);
+		boxes.push_back(a_newBox);
 		names.push_back(a_name);
 	};
 	////get a listed bounding object by name
