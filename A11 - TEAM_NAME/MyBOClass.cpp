@@ -210,8 +210,8 @@ bool MyBOClass::IsColliding(MyBOClass* const a_pOther)
 	For Objects we will assume they are colliding, unless at least one of the following conditions is not met
 	*/
 	//first check the bounding sphere, if that is not colliding we can guarantee that there are no collision
-	if ((m_fRadius + a_pOther->m_fRadius) < glm::distance(m_v3CenterG, a_pOther->m_v3CenterG))
-		return false;
+	/*if ((m_fRadius + a_pOther->m_fRadius) < glm::distance(m_v3CenterG, a_pOther->m_v3CenterG))
+		return false;*/
 
 	//If the distance was smaller it might be colliding
 	//we will use the ReAligned box for the second check, notice that as long as one check return true they are 
@@ -220,22 +220,47 @@ bool MyBOClass::IsColliding(MyBOClass* const a_pOther)
 	//Note to self - this is where I should draw the planes for the SAT test.
 
 	//Check for X
-	if (m_v3MaxG.x < a_pOther->m_v3MinG.x)
+	/*if (m_v3MaxG.x < a_pOther->m_v3MinG.x) {
+		m_pMeshMngr->AddPlaneToRenderList(m_m4ToWorld, RERED);
 		return false;
-	else if (m_v3MinG.x > a_pOther->m_v3MaxG.x)
+	}
+	else if (m_v3MinG.x > a_pOther->m_v3MaxG.x) {
 		return false;
+	}*/
+
+	float lengthX = abs(m_v3MaxG.x - a_pOther->m_v3MinG.x);
+	float halfX = (m_v3MaxG.x - m_v3MinG.x) * 0.5f;
+	float halfXOther = (a_pOther->m_v3MaxG.x - a_pOther->m_v3MinG.x) * 0.5f;
+	float gapX = lengthX - halfX - halfXOther;
+	if (gapX > 0) return false;
 
 	//Check for Y
-	else if (m_v3MaxG.y < a_pOther->m_v3MinG.y)
+	/*else if (m_v3MaxG.y < a_pOther->m_v3MinG.y) {
 		return false;
-	else if (m_v3MinG.y > a_pOther->m_v3MaxG.y)
+	}
+	else if (m_v3MinG.y > a_pOther->m_v3MaxG.y) {
 		return false;
+	}*/
+
+	float lengthY = abs(m_v3MaxG.y - a_pOther->m_v3MinG.y);
+	float halfY = (m_v3MaxG.y - m_v3MinG.y) * 0.5f;
+	float halfYOther = (a_pOther->m_v3MaxG.y - a_pOther->m_v3MinG.y) * 0.5f;
+	float gapY = lengthY - halfY - halfYOther;
+	if (gapY > 0) return false;
 
 	//Check for Z
-	else if (m_v3MaxG.z < a_pOther->m_v3MinG.z)
+	/*else if (m_v3MaxG.z < a_pOther->m_v3MinG.z) {
 		return false;
-	else if (m_v3MinG.z > a_pOther->m_v3MaxG.z)
+	}
+	else if (m_v3MinG.z > a_pOther->m_v3MaxG.z) {
 		return false;
+	}*/
+
+	float lengthZ = abs(m_v3MaxG.z - a_pOther->m_v3MinG.z);
+	float halfZ = (m_v3MaxG.z - m_v3MinG.z) * 0.5f;
+	float halfZOther = (a_pOther->m_v3MaxG.z - a_pOther->m_v3MinG.z) * 0.5f;
+	float gapZ = lengthZ - halfZ - halfZOther;
+	if (gapZ > 0) return false;
 
 	return true;
 }
