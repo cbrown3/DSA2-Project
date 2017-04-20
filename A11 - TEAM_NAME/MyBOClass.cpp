@@ -217,6 +217,8 @@ bool MyBOClass::IsColliding(MyBOClass* const a_pOther)
 	//we will use the ReAligned box for the second check, notice that as long as one check return true they are 
 	//not colliding thus else statements.
 
+	//Note to self - this is where I should draw the planes for the SAT test.
+
 	//Check for X
 	if (m_v3MaxG.x < a_pOther->m_v3MinG.x)
 		return false;

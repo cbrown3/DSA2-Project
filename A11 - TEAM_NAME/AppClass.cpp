@@ -20,12 +20,12 @@ void AppClass::InitVariables(void)
 	//Load Models
 	m_pMeshMngr->LoadModel("Minecraft\\Steve.obj", "Steve");
 	m_pMeshMngr->LoadModel("Minecraft\\Creeper.obj", "Creeper");
-	m_pMeshMngr->LoadModel("Minecraft\\Cow.obj", "Cow");
+	//m_pMeshMngr->LoadModel("Minecraft\\Cow.obj", "Cow");
 
 	m_pBOMngr = MyBOManager::GetInstance();
 	m_pBOMngr->AddObject(m_pMeshMngr->GetVertexList("Steve"), "Steve");
 	m_pBOMngr->AddObject(m_pMeshMngr->GetVertexList("Creeper"), "Creeper");
-	m_pBOMngr->AddObject(m_pMeshMngr->GetVertexList("Cow"), "Cow");
+	//m_pBOMngr->AddObject(m_pMeshMngr->GetVertexList("Cow"), "Cow");
 }
 
 void AppClass::Update(void)
@@ -44,7 +44,7 @@ void AppClass::Update(void)
 	ArcBallZ();
 
 	//Object Movement
-	static float fTimer = 0.0f;
+	/*static float fTimer = 0.0f;
 	static int nClock = m_pSystem->GenClock();
 	float fDeltaTime = static_cast<float>(m_pSystem->LapClock(nClock));
 	fTimer += fDeltaTime;
@@ -52,17 +52,17 @@ void AppClass::Update(void)
 	static vector3 v3End = vector3(5.0, 0.0, 0.0);
 	float fPercentage = MapValue(fTimer, 0.0f, 3.0f, 0.0f, 1.0f);
 	m_v3O2 = glm::lerp(v3Start, v3End, fPercentage);
-	matrix4 mTranslation = glm::translate(m_v3O2);
+	matrix4 mTranslation = glm::translate(m_v3O2);*/
 
 	//Set the model matrices for both objects and Bounding Spheres
 	m_pMeshMngr->SetModelMatrix(glm::translate(m_v3O1) * ToMatrix4(m_qArcBall), "Steve");
 	m_pMeshMngr->SetModelMatrix(glm::translate(m_v3O2), "Creeper");
-	m_pMeshMngr->SetModelMatrix(glm::translate(m_v3O3), "Cow");
+	//m_pMeshMngr->SetModelMatrix(glm::translate(m_v3O3), "Cow");
 
 	//Set the model matrix to the Bounding Object
 	m_pBOMngr->SetModelMatrix(m_pMeshMngr->GetModelMatrix("Steve"), "Steve");
 	m_pBOMngr->SetModelMatrix(m_pMeshMngr->GetModelMatrix("Creeper"), "Creeper");
-	m_pBOMngr->SetModelMatrix(m_pMeshMngr->GetModelMatrix("Cow"), "Cow");
+	//m_pBOMngr->SetModelMatrix(m_pMeshMngr->GetModelMatrix("Cow"), "Cow");
 
 	m_pBOMngr->Update();//Update collision detection
 	
@@ -73,11 +73,11 @@ void AppClass::Update(void)
 	//Adds all loaded instance to the render list
 	m_pMeshMngr->AddInstanceToRenderList("ALL");
 
-	if (fPercentage > 1.0f)
+	/*if (fPercentage > 1.0f)
 	{
 		fTimer = 0.0f;
 		std::swap(v3Start, v3End);
-	}
+	}*/
 
 	//Indicate the FPS
 	int nFPS = m_pSystem->GetFPS();

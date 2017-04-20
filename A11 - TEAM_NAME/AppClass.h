@@ -8,6 +8,7 @@ Date: 2015/09
 #include "RE\ReEngAppClass.h"
 #include <SFML\Graphics.hpp>
 #include "MyBOManager.h"
+#include "MyMesh.h"
 
 using namespace ReEng; //Using ReEng namespace to use all the classes in the dll
 
@@ -22,6 +23,8 @@ class AppClass : public ReEngAppClass
 	UINT MouseLastY = 0;
 
 	MyBOManager* m_pBOMngr; //Pointer to Bounding Object Manager
+
+	MyMesh* m_pMesh = nullptr; //I'm nicking this from E12 so I can draw triangles and squares.
 public:
 	typedef ReEngAppClass super;
 	/*
