@@ -4,104 +4,57 @@
 
 class MyBoundingBoxClass
 {
-private:
-	float m_fRadius = 0.0f; //radius of the sphere
+	float m_fRadius = 0.0f; //radius of the box
 	vector3 m_v3CenterLocal = vector3(0.0f); //center of the sphere in local space
 	vector3 m_v3CenterGlobal = vector3(0.0f); //center of the sphere in global space
 	matrix4 m_m4ToWorld = IDENTITY_M4; //matrix that takes you from local to global space
 	MeshManagerSingleton* m_pMeshMngr = nullptr; //for drawing the sphere
-	bool m_bColliding = false;
-	vector3 m_v3Color;
 
 	vector3 m_v3Max;
 	vector3 m_v3Min;
 	vector3 m_v3Size;
+
+	vector3 m_v3HalfWidth;
+	vector3 m_v3HalfWidthG;
 
 	//global versions of the vectors
 	vector3 m_v3MaxG;
 	vector3 m_v3MinG;
 	vector3 m_v3SizeG;
 
-public:
-	/*
-	Sets Colliding
-	*/
-	void SetColliding(bool input);
-	/*
-	Sets Center of the sphere in local space
-	*/
-	void SetCenterLocal(vector3 input);
-	/*
-	Sets Center of the sphere in global space
-	*/
-	void SetCenterGlobal(vector3 input);
-	/*
-	Sets the radius of the sphere
-	*/
-	void SetRadius(float input);
+private:
 
-	/*
-	Gets Colliding
-	*/
-	bool GetColliding(void);
-	/*
-	Gets center of the sphere in local space
-	*/
-	vector3 GetCenterLocal(void);
-	/*
-	Gets center of the sphere in global space
-	*/
-	vector3 GetCenterGlobal(void);
-	/*
-	Gets model to world matrix of the sphere
-	*/
-	matrix4 GetModelMatrix(void);
-	/*
-	Gets radius of the sphere
-	*/
-	float GetRadius(void);
-	/*
-	get the global center of the object 
-	*/
-	vector3 GetCentroid();
-	/*
-	get the global min values of the object
-	*/
-	vector3 GetMinGlobal();
-	/*
-	get the global max values of the object
-	*/
-	vector3 GetMaxGlobal();
-	/*
-	get the current view matrix
-	*/
-	matrix4 GetMatrixToWorld();
-	/*
-	set the current view matrix
-	*/
-	void SetMatrixToWorld(matrix4 a_m4ToWorld);
-	/*
-	set the color of the bounding object
-	*/
-	void SetColor(vector3 a_color);
-	/*
-	Constructor, needs a vertex list
-	*/
+	void Release();
+
+	void Init();
+
+public:
 	MyBoundingBoxClass(std::vector<vector3> vertexList);
-	/*
-	Renders the sphere based on the radius and the center in global space
-	*/
-	void RenderSphere(bool a_renderBox);
-	/*
-	update the aligned bounding box
-	*/
-	void ReAlignAxis(matrix4 a_m4ToWorld);
-	/*
-	Sets the transform from the local to world matrix
-	*/
+	MyBoundingBoxClass(MyBoundingBoxClass const& other);
+	MyBoundingBoxClass& operator=(MyBoundingBoxClass const& other);
+	~MyBoundingBoxClass();
+
+	void Swap(MyBoundingBoxClass& other);
+
 	void SetModelMatrix(matrix4 a_m4ToWorld);
-	/*
-	Will check the collision with another object
-	*/
-	bool IsColliding(MyBoundingBoxClass* a_other);
+	matrix4 GetModelMatrix();
+
+	float GetRadius();
+
+	vector3 GetCenterLocal();
+	vector3 GetCenterGlobal();
+
+	vector3 GetHalfWidth();
+	vector3 GetHalfWidthG();
+
+	vector3 GetMin();
+	vector3 GetMax();
+	vector3 GetMinG();
+	vector3 GetMaxG();
+
+	bool IsColliding(MyBoundingBoxClass* const a_pOther);
+
+	void DisplaySphere(vector3 a_v3Color = REDEFAULT);
+	void DisplayOriented(vector3 a_v3Color = REDEFAULT);
+	void DisplayReAlligned(vector3 a_v3Color = REDEFAULT);
 };
