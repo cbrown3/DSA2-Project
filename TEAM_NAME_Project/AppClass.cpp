@@ -26,14 +26,20 @@ void AppClass::InitVariables(void)
 	//set intial current model
 	currentModel = "Sword";
 
+	m_pBoundingObjectMngr->AddObject(m_pMeshMngr->GetVertexList("Cow"), "Cow");
+	m_pBoundingObjectMngr->AddObject(m_pMeshMngr->GetVertexList("Sword"), "Sword");
+	m_pBoundingObjectMngr->AddObject(m_pMeshMngr->GetVertexList("Shield"), "Shield");
+
 	//creating bounding spheres for a placeholder model, the sword, the shield, and the cow
-	m_pBS0 = new MyBoundingBoxClass(m_pMeshMngr->GetVertexList(currentModel));
-	m_pBS0a = new MyBoundingBoxClass(m_pMeshMngr->GetVertexList("Sword"));
-	m_pBS0b = new MyBoundingBoxClass(m_pMeshMngr->GetVertexList("Shield"));
-	m_pBS1 = new MyBoundingBoxClass(m_pMeshMngr->GetVertexList("Cow"));
+	m_pBSCow = m_pBoundingObjectMngr->GetBoundingObject(0);
+	m_pBSMain = m_pBoundingObjectMngr->GetBoundingObject(1);
+	m_pBSword = m_pBoundingObjectMngr->GetBoundingObject(1);
+	m_pBShield = m_pBoundingObjectMngr->GetBoundingObject(2);
 
 	matrix4 m4Position2 = glm::translate(vector3(2.5, 0.0, 0.0));
 	m_pMeshMngr->SetModelMatrix(m4Position2, "Cow");
+	m_pBoundingObjectMngr->SetModelMatrix(m_pMeshMngr->GetModelMatrix("Cow"), "Cow");
+
 
 }
 
@@ -42,11 +48,11 @@ void AppClass::Update(void)
 	//if the current model is the sword, make the main/placeholder model equal the correct model being selected.
 	if (currentModel == "Sword")
 	{
-		m_pBS0 = m_pBS0a;
+		m_pBSMain = m_pBSword;
 	}
 	else if (currentModel == "Shield")
 	{
-		m_pBS0 = m_pBS0b;
+		m_pBSMain = m_pBShield;
 	}
 
 
@@ -55,6 +61,8 @@ void AppClass::Update(void)
 
 	//Update the mesh manager's time without updating for collision detection
 	m_pMeshMngr->Update();
+
+	m_pBoundingObjectMngr->Update();
 
 	//First person camera movement
 	if (m_bFPC == true)
@@ -77,23 +85,11 @@ void AppClass::Update(void)
 	//set the translate to create the transform matrix
 	matrix4 m4Transform = glm::translate(m_v3Position) * ToMatrix4(m_qArcBall);
 	m_pMeshMngr->SetModelMatrix(m4Transform, currentModel); //set the matrix to the model
-	m_pBS0->SetModelMatrix(m_pMeshMngr->GetModelMatrix(currentModel));
-	m_pBS0->ReAlignAxis(m_pMeshMngr->GetModelMatrix(currentModel)); //recalculate the axis aligned bounding box
-	m_pBS0->RenderSphere(renderBox);//render the bounding sphere
+	m_pBSMain->SetModelMatrix(m_pMeshMngr->GetModelMatrix(currentModel));
 		
 
 	m_pMeshMngr->SetModelMatrix(mTranslation, "Cow");
-	m_pBS1->SetModelMatrix(m_pMeshMngr->GetModelMatrix("Cow"));
-	m_pBS1->RenderSphere(renderBox);
-
-	m_pBS0->SetColliding(false);
-	m_pBS1->SetColliding(false);
-
-	if (m_pBS0->IsColliding(m_pBS1))
-	{
-		m_pBS0->SetColliding(true);
-		m_pBS1->SetColliding(true);
-	}
+	m_pBSCow->SetModelMatrix(m_pMeshMngr->GetModelMatrix("Cow"));
 
 	if (fPercentage > 1.0f)
 	{
@@ -134,7 +130,6 @@ void AppClass::Display(void)
 
 void AppClass::Release(void)
 {
-	SafeDelete(m_pBS0);
-	SafeDelete(m_pBS1);
+	m_pBoundingObjectMngr->ReleaseInstance();
 	super::Release(); //release the memory of the inherited fields
 }

@@ -25,11 +25,10 @@ class AppClass : public ReEngAppClass
 	quaternion orientation;
 
 	MyBoundingObjectManager* m_pBoundingObjectMngr; // manager for bounding box objects
-	MyBoundingBoxClass* m_pBS0;
-	MyBoundingBoxClass* m_pBS0a;
-	MyBoundingBoxClass* m_pBS0b;
-	MyBoundingBoxClass* m_pBS1;
-	MyBoundingBoxClass* m_pBS2;
+	MyBoundingBoxClass* m_pBSMain;
+	MyBoundingBoxClass* m_pBSCow;
+	MyBoundingBoxClass* m_pBSword;
+	MyBoundingBoxClass* m_pBShield;
 public:
 	typedef ReEngAppClass super;
 	/*
