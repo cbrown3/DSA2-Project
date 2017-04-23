@@ -196,7 +196,7 @@ void MyBOClass::DisplayReAlligned(vector3 a_v3Color)
 	m_pMeshMngr->AddCubeToRenderList(glm::translate(IDENTITY_M4, m_v3CenterG) *
 		glm::scale(m_v3HalfWidthG * 2.0f), a_v3Color, WIRE);
 }
-vector3 MyBOClass::CrossProduct(vector3 a_vector1, vector3 a_vector2)
+vector3 MyBOClass::CrossProduct(vector3 a_vector1, vector3 a_vector2) //This method returns the cross product of two vectors.
 {
 	vector3 result;
 	result.x = (a_vector1.y * a_vector2.z) - (a_vector1.z * a_vector2.y);
@@ -204,7 +204,7 @@ vector3 MyBOClass::CrossProduct(vector3 a_vector1, vector3 a_vector2)
 	result.z = (a_vector1.x * a_vector2.y) - (a_vector1.y * a_vector2.x);
 	return result;
 }
-vector3 MyBOClass::Normalize(vector3 a_vector)
+vector3 MyBOClass::Normalize(vector3 a_vector) //This method returns the normalized version of a vector.
 {
 	vector3 result;
 	float length = sqrt((a_vector.x * a_vector.x) + (a_vector.y * a_vector.y) + (a_vector.z * a_vector.z));
@@ -263,8 +263,9 @@ bool MyBOClass::IsColliding(MyBOClass* const a_pOther)
 		return false;
 	}*/
 
+	//An array of all of the vertexes of the two bounding boxes.
 	vector3 v3Corner[16];
-	//This box's corners
+	//This box's corners.
 	v3Corner[0] = vector3(m_v3Min.x, m_v3Min.y, m_v3Min.z);
 	v3Corner[1] = vector3(m_v3Max.x, m_v3Min.y, m_v3Min.z);
 	v3Corner[2] = vector3(m_v3Min.x, m_v3Max.y, m_v3Min.z);
@@ -274,7 +275,7 @@ bool MyBOClass::IsColliding(MyBOClass* const a_pOther)
 	v3Corner[5] = vector3(m_v3Max.x, m_v3Min.y, m_v3Max.z);
 	v3Corner[6] = vector3(m_v3Min.x, m_v3Max.y, m_v3Max.z);
 	v3Corner[7] = vector3(m_v3Max.x, m_v3Max.y, m_v3Max.z);
-	//The other box's corners
+	//The other box's corners.
 	v3Corner[8] = vector3(a_pOther->m_v3Min.x, a_pOther->m_v3Min.y, a_pOther->m_v3Min.z);
 	v3Corner[9] = vector3(a_pOther->m_v3Max.x, a_pOther->m_v3Min.y, a_pOther->m_v3Min.z);
 	v3Corner[10] = vector3(a_pOther->m_v3Min.x, a_pOther->m_v3Max.y, a_pOther->m_v3Min.z);
@@ -285,8 +286,9 @@ bool MyBOClass::IsColliding(MyBOClass* const a_pOther)
 	v3Corner[14] = vector3(a_pOther->m_v3Min.x, a_pOther->m_v3Max.y, a_pOther->m_v3Max.z);
 	v3Corner[15] = vector3(a_pOther->m_v3Max.x, a_pOther->m_v3Max.y, a_pOther->m_v3Max.z);
 
+	//An array of all of the edges for the two bounding boxes.
 	vector3 v3Edge[24];
-	//This box's edges
+	//This box's edges.
 	v3Edge[0] = v3Corner[0] - v3Corner[1];
 	v3Edge[1] = v3Corner[0] - v3Corner[2];
 	v3Edge[2] = v3Corner[0] - v3Corner[4];
@@ -299,7 +301,7 @@ bool MyBOClass::IsColliding(MyBOClass* const a_pOther)
 	v3Edge[9] = v3Corner[4] - v3Corner[6];
 	v3Edge[10] = v3Corner[5] - v3Corner[7];
 	v3Edge[11] = v3Corner[6] - v3Corner[7];
-	//The other box's edges
+	//The other box's edges.
 	v3Edge[12] = v3Corner[8] - v3Corner[9];
 	v3Edge[13] = v3Corner[8] - v3Corner[10];
 	v3Edge[14] = v3Corner[8] - v3Corner[12];
@@ -313,18 +315,19 @@ bool MyBOClass::IsColliding(MyBOClass* const a_pOther)
 	v3Edge[22] = v3Corner[13] - v3Corner[15];
 	v3Edge[23] = v3Corner[14] - v3Corner[15];
 	
-	vector3 normalList[24];
+	vector3 normalList[24]; //An array of all of the normalized edges.
 	for (int i = 0; i < 24; i++) {
 		normalList[i] = Normalize(v3Edge[i]);
 	}
 
-	for (int i = 0; i < 11; i++) {
-		vector3 cross1 = CrossProduct(v3Edge[i], v3Edge[i + 1]);
+	for (int i = 0; i < 11; i++) { //My goal here is to check the cross product of each colliding edge.
+		vector3 cross1 = CrossProduct(v3Edge[i], v3Edge[i + 1]); //I'm worried that the way I have it set up here will compare non-colliding edges. Someone needs to patch that up.
 		vector3 cross2 = CrossProduct(v3Edge[i + 12], v3Edge[i + 13]);
 		if (cross1 != cross2) return false; //This obviously won't work, but here I will compare the two
 		//cross products and if they don't overlap, I will return false.
 	}
 
+	//This last bit checks the first and last edges.
 	vector3 cross1 = CrossProduct(v3Edge[11], v3Edge[0]);
 	vector3 cross2 = CrossProduct(v3Edge[23], v3Edge[12]);
 	if (cross1 != cross2) return false;
