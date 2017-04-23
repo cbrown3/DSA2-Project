@@ -295,7 +295,7 @@ public:
 	};
 
 
-	void RederOptions(int RenderArgs)
+	/*void RederOptions(int RenderArgs)
 	{
 		if (RenderArgs > m_nBoxes.size()) return;
 
@@ -373,6 +373,6 @@ public:
 		default:
 			break;
 		}
-	};
+	};*/
 };
 

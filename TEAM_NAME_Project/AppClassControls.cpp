@@ -4,9 +4,6 @@ void AppClass::ProcessKeyboard(void)
 	bool bModifier = false;
 	float fSpeed = 0.01f;
 
-	rBody.state.position = m_v3Position;
-	rBody.state
-
 
 #pragma region ON_KEY_PRESS_RELEASE
 	static bool	bLastF1 = false, bLastF2 = false, bLastF3 = false, bLastF4 = false, bLastF5 = false,
@@ -49,12 +46,12 @@ void AppClass::ProcessKeyboard(void)
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
 	{
 		m_v3Position += vector3(-0.1f, 0.0f, 0.0f);
-		m_pBS0->SetModelMatrix(glm::translate(m_v3Position));
+		m_pBSMain->SetModelMatrix(glm::translate(m_v3Position));
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
 	{
 		m_v3Position += vector3(0.1f, 0.0f, 0.0f);
-		m_pBS0->SetModelMatrix(glm::translate(m_v3Position));
+		m_pBSMain->SetModelMatrix(glm::translate(m_v3Position));
 	}
 	//if the camera is orthographic, move in the negative z axis, if not, move in the positive y axis
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
@@ -64,12 +61,12 @@ void AppClass::ProcessKeyboard(void)
 			if (!bModifier)
 			{
 				m_v3Position += vector3(0.0f, 0.0f, -0.1f);
-				m_pBS0->SetModelMatrix(glm::translate(m_v3Position));
+				m_pBSMain->SetModelMatrix(glm::translate(m_v3Position));
 			}
 			else
 			{
 				m_v3Position += vector3(0.0f, 0.1f, 0.0f);
-				m_pBS0->SetModelMatrix(glm::translate(m_v3Position));
+				m_pBSMain->SetModelMatrix(glm::translate(m_v3Position));
 			}
 		}
 		else
@@ -77,12 +74,12 @@ void AppClass::ProcessKeyboard(void)
 			if (!bModifier)
 			{
 				m_v3Position += vector3(0.0f, 0.1f, 0.0f);
-				m_pBS0->SetModelMatrix(glm::translate(m_v3Position));
+				m_pBSMain->SetModelMatrix(glm::translate(m_v3Position));
 			}
 			else
 			{
 				m_v3Position += vector3(0.0f, 0.0f, -0.1f);
-				m_pBS0->SetModelMatrix(glm::translate(m_v3Position));
+				m_pBSMain->SetModelMatrix(glm::translate(m_v3Position));
 			}
 		}
 	}
@@ -94,12 +91,12 @@ void AppClass::ProcessKeyboard(void)
 			if (!bModifier)
 			{
 				m_v3Position += vector3(0.0f, 0.0f, 0.1f);
-				m_pBS0->SetModelMatrix(glm::translate(m_v3Position));
+				m_pBSMain->SetModelMatrix(glm::translate(m_v3Position));
 			}
 			else
 			{
 				m_v3Position += vector3(0.0f, -0.1f, 0.0f);
-				m_pBS0->SetModelMatrix(glm::translate(m_v3Position));
+				m_pBSMain->SetModelMatrix(glm::translate(m_v3Position));
 			}
 		}
 		else
@@ -107,12 +104,12 @@ void AppClass::ProcessKeyboard(void)
 			if (!bModifier)
 			{
 				m_v3Position += vector3(0.0f, -0.1f, 0.0f);
-				m_pBS0->SetModelMatrix(glm::translate(m_v3Position));
+				m_pBSMain->SetModelMatrix(glm::translate(m_v3Position));
 			}
 			else
 			{
 				m_v3Position += vector3(0.0f, 0.0f, 0.1f);
-				m_pBS0->SetModelMatrix(glm::translate(m_v3Position));
+				m_pBSMain->SetModelMatrix(glm::translate(m_v3Position));
 			}
 		}
 	}
@@ -141,6 +138,44 @@ void AppClass::ProcessKeyboard(void)
 	//if you press Num 2, it will select the current model as the Hylian Shield
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num2))
 		currentModel = "Shield";
+#pragma endregion
+
+#pragma region Switch Colliding Boxes
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::I))
+	{
+		if (currentModel == "Sword")
+		{
+			m_pBoundingObjectMngr->DisplayOriented(m_pBoundingObjectMngr->GetIndex("Sword"), REGREEN);
+		}
+		if (currentModel == "Shield")
+		{
+			m_pBoundingObjectMngr->DisplayOriented(m_pBoundingObjectMngr->GetIndex("Shield"), REGREEN);
+		}
+	};
+
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::O))
+	{
+		if (currentModel == "Sword")
+		{
+			m_pBoundingObjectMngr->DisplayReAlligned(m_pBoundingObjectMngr->GetIndex("Sword"), REGREEN);
+		}
+		if (currentModel == "Shield")
+		{
+			m_pBoundingObjectMngr->DisplayReAlligned(m_pBoundingObjectMngr->GetIndex("Shield"), REGREEN);
+		}
+	};
+
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::P))
+	{
+		if (currentModel == "Sword")
+		{
+			m_pBoundingObjectMngr->DisplaySphere(m_pBoundingObjectMngr->GetIndex("Sword"), REGREEN);
+		}
+		if (currentModel == "Shield")
+		{
+			m_pBoundingObjectMngr->DisplaySphere(m_pBoundingObjectMngr->GetIndex("Shield"), REGREEN);
+		}
+	};
 #pragma endregion
 
 }
