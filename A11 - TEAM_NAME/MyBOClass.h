@@ -160,6 +160,18 @@ public:
 
 private:
 	/*
+	USAGE: Normalizes a vector3
+	ARGUMENTS: vector3 a_vector -> The vector you want to normalize.
+	OUTPUT: The normalized vector.
+	*/
+	vector3 CrossProduct(vector3 a_vector1, vector3 a_vector2);
+	/*
+	USAGE: Normalizes a vector3
+	ARGUMENTS: vector3 a_vector -> The vector you want to normalize.
+	OUTPUT: The normalized vector.
+	*/
+	vector3 Normalize(vector3 a_vector);
+	/*
 	USAGE: Deallocates member fields
 	ARGUMENTS: ---
 	OUTPUT: ---
