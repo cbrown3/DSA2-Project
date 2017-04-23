@@ -34,11 +34,6 @@ void AppClass::InitVariables(void)
 
 	matrix4 m4Position2 = glm::translate(vector3(2.5, 0.0, 0.0));
 	m_pMeshMngr->SetModelMatrix(m4Position2, "Cow");
-	
-	m_pBoundingObjectMngr->addBoundingBox(m_pBS0, "Empty");
-	m_pBoundingObjectMngr->addBoundingBox(m_pBS0a, "Sword");
-	m_pBoundingObjectMngr->addBoundingBox(m_pBS0b, "Shield");
-	m_pBoundingObjectMngr->addBoundingBox(m_pBS1, "Cow");
 
 }
 

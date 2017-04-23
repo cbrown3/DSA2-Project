@@ -10,6 +10,7 @@ Date: 2015/09 (Last Modified on: 15/11)
 #include "MyBoundingSphereClass.h"
 #include "MyBoundingBoxClass.h"
 #include "MyBoundingObjectManager.h"
+#include "RigidBody.h"
 
 using namespace ReEng; //Using ReEng namespace to use all the classes in the dll
 
@@ -19,6 +20,10 @@ class AppClass : public ReEngAppClass
 	String  currentModel;
 	String* modelNames;
 	vector3 m_v3Position;
+	float mass;
+	RigidBody rBody;
+	quaternion orientation;
+
 	MyBoundingObjectManager* m_pBoundingObjectMngr; // manager for bounding box objects
 	MyBoundingBoxClass* m_pBS0;
 	MyBoundingBoxClass* m_pBS0a;
