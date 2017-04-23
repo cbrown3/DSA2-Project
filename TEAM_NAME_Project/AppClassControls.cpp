@@ -4,6 +4,10 @@ void AppClass::ProcessKeyboard(void)
 	bool bModifier = false;
 	float fSpeed = 0.01f;
 
+	rBody.state.position = m_v3Position;
+	rBody.state
+
+
 #pragma region ON_KEY_PRESS_RELEASE
 	static bool	bLastF1 = false, bLastF2 = false, bLastF3 = false, bLastF4 = false, bLastF5 = false,
 				bLastF6 = false, bLastF7 = false, bLastF8 = false, bLastF9 = false, bLastF10 = false,

@@ -11,10 +11,17 @@ using namespace ReEng; //Using ReEng namespace to use all the classes in the dll
 
 class RigidBody
 {
-private:
-	RigidBody() //Constructor
+public:
+	RigidBody() //Default Constructor
 	{
 
+	};
+	RigidBody(glm::vec3 PosArg, glm::quat OriArg, float MasArg) //Constructor
+	{
+		state.position = PosArg;
+		state.orientation = OriArg;
+		state.mass = MasArg;
+		state.inverseMass = MasArg * -1;
 	};
 	RigidBody(RigidBody const& other) //Copy Constructor
 	{
@@ -28,7 +35,7 @@ private:
 	{
 
 	};
-public:
+
 	//The objects state holds information on it's forces. This is the main meat of the physics.
 	struct State
 	{
@@ -63,6 +70,9 @@ public:
 			spin = 0.5f * q * orientation; //calculate spin
 		};
 	};
+
+	//Creates an State for the rigidbody
+	State state;
 
 	//Stores values that are derived from base ones
 	struct Derivative

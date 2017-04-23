@@ -1,5 +1,6 @@
 #pragma once
 #include "RE\ReEng.h"
+#include "RigidBody.h"
 
 class MyBoundingBoxClass
 {
@@ -20,6 +21,7 @@ private:
 	vector3 m_v3MaxG;
 	vector3 m_v3MinG;
 	vector3 m_v3SizeG;
+
 public:
 	/*
 	Sets Colliding
