@@ -13,8 +13,6 @@ void AppClass::InitVariables(void)
 	m_pMeshMngr->LoadModel("Zelda\\HylianShield.bto", "Shield");
 	m_pMeshMngr->LoadModel("Minecraft\\Cow.obj", "Cow");
 
-	m_pBoundingObjectMngr = MyBoundingObjectManager::GetInstance();
-
 	//create a list of models to load
 	//modelNames = new String[10];
 
