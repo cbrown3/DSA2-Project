@@ -43,7 +43,14 @@ void AppClass::InitVariables(void)
 	//for now while the manager is not working
 	index = 0;
 	modelNames = std::vector<String>();
+	modelNames.push_back("Sword");
+	modelNames.push_back("Shield");
+	modelNames.push_back("Cow");
+
 	boundingBoxes = std::vector<MyBoundingBoxClass>();
+	boundingBoxes.push_back(MyBoundingBoxClass(m_pMeshMngr->GetVertexList("Sword")));
+	boundingBoxes.push_back(MyBoundingBoxClass(m_pMeshMngr->GetVertexList("Shield")));
+	boundingBoxes.push_back(MyBoundingBoxClass(m_pMeshMngr->GetVertexList("Cow")));
 
 }
 

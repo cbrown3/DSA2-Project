@@ -17,7 +17,7 @@ class AppClass : public ReEngAppClass
 {
 	bool renderBox;
 	String  currentModel;
-	String* modelNames;
+	//String* modelNames;
 	vector3 m_v3Position;
 	MyBoundingObjectManager* m_pBoundingObjectMngr; // manager for bounding box objects
 	MyBoundingBoxClass* m_pBS0;
