@@ -17,6 +17,8 @@ using namespace ReEng; //Using ReEng namespace to use all the classes in the dll
 class AppClass : public ReEngAppClass
 {
 	bool renderBox;
+	bool renderAlligned;
+	bool renderSphere;
 	String  currentModel;
 	String* modelNames;
 	vector3 m_v3Position;
