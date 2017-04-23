@@ -13,7 +13,7 @@ void AppClass::InitVariables(void)
 	m_pMeshMngr->LoadModel("Zelda\\HylianShield.bto", "Shield");
 	m_pMeshMngr->LoadModel("Minecraft\\Cow.obj", "Cow");
 
-	m_pBoundingObjectMngr = MyBoundingObjectManager::GetInstance();
+	//m_pBoundingObjectMngr = MyBoundingObjectManager::GetInstance();
 
 	//create a list of models to load
 	//modelNames = new String[10];
@@ -35,10 +35,15 @@ void AppClass::InitVariables(void)
 	matrix4 m4Position2 = glm::translate(vector3(2.5, 0.0, 0.0));
 	m_pMeshMngr->SetModelMatrix(m4Position2, "Cow");
 	
-	m_pBoundingObjectMngr->addBoundingBox(m_pBS0, "Empty");
-	m_pBoundingObjectMngr->addBoundingBox(m_pBS0a, "Sword");
-	m_pBoundingObjectMngr->addBoundingBox(m_pBS0b, "Shield");
-	m_pBoundingObjectMngr->addBoundingBox(m_pBS1, "Cow");
+	//m_pBoundingObjectMngr->addBoundingBox(m_pBS0, "Empty");
+	//m_pBoundingObjectMngr->addBoundingBox(m_pBS0a, "Sword");
+	//m_pBoundingObjectMngr->addBoundingBox(m_pBS0b, "Shield");
+	//m_pBoundingObjectMngr->addBoundingBox(m_pBS1, "Cow");
+
+	//for now while the manager is not working
+	index = 0;
+	modelNames = std::vector<String>();
+	boundingBoxes = std::vector<MyBoundingBoxClass>();
 
 }
 

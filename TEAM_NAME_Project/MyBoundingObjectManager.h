@@ -16,7 +16,7 @@ class MyBoundingObjectManager
 
 private:
 	//constructor
-	MyBoundingObjectManager();
+	MyBoundingObjectManager() { m_pInstance = nullptr;  };
 	//copy constructor
 	MyBoundingObjectManager(MyBoundingObjectManager const& other) {};
 	//copy assignment operator

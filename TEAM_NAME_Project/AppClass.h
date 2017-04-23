@@ -25,6 +25,12 @@ class AppClass : public ReEngAppClass
 	MyBoundingBoxClass* m_pBS0b;
 	MyBoundingBoxClass* m_pBS1;
 	MyBoundingBoxClass* m_pBS2;
+
+	//workaround for bounding manager not working
+	std::vector<MyBoundingBoxClass> boundingBoxes; 
+	std::vector<String> modelNames; 
+	int index;
+
 public:
 	typedef ReEngAppClass super;
 	/*
