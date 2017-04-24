@@ -23,7 +23,7 @@ void AppClass::InitVariables(void)
 
 	//set intial current model
 	currentModel = "Sword";
-
+	m_pBoundingObjectMngr = MyBoundingObjectManager::GetInstance();
 	m_pBoundingObjectMngr->AddObject(m_pMeshMngr->GetVertexList("Cow"), "Cow");
 	m_pBoundingObjectMngr->AddObject(m_pMeshMngr->GetVertexList("Sword"), "Sword");
 	m_pBoundingObjectMngr->AddObject(m_pMeshMngr->GetVertexList("Shield"), "Shield");
@@ -68,6 +68,7 @@ void AppClass::Update(void)
 
 	//Call the arcball method
 	ArcBall();
+	ToMatrix4( m_qArcBall);
 
 	//Object Movement
 	static float fTimer = 0.0f;

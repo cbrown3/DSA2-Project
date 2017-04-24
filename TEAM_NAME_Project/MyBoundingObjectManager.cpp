@@ -1,6 +1,7 @@
 #pragma once
 #include "MyBoundingObjectManager.h"
 
+MyBoundingObjectManager* MyBoundingObjectManager::m_pInstance = nullptr;
 
 //constructor
 MyBoundingObjectManager::MyBoundingObjectManager()
@@ -41,7 +42,7 @@ void MyBoundingObjectManager::Release()
 
 void MyBoundingObjectManager::Init()
 {
-	m_pInstance = GetInstance();
+	//m_pInstance = GetInstance();
 	m_pMeshMngr = MeshManagerSingleton::GetInstance();
 	m_nObjectCount = 0;
 	m_nBoxes = std::vector<MyBoundingBoxClass*>();
