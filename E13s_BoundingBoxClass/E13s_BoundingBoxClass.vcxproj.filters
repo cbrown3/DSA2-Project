@@ -21,10 +21,7 @@
     <ClInclude Include="AppClass.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="MyBOClass.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="MyBOManager.h">
+    <ClInclude Include="MyBoundingBoxClass.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -43,14 +40,8 @@
     <ClCompile Include="Main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="MyBOClass.cpp">
+    <ClCompile Include="MyBoundingBoxClass.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="MyBOManager.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="A11 - TEAM_NAME.vcxproj.user" />
   </ItemGroup>
 </Project>

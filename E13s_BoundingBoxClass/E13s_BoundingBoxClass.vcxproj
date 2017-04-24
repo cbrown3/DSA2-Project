@@ -11,9 +11,9 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{13FA2754-46C1-49D8-B9A4-1DC856801931}</ProjectGuid>
-    <RootNamespace>A11 - TEAM_NAME</RootNamespace>
-    <ProjectName>A11 - TEAM_NAME</ProjectName>
+    <ProjectGuid>{ECF77324-3C73-4C41-A5FA-D2291E7748E0}</ProjectGuid>
+    <RootNamespace>E13s_BoundingBoxClass</RootNamespace>
+    <ProjectName>E13s_BoundingBoxClass_DEMO</ProjectName>
     <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -107,8 +107,7 @@ xcopy "$(SolutionDir)include\RE\Shaders" "$(SolutionDir)_Binary\Shaders" /y</Com
   <ItemGroup>
     <ClInclude Include="..\res\Resource.h" />
     <ClInclude Include="AppClass.h" />
-    <ClInclude Include="MyBOClass.h" />
-    <ClInclude Include="MyBOManager.h" />
+    <ClInclude Include="MyBoundingBoxClass.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="..\res\BTO.rc" />
@@ -117,11 +116,7 @@ xcopy "$(SolutionDir)include\RE\Shaders" "$(SolutionDir)_Binary\Shaders" /y</Com
     <ClCompile Include="AppClass.cpp" />
     <ClCompile Include="AppClassControls.cpp" />
     <ClCompile Include="Main.cpp" />
-    <ClCompile Include="MyBOClass.cpp" />
-    <ClCompile Include="MyBOManager.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="A11 - TEAM_NAME.vcxproj.user" />
+    <ClCompile Include="MyBoundingBoxClass.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -229,8 +229,8 @@ bool MyBOClass::IsColliding(MyBOClass* const a_pOther)
 	For Objects we will assume they are colliding, unless at least one of the following conditions is not met
 	*/
 	//first check the bounding sphere, if that is not colliding we can guarantee that there are no collision
-	/*if ((m_fRadius + a_pOther->m_fRadius) < glm::distance(m_v3CenterG, a_pOther->m_v3CenterG))
-		return false;*/
+	if ((m_fRadius + a_pOther->m_fRadius) < glm::distance(m_v3CenterG, a_pOther->m_v3CenterG))
+		return false;
 
 	//If the distance was smaller it might be colliding
 	//we will use the ReAligned box for the second check, notice that as long as one check return true they are 
@@ -239,32 +239,33 @@ bool MyBOClass::IsColliding(MyBOClass* const a_pOther)
 	//Note to self - this is where I should draw the planes for the SAT test.
 
 	//Check for X
-	/*if (m_v3MaxG.x < a_pOther->m_v3MinG.x) {
+	if (m_v3MaxG.x < a_pOther->m_v3MinG.x) {
 		m_pMeshMngr->AddPlaneToRenderList(m_m4ToWorld, RERED);
 		return false;
 	}
 	else if (m_v3MinG.x > a_pOther->m_v3MaxG.x) {
 		return false;
-	}*/
+	}
 
 	//Check for Y
-	/*else if (m_v3MaxG.y < a_pOther->m_v3MinG.y) {
+	else if (m_v3MaxG.y < a_pOther->m_v3MinG.y) {
 		return false;
 	}
 	else if (m_v3MinG.y > a_pOther->m_v3MaxG.y) {
 		return false;
-	}*/
+	}
 
 	//Check for Z
-	/*else if (m_v3MaxG.z < a_pOther->m_v3MinG.z) {
+	else if (m_v3MaxG.z < a_pOther->m_v3MinG.z) {
 		return false;
 	}
 	else if (m_v3MinG.z > a_pOther->m_v3MaxG.z) {
 		return false;
-	}*/
+	}
 
 	//An array of all of the vertexes of the two bounding boxes.
-	vector3 v3Corner[16];
+	vector3 v3Corner[8];
+	vector3 other_v3Corner[8];
 	//This box's corners.
 	v3Corner[0] = vector3(m_v3Min.x, m_v3Min.y, m_v3Min.z);
 	v3Corner[1] = vector3(m_v3Max.x, m_v3Min.y, m_v3Min.z);
@@ -276,18 +277,19 @@ bool MyBOClass::IsColliding(MyBOClass* const a_pOther)
 	v3Corner[6] = vector3(m_v3Min.x, m_v3Max.y, m_v3Max.z);
 	v3Corner[7] = vector3(m_v3Max.x, m_v3Max.y, m_v3Max.z);
 	//The other box's corners.
-	v3Corner[8] = vector3(a_pOther->m_v3Min.x, a_pOther->m_v3Min.y, a_pOther->m_v3Min.z);
-	v3Corner[9] = vector3(a_pOther->m_v3Max.x, a_pOther->m_v3Min.y, a_pOther->m_v3Min.z);
-	v3Corner[10] = vector3(a_pOther->m_v3Min.x, a_pOther->m_v3Max.y, a_pOther->m_v3Min.z);
-	v3Corner[11] = vector3(a_pOther->m_v3Max.x, a_pOther->m_v3Max.y, a_pOther->m_v3Min.z);
+	other_v3Corner[0] = vector3(a_pOther->m_v3Min.x, a_pOther->m_v3Min.y, a_pOther->m_v3Min.z);
+	other_v3Corner[1] = vector3(a_pOther->m_v3Max.x, a_pOther->m_v3Min.y, a_pOther->m_v3Min.z);
+	other_v3Corner[2] = vector3(a_pOther->m_v3Min.x, a_pOther->m_v3Max.y, a_pOther->m_v3Min.z);
+	other_v3Corner[3] = vector3(a_pOther->m_v3Max.x, a_pOther->m_v3Max.y, a_pOther->m_v3Min.z);
 	
-	v3Corner[12] = vector3(a_pOther->m_v3Min.x, a_pOther->m_v3Min.y, a_pOther->m_v3Max.z);
-	v3Corner[13] = vector3(a_pOther->m_v3Max.x, a_pOther->m_v3Min.y, a_pOther->m_v3Max.z);
-	v3Corner[14] = vector3(a_pOther->m_v3Min.x, a_pOther->m_v3Max.y, a_pOther->m_v3Max.z);
-	v3Corner[15] = vector3(a_pOther->m_v3Max.x, a_pOther->m_v3Max.y, a_pOther->m_v3Max.z);
+	other_v3Corner[4] = vector3(a_pOther->m_v3Min.x, a_pOther->m_v3Min.y, a_pOther->m_v3Max.z);
+	other_v3Corner[5] = vector3(a_pOther->m_v3Max.x, a_pOther->m_v3Min.y, a_pOther->m_v3Max.z);
+	other_v3Corner[6] = vector3(a_pOther->m_v3Min.x, a_pOther->m_v3Max.y, a_pOther->m_v3Max.z);
+	other_v3Corner[7] = vector3(a_pOther->m_v3Max.x, a_pOther->m_v3Max.y, a_pOther->m_v3Max.z);
 
 	//An array of all of the edges for the two bounding boxes.
-	vector3 v3Edge[24];
+	vector3 v3Edge[12];
+	vector3 other_v3Edge[12];
 	//This box's edges.
 	v3Edge[0] = v3Corner[0] - v3Corner[1];
 	v3Edge[1] = v3Corner[0] - v3Corner[2];
@@ -302,18 +304,18 @@ bool MyBOClass::IsColliding(MyBOClass* const a_pOther)
 	v3Edge[10] = v3Corner[5] - v3Corner[7];
 	v3Edge[11] = v3Corner[6] - v3Corner[7];
 	//The other box's edges.
-	v3Edge[12] = v3Corner[8] - v3Corner[9];
-	v3Edge[13] = v3Corner[8] - v3Corner[10];
-	v3Edge[14] = v3Corner[8] - v3Corner[12];
-	v3Edge[15] = v3Corner[9] - v3Corner[11];
-	v3Edge[16] = v3Corner[9] - v3Corner[13];
-	v3Edge[17] = v3Corner[10] - v3Corner[11];
-	v3Edge[18] = v3Corner[10] - v3Corner[14];
-	v3Edge[19] = v3Corner[11] - v3Corner[15];
-	v3Edge[20] = v3Corner[12] - v3Corner[13];
-	v3Edge[21] = v3Corner[12] - v3Corner[14];
-	v3Edge[22] = v3Corner[13] - v3Corner[15];
-	v3Edge[23] = v3Corner[14] - v3Corner[15];
+	other_v3Edge[0] = v3Corner[0] - v3Corner[1];
+	other_v3Edge[1] = v3Corner[0] - v3Corner[2];
+	other_v3Edge[2] = v3Corner[0] - v3Corner[4];
+	other_v3Edge[3] = v3Corner[1] - v3Corner[3];
+	other_v3Edge[4] = v3Corner[1] - v3Corner[5];
+	other_v3Edge[5] = v3Corner[2] - v3Corner[3];
+	other_v3Edge[6] = v3Corner[2] - v3Corner[6];
+	other_v3Edge[7] = v3Corner[3] - v3Corner[7];
+	other_v3Edge[8] = v3Corner[4] - v3Corner[5];
+	other_v3Edge[9] = v3Corner[4] - v3Corner[6];
+	other_v3Edge[10] = v3Corner[5] - v3Corner[7];
+	other_v3Edge[11] = v3Corner[6] - v3Corner[7];
 	
 	vector3 normalList[24]; //An array of all of the normalized edges.
 	for (int i = 0; i < 24; i++) {
