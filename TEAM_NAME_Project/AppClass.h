@@ -16,6 +16,7 @@ using namespace ReEng; //Using ReEng namespace to use all the classes in the dll
 
 class AppClass : public ReEngAppClass
 {
+	bool renderCollision;
 	bool renderBox;
 	bool renderAlligned;
 	bool renderSphere;

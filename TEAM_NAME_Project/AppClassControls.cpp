@@ -124,10 +124,10 @@ void AppClass::ProcessKeyboard(void)
 
 	//toggle visibility of box
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::V))
-		if (renderBox)
-			renderBox = false;
+		if (renderCollision)
+			renderCollision = false;
 		else
-			renderBox = true;
+			renderCollision = true;
 #pragma endregion
 
 #pragma region Load Models
@@ -145,10 +145,12 @@ void AppClass::ProcessKeyboard(void)
 	{
 		if (currentModel == "Sword")
 		{
+			renderBox = true;
 			m_pBoundingObjectMngr->DisplayOriented(m_pBoundingObjectMngr->GetIndex("Sword"), REGREEN);
 		}
 		if (currentModel == "Shield")
 		{
+
 			m_pBoundingObjectMngr->DisplayOriented(m_pBoundingObjectMngr->GetIndex("Shield"), REGREEN);
 		}
 	};
