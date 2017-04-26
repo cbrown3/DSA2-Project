@@ -23,6 +23,8 @@ class MyBoundingBoxClass
 	vector3 m_v3HalfWidth = vector3(0.0f);//Will store half the size of all sides
 	vector3 m_v3HalfWidthG = vector3(0.0f);//Will store half the size of all sides
 
+	std::vector<vector3> rotationAxes;
+
 public:
 	/*
 	 MyBoundingBoxClass
@@ -119,6 +121,8 @@ public:
 	OUTPUT: bool -> check of the collision
 	*/
 	bool IsColliding(MyBoundingBoxClass* const a_pOther);
+
+	int TestSAT(MyBoundingBoxClass* &a, MyBoundingBoxClass* &b);
 
 private:
 	/*

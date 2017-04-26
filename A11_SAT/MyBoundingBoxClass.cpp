@@ -337,3 +337,105 @@ bool MyBoundingBoxClass::IsColliding(MyBoundingBoxClass* const a_pOther)
 
 	return bColliding;
 }
+
+int MyBoundingBoxClass::TestSAT(MyBoundingBoxClass *& a, MyBoundingBoxClass *& b)
+{
+	float ra, rb;
+	matrix3 R, AbsR;
+	vector3 trans;
+
+	for (int i = 0; i < 3; i++)
+	{
+		for (int j = 0; j < 3; i++)
+		{
+			R[i][j] = glm::dot(a->rotationAxes[i], b->rotationAxes[j]);
+			//compute translation vector t
+			trans = b->GetCenterLocal() - a->GetCenterLocal();
+
+			trans = vector3(glm::dot(trans, a->rotationAxes[0]),
+				glm::dot(trans, a->rotationAxes[1]), glm::dot(trans, a->rotationAxes[2]));
+		}
+	}
+
+	//compute common subexpressions
+	//add an epsilon term to counterract errors when 2 edges are parallel
+	//and their cross product is near null
+	for (int i = 0; i < 3; i++)
+	{
+		for (int j = 0; j < 3; j++)
+		{
+			AbsR[i][j] = glm::abs(R[i][j]);
+		}
+	}
+
+	//test axes for a
+	for (int i = 0; i < 3; i++)
+	{
+		ra = a->GetHalfWidth()[i];
+		rb = b->GetHalfWidth()[0] * AbsR[i][0] +
+			b->GetHalfWidth()[1] * AbsR[i][1] +
+			b->GetHalfWidth()[2] * AbsR[i][2];
+
+		if (glm::abs(trans[i]) > ra + rb) return 0;
+	}
+
+	//test axes for b
+	for (int i = 0; i < 3; i++)
+	{
+		ra = b->GetHalfWidth()[0] * AbsR[0][i] +
+			b->GetHalfWidth()[1] * AbsR[1][i] +
+			b->GetHalfWidth()[2] * AbsR[2][i];
+		rb = a->GetHalfWidth()[i];
+
+		if (glm::abs(trans[0] * R[0][i] +
+			trans[1] * R[1][i] + trans[2] * R[2][i]) > ra + rb) return 0;
+	}
+
+	//testing cross product of Ax and Bx
+	ra = a->GetHalfWidth()[1] * AbsR[2][0] + a->GetHalfWidth()[2] * AbsR[1][0];
+	rb = b->GetHalfWidth()[1] * AbsR[0][2] + b->GetHalfWidth()[2] * AbsR[0][1];
+	if (glm::abs(trans[2] * R[1][0] - trans[1] * R[2][0]) > ra + rb) return 0;
+
+	//testing cross product of Ax and By
+	ra = a->GetHalfWidth()[1] * AbsR[2][1] + a->GetHalfWidth()[2] * AbsR[1][1];
+	rb = b->GetHalfWidth()[0] * AbsR[0][2] + b->GetHalfWidth()[2] * AbsR[0][0];
+	if (glm::abs(trans[2] * R[1][1] - trans[1] * R[2][1]) > ra + rb) return 0;
+
+	//testing cross product of Ax and Bz
+	ra = a->GetHalfWidth()[1] * AbsR[2][2] + a->GetHalfWidth()[2] * AbsR[1][2];
+	rb = b->GetHalfWidth()[0] * AbsR[0][1] + b->GetHalfWidth()[1] * AbsR[0][0];
+	if (glm::abs(trans[2] * R[1][2] - trans[1] * R[2][2]) > ra + rb) return 0;
+
+	//testing cross product of Ay and Bx
+	ra = a->GetHalfWidth()[0] * AbsR[2][0] + a->GetHalfWidth()[2] * AbsR[0][0];
+	rb = b->GetHalfWidth()[1] * AbsR[1][2] + b->GetHalfWidth()[2] * AbsR[1][1];
+	if (glm::abs(trans[0] * R[2][0] - trans[2] * R[0][0]) > ra + rb) return 0;
+
+	//testing cross product of Ay and By
+	ra = a->GetHalfWidth()[0] * AbsR[2][1] + a->GetHalfWidth()[2] * AbsR[0][1];
+	rb = b->GetHalfWidth()[0] * AbsR[1][2] + b->GetHalfWidth()[2] * AbsR[1][0];
+	if (glm::abs(trans[0] * R[2][1] - trans[2] * R[0][1]) > ra + rb) return 0;
+
+	//testing cross product of Ay and Bz
+	ra = a->GetHalfWidth()[0] * AbsR[2][2] + a->GetHalfWidth()[2] * AbsR[0][2];
+	rb = b->GetHalfWidth()[0] * AbsR[1][1] + b->GetHalfWidth()[1] * AbsR[1][0];
+	if (glm::abs(trans[0] * R[2][2] - trans[2] * R[0][2]) > ra + rb) return 0;
+
+	//testing cross product of Az and Bx
+	ra = a->GetHalfWidth()[0] * AbsR[1][0] + a->GetHalfWidth()[1] * AbsR[0][0];
+	rb = b->GetHalfWidth()[1] * AbsR[2][2] + b->GetHalfWidth()[2] * AbsR[2][1];
+	if (glm::abs(trans[1] * R[0][0] - trans[0] * R[1][0]) > ra + rb) return 0;
+
+	//testing cross product of Az and By
+	ra = a->GetHalfWidth()[0] * AbsR[1][1] + a->GetHalfWidth()[1] * AbsR[0][1];
+	rb = b->GetHalfWidth()[0] * AbsR[2][2] + b->GetHalfWidth()[2] * AbsR[2][0];
+	if (glm::abs(trans[1] * R[0][1] - trans[0] * R[1][1]) > ra + rb) return 0;
+
+	//testing cross product of Az and Bz
+	ra = a->GetHalfWidth()[0] * AbsR[1][2] + a->GetHalfWidth()[1] * AbsR[0][2];
+	rb = b->GetHalfWidth()[0] * AbsR[2][1] + b->GetHalfWidth()[1] * AbsR[2][0];
+	if (glm::abs(trans[1] * R[0][2] - trans[0] * R[1][2]) > ra + rb) return 0;
+
+	return 1;
+}
+
