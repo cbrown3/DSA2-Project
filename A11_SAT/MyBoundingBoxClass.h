@@ -113,6 +113,10 @@ public:
 	*/
 	vector3 GetHalfWidthG(void);
 
+	void SetRotationAxes(std::vector<vector3> rotAxes);
+
+	std::vector<vector3> GetRotationAxes();
+
 	/*
 	 IsColliding
 	USAGE: Asks if there is a collision with another Bounding Box Object

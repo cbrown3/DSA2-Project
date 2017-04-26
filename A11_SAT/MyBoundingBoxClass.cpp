@@ -14,6 +14,12 @@ void MyBoundingBoxClass::Init(void)
 
 	m_v3HalfWidth = vector3(0.0f);
 	m_v3HalfWidthG = vector3(0.0f);
+
+	rotationAxes = std::vector<vector3>();
+
+	rotationAxes.push_back(vector3(1.0f, 0.0f, 0.0f));
+	rotationAxes.push_back(vector3(0.0f, 1.0f, 0.0f));
+	rotationAxes.push_back(vector3(0.0f, 0.0f, 1.0f));
 }
 void MyBoundingBoxClass::Swap(MyBoundingBoxClass& other)
 {
@@ -163,6 +169,11 @@ vector3 MyBoundingBoxClass::GetCenterLocal(void){ return m_v3Center; }
 vector3 MyBoundingBoxClass::GetCenterGlobal(void){ return m_v3CenterG; }
 vector3 MyBoundingBoxClass::GetHalfWidth(void){ return m_v3HalfWidth; }
 vector3 MyBoundingBoxClass::GetHalfWidthG(void){ return m_v3HalfWidthG; }
+void MyBoundingBoxClass::SetRotationAxes(std::vector<vector3> rotAxes)
+{
+	rotationAxes = rotAxes;
+}
+std::vector<vector3> MyBoundingBoxClass::GetRotationAxes(){ return rotationAxes; }
 //--- Non Standard Singleton Methods
 bool MyBoundingBoxClass::IsColliding(MyBoundingBoxClass* const a_pOther)
 {
