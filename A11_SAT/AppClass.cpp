@@ -52,8 +52,6 @@ void AppClass::Update(void)
 	vector3 BRotAxisZ = m_pBB2->GetRotationAxes()[2] * vector3(ToMatrix4(m_qArcBall)[0][0],
 		ToMatrix4(m_qArcBall)[0][2], ToMatrix4(m_qArcBall)[0][2]);
 
-	m_pBB1->SetRotationAxes(std::vector<vector3>(ARotAxisX, ARotAxisY, ARotAxisZ));
-
 	//Set the model matrices for both objects and Bounding Spheres
 	m_pMeshMngr->SetModelMatrix(glm::translate(m_v3O1) * ToMatrix4(m_qArcBall), "Steve");
 	m_pMeshMngr->SetModelMatrix(glm::translate(m_v3O2), "Creeper");
