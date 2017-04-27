@@ -47,10 +47,40 @@ void AppClass::Update(void)
 	if (currentModel == "Sword")
 	{
 		m_pBSMain = m_pBSword;
+
+		if (renderBox)
+		{
+			m_pBoundingObjectMngr->DisplayOriented(m_pBoundingObjectMngr->GetIndex("Sword"), REGREEN);
+		}
+
+		if (renderAlligned)
+		{
+			m_pBoundingObjectMngr->DisplayReAlligned(m_pBoundingObjectMngr->GetIndex("Sword"), REGREEN);
+		}
+
+		if (renderSphere)
+		{
+			m_pBoundingObjectMngr->DisplaySphere(m_pBoundingObjectMngr->GetIndex("Sword"), REGREEN);
+		}
 	}
 	else if (currentModel == "Shield")
 	{
 		m_pBSMain = m_pBShield;
+
+		if (renderBox)
+		{
+			m_pBoundingObjectMngr->DisplayOriented(m_pBoundingObjectMngr->GetIndex("Shield"), REGREEN);
+		}
+
+		if (renderAlligned)
+		{
+			m_pBoundingObjectMngr->DisplayReAlligned(m_pBoundingObjectMngr->GetIndex("Shield"), REGREEN);
+		}
+
+		if (renderSphere)
+		{
+			m_pBoundingObjectMngr->DisplaySphere(m_pBoundingObjectMngr->GetIndex("Shield"), REGREEN);
+		}
 	}
 
 

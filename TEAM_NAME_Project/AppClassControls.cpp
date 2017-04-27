@@ -145,13 +145,25 @@ void AppClass::ProcessKeyboard(void)
 	{
 		if (currentModel == "Sword")
 		{
-			renderBox = true;
-			m_pBoundingObjectMngr->DisplayOriented(m_pBoundingObjectMngr->GetIndex("Sword"), REGREEN);
+			if (renderBox)
+			{
+				renderBox = false;
+			}
+			else
+			{
+				renderBox = true;
+			}
 		}
 		if (currentModel == "Shield")
 		{
-
-			m_pBoundingObjectMngr->DisplayOriented(m_pBoundingObjectMngr->GetIndex("Shield"), REGREEN);
+			if (renderBox)
+			{
+				renderBox = false;
+			}
+			else
+			{
+				renderBox = true;
+			}
 		}
 	};
 
@@ -159,10 +171,26 @@ void AppClass::ProcessKeyboard(void)
 	{
 		if (currentModel == "Sword")
 		{
+			if (renderAlligned)
+			{
+				renderAlligned = false;
+			}
+			else
+			{
+				renderAlligned = true;
+			}
 			m_pBoundingObjectMngr->DisplayReAlligned(m_pBoundingObjectMngr->GetIndex("Sword"), REGREEN);
 		}
 		if (currentModel == "Shield")
 		{
+			if (renderAlligned)
+			{
+				renderAlligned = false;
+			}
+			else
+			{
+				renderAlligned = true;
+			}
 			m_pBoundingObjectMngr->DisplayReAlligned(m_pBoundingObjectMngr->GetIndex("Shield"), REGREEN);
 		}
 	};
@@ -171,10 +199,26 @@ void AppClass::ProcessKeyboard(void)
 	{
 		if (currentModel == "Sword")
 		{
+			if (renderSphere)
+			{
+				renderSphere = false;
+			}
+			else
+			{
+				renderSphere = true;
+			}
 			m_pBoundingObjectMngr->DisplaySphere(m_pBoundingObjectMngr->GetIndex("Sword"), REGREEN);
 		}
 		if (currentModel == "Shield")
 		{
+			if (renderSphere)
+			{
+				renderSphere = false;
+			}
+			else
+			{
+				renderSphere = true;
+			}
 			m_pBoundingObjectMngr->DisplaySphere(m_pBoundingObjectMngr->GetIndex("Shield"), REGREEN);
 		}
 	};
