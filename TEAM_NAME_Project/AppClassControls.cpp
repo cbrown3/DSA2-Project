@@ -122,12 +122,6 @@ void AppClass::ProcessKeyboard(void)
 	static bool bFPSControll = false;
 	ON_KEY_PRESS_RELEASE(F, bFPSControll = !bFPSControll, m_pCameraMngr->SetFPS(bFPSControll));
 
-	//toggle visibility of box
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::V))
-		if (renderCollision)
-			renderCollision = false;
-		else
-			renderCollision = true;
 #pragma endregion
 
 #pragma region Load Models
@@ -138,6 +132,13 @@ void AppClass::ProcessKeyboard(void)
 	//if you press Num 2, it will select the current model as the Hylian Shield
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num2))
 		currentModel = "Shield";
+
+	//if you press Space, it will load in a random model
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::P))
+	{
+
+	}
+
 #pragma endregion
 
 #pragma region Switch Colliding Boxes
@@ -179,7 +180,6 @@ void AppClass::ProcessKeyboard(void)
 			{
 				renderAlligned = true;
 			}
-			m_pBoundingObjectMngr->DisplayReAlligned(m_pBoundingObjectMngr->GetIndex("Sword"), REGREEN);
 		}
 		if (currentModel == "Shield")
 		{
@@ -191,7 +191,6 @@ void AppClass::ProcessKeyboard(void)
 			{
 				renderAlligned = true;
 			}
-			m_pBoundingObjectMngr->DisplayReAlligned(m_pBoundingObjectMngr->GetIndex("Shield"), REGREEN);
 		}
 	};
 
@@ -207,7 +206,6 @@ void AppClass::ProcessKeyboard(void)
 			{
 				renderSphere = true;
 			}
-			m_pBoundingObjectMngr->DisplaySphere(m_pBoundingObjectMngr->GetIndex("Sword"), REGREEN);
 		}
 		if (currentModel == "Shield")
 		{
@@ -219,7 +217,6 @@ void AppClass::ProcessKeyboard(void)
 			{
 				renderSphere = true;
 			}
-			m_pBoundingObjectMngr->DisplaySphere(m_pBoundingObjectMngr->GetIndex("Shield"), REGREEN);
 		}
 	};
 #pragma endregion

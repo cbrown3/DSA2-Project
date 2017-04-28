@@ -8,6 +8,7 @@ void AppClass::InitVariables(void)
 {
 	//Set the camera position in orthographic position
 	m_pCameraMngr->SetCameraMode(CAMROTHOY);
+	m_pCameraMngr->MoveForward(2.0, -1);
 	//Load a model onto the Mesh manager
 	m_pMeshMngr->LoadModel("Zelda\\MasterSword.bto", "Sword");
 	m_pMeshMngr->LoadModel("Zelda\\HylianShield.bto", "Shield");
@@ -50,17 +51,38 @@ void AppClass::Update(void)
 
 		if (renderBox)
 		{
-			m_pBoundingObjectMngr->DisplayOriented(m_pBoundingObjectMngr->GetIndex("Sword"), REGREEN);
+			if (m_pBSMain->IsColliding(m_pBSCow))
+			{
+				m_pBoundingObjectMngr->DisplayOriented(m_pBoundingObjectMngr->GetIndex("Sword"), RERED);
+			}
+			else
+			{
+				m_pBoundingObjectMngr->DisplayOriented(m_pBoundingObjectMngr->GetIndex("Sword"), REGREEN);
+			}
 		}
 
 		if (renderAlligned)
 		{
-			m_pBoundingObjectMngr->DisplayReAlligned(m_pBoundingObjectMngr->GetIndex("Sword"), REGREEN);
+			if (m_pBSMain->IsColliding(m_pBSCow))
+			{
+				m_pBoundingObjectMngr->DisplayReAlligned(m_pBoundingObjectMngr->GetIndex("Sword"), RERED);
+			}
+			else
+			{
+				m_pBoundingObjectMngr->DisplayReAlligned(m_pBoundingObjectMngr->GetIndex("Sword"), REGREEN);
+			}
 		}
 
 		if (renderSphere)
 		{
-			m_pBoundingObjectMngr->DisplaySphere(m_pBoundingObjectMngr->GetIndex("Sword"), REGREEN);
+			if (m_pBSMain->IsColliding(m_pBSCow))
+			{
+				m_pBoundingObjectMngr->DisplaySphere(m_pBoundingObjectMngr->GetIndex("Sword"), RERED);
+			}
+			else
+			{
+				m_pBoundingObjectMngr->DisplaySphere(m_pBoundingObjectMngr->GetIndex("Sword"), REGREEN);
+			}
 		}
 	}
 	else if (currentModel == "Shield")
@@ -69,20 +91,42 @@ void AppClass::Update(void)
 
 		if (renderBox)
 		{
-			m_pBoundingObjectMngr->DisplayOriented(m_pBoundingObjectMngr->GetIndex("Shield"), REGREEN);
+			if (m_pBSMain->IsColliding(m_pBSCow))
+			{
+				m_pBoundingObjectMngr->DisplayOriented(m_pBoundingObjectMngr->GetIndex("Shield"), RERED);
+			}
+			else
+			{
+				m_pBoundingObjectMngr->DisplayOriented(m_pBoundingObjectMngr->GetIndex("Shield"), REGREEN);
+			}
 		}
 
 		if (renderAlligned)
 		{
-			m_pBoundingObjectMngr->DisplayReAlligned(m_pBoundingObjectMngr->GetIndex("Shield"), REGREEN);
+			if (m_pBSMain->IsColliding(m_pBSCow))
+			{
+				m_pBoundingObjectMngr->DisplayReAlligned(m_pBoundingObjectMngr->GetIndex("Shield"), RERED);
+			}
+			else
+			{
+				m_pBoundingObjectMngr->DisplayReAlligned(m_pBoundingObjectMngr->GetIndex("Shield"), REGREEN);
+			}
 		}
 
 		if (renderSphere)
 		{
-			m_pBoundingObjectMngr->DisplaySphere(m_pBoundingObjectMngr->GetIndex("Shield"), REGREEN);
+			if (m_pBSMain->IsColliding(m_pBSCow))
+			{
+				m_pBoundingObjectMngr->DisplaySphere(m_pBoundingObjectMngr->GetIndex("Shield"), RERED);
+			}
+			else
+			{
+				m_pBoundingObjectMngr->DisplaySphere(m_pBoundingObjectMngr->GetIndex("Shield"), REGREEN);
+			}
 		}
 	}
 
+	m_pBoundingObjectMngr->DisplayReAlligned(m_pBoundingObjectMngr->GetIndex("Cow"), REGREEN);
 
 	//Update the system's time
 	m_pSystem->UpdateTime();
@@ -91,6 +135,12 @@ void AppClass::Update(void)
 	m_pMeshMngr->Update();
 
 	m_pBoundingObjectMngr->Update();
+
+	//collision resolution
+	if (m_pBSCow->IsColliding(m_pBSMain))
+	{
+		m_pBoundingObjectMngr->DisplayReAlligned(m_pBoundingObjectMngr->GetIndex("Cow"), RERED);
+	}
 
 	//First person camera movement
 	if (m_bFPC == true)
