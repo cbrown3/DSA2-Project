@@ -10,11 +10,11 @@ void AppClass::InitVariables(void)
 	m_pCameraMngr->SetCameraMode(CAMPERSP);
 	m_pCameraMngr->MoveVertical(4.0, -1);
 	//Load a model onto the Mesh manager
-	//m_pMeshMngr->LoadModel("Zelda\\MasterSword.bto", "Sword");
-	//m_pMeshMngr->LoadModel("Zelda\\HylianShield.bto", "Shield");
+	m_pMeshMngr->LoadModel("Zelda\\MasterSword.bto", "Sword");
+	m_pMeshMngr->LoadModel("Zelda\\HylianShield.bto", "Shield");
 	m_pMeshMngr->LoadModel("Minecraft\\Cow.bto", "Cow");
-	m_pMeshMngr->LoadModel("orangeSet.obj", "Shield");
-	m_pMeshMngr->LoadModel("board.obj", "Sword");
+	//m_pMeshMngr->LoadModel("orangeSet.obj", "Shield");
+	//m_pMeshMngr->LoadModel("board.obj", "Sword");
 
 	//create a list of models to load
 	//modelNames = new String[10];
