@@ -9,9 +9,11 @@ void AppClass::InitVariables(void)
 	//Set the camera position in orthographic position
 	m_pCameraMngr->SetCameraMode(CAMROTHOY);
 	//Load a model onto the Mesh manager
-	m_pMeshMngr->LoadModel("Zelda\\MasterSword.bto", "Sword");
-	m_pMeshMngr->LoadModel("Zelda\\HylianShield.bto", "Shield");
-	m_pMeshMngr->LoadModel("Minecraft\\Cow.obj", "Cow");
+	//m_pMeshMngr->LoadModel("Zelda\\MasterSword.bto", "Sword");
+	//m_pMeshMngr->LoadModel("Zelda\\HylianShield.bto", "Shield");
+	m_pMeshMngr->LoadModel("Minecraft\\Cow.bto", "Cow");
+	m_pMeshMngr->LoadModel("orangeSet.obj", "Shield");
+	m_pMeshMngr->LoadModel("board.obj", "Sword");
 
 	//create a list of models to load
 	//modelNames = new String[10];
