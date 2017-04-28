@@ -47,78 +47,54 @@ void AppClass::ProcessKeyboard(void)
 	{
 		m_v3Position += vector3(-0.1f, 0.0f, 0.0f);
 		m_pBSMain->SetModelMatrix(glm::translate(m_v3Position));
+		m_pCameraMngr->MoveSideways(-0.1f);
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
 	{
 		m_v3Position += vector3(0.1f, 0.0f, 0.0f);
 		m_pBSMain->SetModelMatrix(glm::translate(m_v3Position));
+		m_pCameraMngr->MoveSideways(0.1f);
 	}
 	//if the camera is orthographic, move in the negative z axis, if not, move in the positive y axis
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
 	{
-		if (m_pCameraMngr->GetCameraMode() == CAMROTHOY)
+		if (!bModifier)
 		{
-			if (!bModifier)
-			{
-				m_v3Position += vector3(0.0f, 0.0f, -0.1f);
-				m_pBSMain->SetModelMatrix(glm::translate(m_v3Position));
-			}
-			else
-			{
-				m_v3Position += vector3(0.0f, 0.1f, 0.0f);
-				m_pBSMain->SetModelMatrix(glm::translate(m_v3Position));
-			}
+			m_v3Position += vector3(0.0f, 0.0f, -0.1f);
+			m_pBSMain->SetModelMatrix(glm::translate(m_v3Position));
+			//m_pCameraMngr->MoveForward(0.1f);
+			m_pCameraMngr->SetPosition(m_pCameraMngr->GetPosition() + vector3(0.0f, 0.0f, -0.1f), -1);
 		}
 		else
 		{
-			if (!bModifier)
-			{
-				m_v3Position += vector3(0.0f, 0.1f, 0.0f);
-				m_pBSMain->SetModelMatrix(glm::translate(m_v3Position));
-			}
-			else
-			{
-				m_v3Position += vector3(0.0f, 0.0f, -0.1f);
-				m_pBSMain->SetModelMatrix(glm::translate(m_v3Position));
-			}
+			m_v3Position += vector3(0.0f, -0.1f, 0.0f);
+			m_pBSMain->SetModelMatrix(glm::translate(m_v3Position));
+			//m_pCameraMngr->MoveVertical(0.1f);
+			m_pCameraMngr->SetPosition(m_pCameraMngr->GetPosition() + vector3(0.0f, -0.1f, 0.0f), -1);
 		}
 	}
 	//if the camera is orthographic, move in the positive z axis, if not, move in the negative y axis
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
 	{
-		if (m_pCameraMngr->GetCameraMode() == CAMROTHOY)
+		if (!bModifier)
 		{
-			if (!bModifier)
-			{
-				m_v3Position += vector3(0.0f, 0.0f, 0.1f);
-				m_pBSMain->SetModelMatrix(glm::translate(m_v3Position));
-			}
-			else
-			{
-				m_v3Position += vector3(0.0f, -0.1f, 0.0f);
-				m_pBSMain->SetModelMatrix(glm::translate(m_v3Position));
-			}
+			m_v3Position += vector3(0.0f, 0.0f, 0.1f);
+			m_pBSMain->SetModelMatrix(glm::translate(m_v3Position));
+			//m_pCameraMngr->MoveForward(-0.1f);
+			m_pCameraMngr->SetPosition(m_pCameraMngr->GetPosition() + vector3(0.0f, 0.0f, 0.1f), -1);
 		}
 		else
 		{
-			if (!bModifier)
-			{
-				m_v3Position += vector3(0.0f, -0.1f, 0.0f);
-				m_pBSMain->SetModelMatrix(glm::translate(m_v3Position));
-			}
-			else
-			{
-				m_v3Position += vector3(0.0f, 0.0f, 0.1f);
-				m_pBSMain->SetModelMatrix(glm::translate(m_v3Position));
-			}
+			m_v3Position += vector3(0.0f, 0.1f, 0.0f);
+			m_pBSMain->SetModelMatrix(glm::translate(m_v3Position));
+			//m_pCameraMngr->MoveVertical(-0.1f);
+			m_pCameraMngr->SetPosition(m_pCameraMngr->GetPosition() + vector3(0.0f, 0.1f, 0.0f), -1);
 		}
 	}
 #pragma endregion
 
 #pragma region Other Actions
 	ON_KEY_PRESS_RELEASE(Escape, NULL, PostMessage(m_pWindow->GetHandler(), WM_QUIT, NULL, NULL));
-	ON_KEY_PRESS_RELEASE(F1, NULL, m_pCameraMngr->SetCameraMode(CAMROTHOY));
-	ON_KEY_PRESS_RELEASE(F2, NULL, m_pCameraMngr->SetCameraMode(CAMPERSP));
 	static bool bFPSControll = false;
 	ON_KEY_PRESS_RELEASE(F, bFPSControll = !bFPSControll, m_pCameraMngr->SetFPS(bFPSControll));
 
@@ -134,10 +110,10 @@ void AppClass::ProcessKeyboard(void)
 		currentModel = "Shield";
 
 	//if you press Space, it will load in a random model
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::P))
+	/*if (sf::Keyboard::isKeyPressed(sf::Keyboard::P))
 	{
-
-	}
+		m_pBoundingObjectMngr->AddObject()
+	}*/
 
 #pragma endregion
 
