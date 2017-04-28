@@ -47,69 +47,53 @@ void AppClass::ProcessKeyboard(void)
 	{
 		m_v3Position += vector3(-0.1f, 0.0f, 0.0f);
 		m_pBSMain->SetModelMatrix(glm::translate(m_v3Position));
+		m_pCameraMngr->MoveSideways(-0.1f);
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
 	{
 		m_v3Position += vector3(0.1f, 0.0f, 0.0f);
 		m_pBSMain->SetModelMatrix(glm::translate(m_v3Position));
+		m_pCameraMngr->MoveSideways(0.1f);
 	}
 	//if the camera is orthographic, move in the negative z axis, if not, move in the positive y axis
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
 	{
-		if (m_pCameraMngr->GetCameraMode() == CAMROTHOY)
+		if (!bModifier)
 		{
-			if (!bModifier)
-			{
-				m_v3Position += vector3(0.0f, 0.0f, -0.1f);
-				m_pBSMain->SetModelMatrix(glm::translate(m_v3Position));
-			}
-			else
-			{
-				m_v3Position += vector3(0.0f, 0.1f, 0.0f);
-				m_pBSMain->SetModelMatrix(glm::translate(m_v3Position));
-			}
+			m_v3Position += vector3(0.0f, 0.0f, -0.1f);
+			m_pBSMain->SetModelMatrix(glm::translate(m_v3Position));
+			//m_pCameraMngr->MoveForward(0.1f);
+			m_pCameraMngr->SetPosition(m_pCameraMngr->GetPosition() + vector3(0.0f, 0.0f, -0.1f), -1);
 		}
 		else
 		{
-			if (!bModifier)
-			{
-				m_v3Position += vector3(0.0f, 0.1f, 0.0f);
-				m_pBSMain->SetModelMatrix(glm::translate(m_v3Position));
-			}
-			else
-			{
-				m_v3Position += vector3(0.0f, 0.0f, -0.1f);
-				m_pBSMain->SetModelMatrix(glm::translate(m_v3Position));
-			}
+			m_v3Position += vector3(0.0f, 0.1f, 0.0f);
+			m_pBSMain->SetModelMatrix(glm::translate(m_v3Position));
+			//m_pCameraMngr->MoveVertical(0.1f);
+			m_pCameraMngr->SetPosition(m_pCameraMngr->GetPosition() + vector3(0.0f, 0.1f, 0.0f), -1);
 		}
 	}
 	//if the camera is orthographic, move in the positive z axis, if not, move in the negative y axis
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
 	{
-		if (m_pCameraMngr->GetCameraMode() == CAMROTHOY)
+		if (!bModifier)
 		{
-			if (!bModifier)
-			{
-				m_v3Position += vector3(0.0f, 0.0f, 0.1f);
-				m_pBSMain->SetModelMatrix(glm::translate(m_v3Position));
-			}
-			else
-			{
-				m_v3Position += vector3(0.0f, -0.1f, 0.0f);
-				m_pBSMain->SetModelMatrix(glm::translate(m_v3Position));
-			}
+			m_v3Position += vector3(0.0f, 0.0f, 0.1f);
+			m_pBSMain->SetModelMatrix(glm::translate(m_v3Position));
+			//m_pCameraMngr->MoveForward(-0.1f);
+			m_pCameraMngr->SetPosition(m_pCameraMngr->GetPosition() + vector3(0.0f, 0.0f, 0.1f), -1);
 		}
 		else
 		{
-			if (!bModifier)
+			m_v3Position += vector3(0.0f, -0.1f, 0.0f);
+			m_pBSMain->SetModelMatrix(glm::translate(m_v3Position));
+			//m_pCameraMngr->MoveVertical(-0.1f);
+			m_pCameraMngr->SetPosition(m_pCameraMngr->GetPosition() + vector3(0.0f, -0.1f, 0.0f), -1);
+
+			//logic for stopping movement downward, for the ground
+ 			if (m_pBSMain->GetModelMatrix()[3][2] < 0)
 			{
-				m_v3Position += vector3(0.0f, -0.1f, 0.0f);
-				m_pBSMain->SetModelMatrix(glm::translate(m_v3Position));
-			}
-			else
-			{
-				m_v3Position += vector3(0.0f, 0.0f, 0.1f);
-				m_pBSMain->SetModelMatrix(glm::translate(m_v3Position));
+
 			}
 		}
 	}
@@ -117,17 +101,9 @@ void AppClass::ProcessKeyboard(void)
 
 #pragma region Other Actions
 	ON_KEY_PRESS_RELEASE(Escape, NULL, PostMessage(m_pWindow->GetHandler(), WM_QUIT, NULL, NULL));
-	ON_KEY_PRESS_RELEASE(F1, NULL, m_pCameraMngr->SetCameraMode(CAMROTHOY));
-	ON_KEY_PRESS_RELEASE(F2, NULL, m_pCameraMngr->SetCameraMode(CAMPERSP));
 	static bool bFPSControll = false;
 	ON_KEY_PRESS_RELEASE(F, bFPSControll = !bFPSControll, m_pCameraMngr->SetFPS(bFPSControll));
 
-	//toggle visibility of box
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::V))
-		if (renderCollision)
-			renderCollision = false;
-		else
-			renderCollision = true;
 #pragma endregion
 
 #pragma region Load Models
@@ -138,6 +114,13 @@ void AppClass::ProcessKeyboard(void)
 	//if you press Num 2, it will select the current model as the Hylian Shield
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num2))
 		currentModel = "Shield";
+
+	//if you press Space, it will load in a random model
+	/*if (sf::Keyboard::isKeyPressed(sf::Keyboard::P))
+	{
+		m_pBoundingObjectMngr->AddObject()
+	}*/
+
 #pragma endregion
 
 #pragma region Switch Colliding Boxes
@@ -179,7 +162,6 @@ void AppClass::ProcessKeyboard(void)
 			{
 				renderAlligned = true;
 			}
-			m_pBoundingObjectMngr->DisplayReAlligned(m_pBoundingObjectMngr->GetIndex("Sword"), REGREEN);
 		}
 		if (currentModel == "Shield")
 		{
@@ -191,7 +173,6 @@ void AppClass::ProcessKeyboard(void)
 			{
 				renderAlligned = true;
 			}
-			m_pBoundingObjectMngr->DisplayReAlligned(m_pBoundingObjectMngr->GetIndex("Shield"), REGREEN);
 		}
 	};
 
@@ -207,7 +188,6 @@ void AppClass::ProcessKeyboard(void)
 			{
 				renderSphere = true;
 			}
-			m_pBoundingObjectMngr->DisplaySphere(m_pBoundingObjectMngr->GetIndex("Sword"), REGREEN);
 		}
 		if (currentModel == "Shield")
 		{
@@ -219,7 +199,6 @@ void AppClass::ProcessKeyboard(void)
 			{
 				renderSphere = true;
 			}
-			m_pBoundingObjectMngr->DisplaySphere(m_pBoundingObjectMngr->GetIndex("Shield"), REGREEN);
 		}
 	};
 #pragma endregion
