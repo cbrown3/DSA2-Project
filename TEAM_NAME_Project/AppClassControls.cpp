@@ -67,10 +67,10 @@ void AppClass::ProcessKeyboard(void)
 		}
 		else
 		{
-			m_v3Position += vector3(0.0f, -0.1f, 0.0f);
+			m_v3Position += vector3(0.0f, 0.1f, 0.0f);
 			m_pBSMain->SetModelMatrix(glm::translate(m_v3Position));
 			//m_pCameraMngr->MoveVertical(0.1f);
-			m_pCameraMngr->SetPosition(m_pCameraMngr->GetPosition() + vector3(0.0f, -0.1f, 0.0f), -1);
+			m_pCameraMngr->SetPosition(m_pCameraMngr->GetPosition() + vector3(0.0f, 0.1f, 0.0f), -1);
 		}
 	}
 	//if the camera is orthographic, move in the positive z axis, if not, move in the negative y axis
@@ -85,10 +85,16 @@ void AppClass::ProcessKeyboard(void)
 		}
 		else
 		{
-			m_v3Position += vector3(0.0f, 0.1f, 0.0f);
+			m_v3Position += vector3(0.0f, -0.1f, 0.0f);
 			m_pBSMain->SetModelMatrix(glm::translate(m_v3Position));
 			//m_pCameraMngr->MoveVertical(-0.1f);
-			m_pCameraMngr->SetPosition(m_pCameraMngr->GetPosition() + vector3(0.0f, 0.1f, 0.0f), -1);
+			m_pCameraMngr->SetPosition(m_pCameraMngr->GetPosition() + vector3(0.0f, -0.1f, 0.0f), -1);
+
+			//logic for stopping movement downward, for the ground
+ 			if (m_pBSMain->GetModelMatrix()[3][2] < 0)
+			{
+
+			}
 		}
 	}
 #pragma endregion
