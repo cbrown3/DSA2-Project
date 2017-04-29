@@ -6,11 +6,11 @@ GameObject::GameObject()
 {
 }
 
-GameObject::GameObject(String name)
+GameObject::GameObject(String filePath, String name)
 {
 }
 
-GameObject::GameObject(String name, vector3 position)
+GameObject::GameObject(String filePath, String name, vector3 position)
 {
 }
 

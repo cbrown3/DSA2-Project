@@ -7,6 +7,7 @@
 class GameObject
 {
 	String name;
+	String filePath;
 	MyBoundingBoxClass collider;
 	RigidBody rigidBody;
 
@@ -17,8 +18,8 @@ class GameObject
 
 public:
 	GameObject();
-	GameObject(String name);
-	GameObject(String name, vector3 position);
+	GameObject(String filePath, String name);
+	GameObject(String filePath, String name, vector3 position);
 
 	void translate(vector3 translation);
 	void scale(vector3 scale);
