@@ -61,8 +61,11 @@ void GameObject::calcTransformMatrix()
 	transformMatrix = glm::scale(transformMatrix, size);
 	
 	//get quaternion from rotation vector
-	quaternion rot = glm::quat(rotation);
-	transformMatrix *= ToMatrix4(rot); //rotate
+	//quaternion rot = glm::quat(rotation);
+	//transformMatrix *= ToMatrix4(rot); //rotate
+
+	//just use the vector for rotation
+	transformMatrix *= glm::yawPitchRoll(rotation.x, rotation.y, rotation.z);
 
 	//tralnslate
 	transformMatrix = glm::translate(transformMatrix, position); 
@@ -70,10 +73,15 @@ void GameObject::calcTransformMatrix()
 
 void GameObject::Update()
 {
+
+
+	calcTransformMatrix();
+	SetMatrix();
 }
 
 void GameObject::SetMatrix()
 {
+	m_pMeshMngr->SetModelMatrix(transformMatrix, name);
 }
 
 matrix4 GameObject::GetTransformMatrix()
