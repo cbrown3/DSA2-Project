@@ -40,32 +40,32 @@ void GameObject::SetMatrix()
 
 matrix4 GameObject::GetTransformMatrix()
 {
-	return matrix4();
+	return transformMatrix;
 }
 
 vector3 GameObject::GetPosition()
 {
-	return vector3();
+	return position;
 }
 
 quaternion GameObject::GetRotation()
 {
-	return quaternion();
+	return rotation;
 }
 
 MyBoundingBoxClass GameObject::GetCollider()
 {
-	return MyBoundingBoxClass();
+	return collider;
 }
 
 RigidBody GameObject::GetRigidBody()
 {
-	return RigidBody();
+	return rigidBody;
 }
 
 String GameObject::GetName()
 {
-	return String();
+	return name;
 }
 
 
