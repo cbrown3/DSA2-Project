@@ -86,12 +86,12 @@ vector3 GameObject::GetPosition()
 	return position;
 }
 
-quaternion GameObject::GetRotation()
+vector3 GameObject::GetRotation()
 {
 	return rotation;
 }
 
-MyBoundingBoxClass GameObject::GetCollider()
+MyBoundingBoxClass* GameObject::GetCollider()
 {
 	return collider;
 }

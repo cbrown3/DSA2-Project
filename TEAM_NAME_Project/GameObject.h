@@ -31,7 +31,7 @@ public:
 
 	matrix4 GetTransformMatrix();
 	vector3 GetPosition();
-	quaternion GetRotation();
+	vector3 GetRotation();
 
 	MyBoundingBoxClass* GetCollider();
 	RigidBody GetRigidBody();
