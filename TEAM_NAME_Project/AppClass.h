@@ -11,8 +11,10 @@ Date: 2015/09 (Last Modified on: 15/11)
 #include "MyBoundingBoxClass.h"
 #include "MyBoundingObjectManager.h"
 #include "RigidBody.h"
+#include "GameObject.h"
 
 using namespace ReEng; //Using ReEng namespace to use all the classes in the dll
+
 
 class AppClass : public ReEngAppClass
 {
@@ -26,12 +28,16 @@ class AppClass : public ReEngAppClass
 	float mass;
 	RigidBody rBody;
 	quaternion orientation;
+	GameObject Player;
+	GameObject World;
+	GameObject Cow;
 
 	MyBoundingObjectManager* m_pBoundingObjectMngr; // manager for bounding box objects
 	MyBoundingBoxClass* m_pBSMain;
 	MyBoundingBoxClass* m_pBSCow;
 	MyBoundingBoxClass* m_pBSword;
 	MyBoundingBoxClass* m_pBShield;
+
 
 public:
 	typedef ReEngAppClass super;

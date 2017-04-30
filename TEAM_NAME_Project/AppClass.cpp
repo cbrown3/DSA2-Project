@@ -10,19 +10,16 @@ void AppClass::InitVariables(void)
 	m_pCameraMngr->SetCameraMode(CAMPERSP);
 	m_pCameraMngr->MoveVertical(4.0, -1);
 	//Load a model onto the Mesh manager
-	//m_pMeshMngr->LoadModel("Zelda\\MasterSword.bto", "Sword");
-	//m_pMeshMngr->LoadModel("Zelda\\HylianShield.bto", "Shield");
+	m_pMeshMngr->LoadModel("Zelda\\MasterSword.bto", "Sword");
+	m_pMeshMngr->LoadModel("Zelda\\HylianShield.bto", "Shield");
 	m_pMeshMngr->LoadModel("Minecraft\\Cow.bto", "Cow");
-	m_pMeshMngr->LoadModel("Chess\\pawn(orange).obj", "Shield");
-	m_pMeshMngr->LoadModel("world.fbx", "Sword");
+	m_pMeshMngr->LoadModel("Chess\\pawn(orange).obj", "Pawn");
+	m_pMeshMngr->LoadModel("world.fbx", "World");
 
-	//create a list of models to load
-	//modelNames = new String[10];
-
-	//set the model names in the array
-	//modelNames[0] = "Sword";
-	//modelNames[1] = "Shield";
-
+	/*GAMEOBJECT SYSTEM*/
+	Player = GameObject("Zelda\\MasterSword.bto", "Main");
+	World = GameObject("world.fbx", "World");
+	Cow = GameObject("Minecraft\\Cow.bto", "Cow", vector3(2.5f, 0.0f, 0.0f));
 
 	//set intial current model
 	currentModel = "Sword";
@@ -46,44 +43,54 @@ void AppClass::InitVariables(void)
 
 void AppClass::Update(void)
 {
+	Player.Update();
+	Cow.Update();
+
 	//if the current model is the sword, make the main/placeholder model equal the correct model being selected.
 	if (currentModel == "Sword")
 	{
 		m_pBSMain = m_pBSword;
+		Player = GameObject("Zelda\\MasterSword.bto", "Sword", Player.GetPosition());
 
 		if (renderBox)
 		{
-			if (m_pBSMain->IsColliding(m_pBSCow))
+			if (m_pBSMain->IsColliding(m_pBSCow) || Player.GetCollider()->IsColliding(Cow.GetCollider()))
 			{
 				m_pBoundingObjectMngr->DisplayOriented(m_pBoundingObjectMngr->GetIndex("Sword"), RERED);
+				Player.GetCollider()->DisplayOriented(RERED);
 			}
 			else
 			{
 				m_pBoundingObjectMngr->DisplayOriented(m_pBoundingObjectMngr->GetIndex("Sword"), REGREEN);
+				Player.GetCollider()->DisplayOriented(REGREEN);
 			}
 		}
 
 		if (renderAlligned)
 		{
-			if (m_pBSMain->IsColliding(m_pBSCow))
+			if (m_pBSMain->IsColliding(m_pBSCow) || Player.GetCollider()->IsColliding(Cow.GetCollider()))
 			{
 				m_pBoundingObjectMngr->DisplayReAlligned(m_pBoundingObjectMngr->GetIndex("Sword"), RERED);
+				Player.GetCollider()->DisplayReAlligned(RERED);
 			}
 			else
 			{
 				m_pBoundingObjectMngr->DisplayReAlligned(m_pBoundingObjectMngr->GetIndex("Sword"), REGREEN);
+				Player.GetCollider()->DisplayReAlligned(REGREEN);
 			}
 		}
 
 		if (renderSphere)
 		{
-			if (m_pBSMain->IsColliding(m_pBSCow))
+			if (m_pBSMain->IsColliding(m_pBSCow) || Player.GetCollider()->IsColliding(Cow.GetCollider()))
 			{
 				m_pBoundingObjectMngr->DisplaySphere(m_pBoundingObjectMngr->GetIndex("Sword"), RERED);
+				Player.GetCollider()->DisplaySphere(RERED);
 			}
 			else
 			{
 				m_pBoundingObjectMngr->DisplaySphere(m_pBoundingObjectMngr->GetIndex("Sword"), REGREEN);
+				Player.GetCollider()->DisplaySphere(REGREEN);
 			}
 		}
 	}
@@ -129,6 +136,7 @@ void AppClass::Update(void)
 	}
 
 	m_pBoundingObjectMngr->DisplayReAlligned(m_pBoundingObjectMngr->GetIndex("Cow"), REGREEN);
+	Cow.GetCollider()->DisplayReAlligned(REGREEN);
 
 	//Update the system's time
 	m_pSystem->UpdateTime();
@@ -142,9 +150,10 @@ void AppClass::Update(void)
 	//m_pCameraMngr->SetTarget(m_pBSMain->GetCenterGlobal(), -1);
 
 	//collision resolution
-	if (m_pBSCow->IsColliding(m_pBSMain))
+	if (m_pBSCow->IsColliding(m_pBSMain) || Cow.GetCollider()->IsColliding(Player.GetCollider()))
 	{
 		m_pBoundingObjectMngr->DisplayReAlligned(m_pBoundingObjectMngr->GetIndex("Cow"), RERED);
+		Cow.GetCollider()->DisplayReAlligned(RERED);
 	}
 
 	//First person camera movement
@@ -193,7 +202,15 @@ void AppClass::Update(void)
 	//printf("FPS: %d            \r", nFPS);//print the Frames per Second
 	//Print info on the screen
 	m_pMeshMngr->PrintLine("");//Add a line on top
-	m_pMeshMngr->PrintLine(m_pSystem->GetAppName(), REYELLOW);
+	m_pMeshMngr->Print(m_pSystem->GetAppName(), REYELLOW);
+	m_pMeshMngr->PrintLine("                    W/S: Move Camera Forward/Backward");
+	m_pMeshMngr->Print("Current Player Model: " + currentModel);
+	m_pMeshMngr->PrintLine("                A/D: Move Camera Left/Right");
+	m_pMeshMngr->Print("Arrow Keys: Move Model");
+	m_pMeshMngr->PrintLine("                         Q/E: Move Camera Down/Up");
+	m_pMeshMngr->Print("Number Keys: Change Model");
+	m_pMeshMngr->PrintLine("                       Hold RMB: Rotate Camera");
+	m_pMeshMngr->Print("Shift: Boost Camera Movement");
 
 	/*
 	m_pMeshMngr->Print("FPS:");

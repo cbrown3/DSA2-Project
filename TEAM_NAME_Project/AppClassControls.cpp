@@ -43,17 +43,18 @@ void AppClass::ProcessKeyboard(void)
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::E))
 		m_pCameraMngr->MoveVertical(fSpeed);
 
+
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
 	{
 		m_v3Position += vector3(-0.1f, 0.0f, 0.0f);
-		m_pBSMain->SetModelMatrix(glm::translate(m_v3Position));
 		m_pCameraMngr->MoveSideways(-0.1f);
+		Player.translate(m_v3Position);
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
 	{
 		m_v3Position += vector3(0.1f, 0.0f, 0.0f);
-		m_pBSMain->SetModelMatrix(glm::translate(m_v3Position));
 		m_pCameraMngr->MoveSideways(0.1f);
+		Player.translate(m_v3Position);
 	}
 	//if the camera is orthographic, move in the negative z axis, if not, move in the positive y axis
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
@@ -61,16 +62,14 @@ void AppClass::ProcessKeyboard(void)
 		if (!bModifier)
 		{
 			m_v3Position += vector3(0.0f, 0.0f, -0.1f);
-			m_pBSMain->SetModelMatrix(glm::translate(m_v3Position));
-			//m_pCameraMngr->MoveForward(0.1f);
 			m_pCameraMngr->SetPosition(m_pCameraMngr->GetPosition() + vector3(0.0f, 0.0f, -0.1f), -1);
+			Player.translate(m_v3Position);
 		}
 		else
 		{
 			m_v3Position += vector3(0.0f, 0.1f, 0.0f);
-			m_pBSMain->SetModelMatrix(glm::translate(m_v3Position));
-			//m_pCameraMngr->MoveVertical(0.1f);
-			m_pCameraMngr->SetPosition(m_pCameraMngr->GetPosition() + vector3(0.0f, 0.1f, 0.0f), -1);
+			Player.translate(m_v3Position);
+			m_pCameraMngr->MoveVertical(0.1f);
 		}
 	}
 	//if the camera is orthographic, move in the positive z axis, if not, move in the negative y axis
@@ -79,16 +78,14 @@ void AppClass::ProcessKeyboard(void)
 		if (!bModifier)
 		{
 			m_v3Position += vector3(0.0f, 0.0f, 0.1f);
-			m_pBSMain->SetModelMatrix(glm::translate(m_v3Position));
-			//m_pCameraMngr->MoveForward(-0.1f);
 			m_pCameraMngr->SetPosition(m_pCameraMngr->GetPosition() + vector3(0.0f, 0.0f, 0.1f), -1);
+			Player.translate(m_v3Position);
 		}
 		else
 		{
 			m_v3Position += vector3(0.0f, -0.1f, 0.0f);
-			m_pBSMain->SetModelMatrix(glm::translate(m_v3Position));
-			//m_pCameraMngr->MoveVertical(-0.1f);
-			m_pCameraMngr->SetPosition(m_pCameraMngr->GetPosition() + vector3(0.0f, -0.1f, 0.0f), -1);
+			Player.translate(m_v3Position);
+			m_pCameraMngr->MoveVertical(-0.1f);
 
 			//logic for stopping movement downward, for the ground
  			if (m_pBSMain->GetModelMatrix()[3][2] < 0)
