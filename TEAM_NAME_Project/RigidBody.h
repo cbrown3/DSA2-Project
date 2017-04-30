@@ -30,19 +30,14 @@ public:
 		state.mass = other.state.mass;
 		state.inverseMass = other.state.mass * -1;
 	};
-	/*RigidBody& operator=(RigidBody const& other) //Copy operator
+	RigidBody& operator=(RigidBody const& other) //Copy operator
 	{
-<<<<<<< HEAD
-		return ;
-	};*/
-=======
 		state.position = other.state.position;
 		state.orientation = other.state.orientation;
 		state.mass = other.state.mass;
 		state.inverseMass = other.state.mass * -1;
 		return *this;
 	};
->>>>>>> origin/master
 	~RigidBody() //destructor
 	{
 
