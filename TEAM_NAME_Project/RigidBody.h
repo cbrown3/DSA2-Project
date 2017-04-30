@@ -27,10 +27,10 @@ public:
 	{
 
 	};
-	RigidBody& operator=(RigidBody const& other) //Copy operator
+	/*RigidBody& operator=(RigidBody const& other) //Copy operator
 	{
-
-	};
+		return ;
+	};*/
 	~RigidBody() //destructor
 	{
 
