@@ -2,6 +2,19 @@
 
 
 
+GameObject::GameObject()
+{
+	name = "name";
+	collider = nullptr;
+
+	rigidBody = RigidBody();
+
+	position = vector3();
+	size = vector3(1.0f, 1.0f, 1.0f);
+	rotation = vector3();
+	transformMatrix = IDENTITY_M4;
+}
+
 GameObject::GameObject(String filePath, String name)
 {
 	m_pMeshMngr = MeshManagerSingleton::GetInstance();
@@ -73,14 +86,13 @@ void GameObject::calcTransformMatrix()
 
 void GameObject::Update()
 {
-
-
 	calcTransformMatrix();
 	SetMatrix();
 }
 
 void GameObject::SetMatrix()
 {
+	m_pMeshMngr = MeshManagerSingleton::GetInstance();
 	m_pMeshMngr->SetModelMatrix(transformMatrix, name);
 }
 

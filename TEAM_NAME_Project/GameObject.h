@@ -18,6 +18,7 @@ class GameObject
 	matrix4 transformMatrix;
 
 public:
+	GameObject();
 	GameObject(String filePath, String name);
 	GameObject(String filePath, String name, vector3 position);
 
