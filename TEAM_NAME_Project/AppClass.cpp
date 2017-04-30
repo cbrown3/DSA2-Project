@@ -157,14 +157,12 @@ void AppClass::Update(void)
 	//Print info on the screen
 	m_pMeshMngr->PrintLine("");//Add a line on top
 	m_pMeshMngr->Print(m_pSystem->GetAppName(), REYELLOW);
-	m_pMeshMngr->PrintLine("                    W/S: Move Camera Forward/Backward");
+	m_pMeshMngr->PrintLine("                 Up/Down: Move Model Forward/Backward");
 	m_pMeshMngr->Print("Current Player Model: " + currentModel);
-	m_pMeshMngr->PrintLine("                A/D: Move Camera Left/Right");
-	m_pMeshMngr->Print("Arrow Keys: Move Model");
-	m_pMeshMngr->PrintLine("                         Q/E: Move Camera Down/Up");
-	m_pMeshMngr->Print("Number Keys: Change Model");
-	m_pMeshMngr->PrintLine("                       Hold RMB: Rotate Camera");
-	m_pMeshMngr->Print("Shift: Boost Camera Movement");
+	m_pMeshMngr->PrintLine("          Left/Right: Move Model Left/Right");
+	m_pMeshMngr->Print("Shift + Up/Down: Move Model Up/Down");
+	m_pMeshMngr->PrintLine("           Number Keys: Change Model");
+	m_pMeshMngr->Print("Hold RMB: Rotate Camera");
 
 	/*
 	m_pMeshMngr->Print("FPS:");

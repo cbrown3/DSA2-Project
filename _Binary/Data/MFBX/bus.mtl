@@ -1,0 +1,18 @@
+newmtl com_bm_bus01:com_bm_busa01_tga_png
+illum 4
+Kd 0.00 0.00 0.00
+Ka 1.00 1.00 1.00
+Tf 1.00 1.00 1.00
+map_Kd com_bm_busa01.tga.png
+Ni 1.00
+Ks 0.50 0.50 0.50
+Ns 96.08
+newmtl com_bm_bus01:com_bm_busb01_tga_png
+illum 4
+Kd 0.00 0.00 0.00
+Ka 1.00 1.00 1.00
+Tf 1.00 1.00 1.00
+map_Kd com_bm_busb01.tga.png
+Ni 1.00
+Ks 0.50 0.50 0.50
+Ns 96.08
