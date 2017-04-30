@@ -23,20 +23,20 @@ void AppClass::InitVariables(void)
 
 	//set intial current model
 	currentModel = "Sword";
-	m_pBoundingObjectMngr = MyBoundingObjectManager::GetInstance();
-	m_pBoundingObjectMngr->AddObject(m_pMeshMngr->GetVertexList("Cow"), "Cow");
-	m_pBoundingObjectMngr->AddObject(m_pMeshMngr->GetVertexList("Sword"), "Sword");
-	m_pBoundingObjectMngr->AddObject(m_pMeshMngr->GetVertexList("Shield"), "Shield");
+	//m_pBoundingObjectMngr = MyBoundingObjectManager::GetInstance();
+	//m_pBoundingObjectMngr->AddObject(m_pMeshMngr->GetVertexList("Cow"), "Cow");
+	//m_pBoundingObjectMngr->AddObject(m_pMeshMngr->GetVertexList("Sword"), "Sword");
+	//m_pBoundingObjectMngr->AddObject(m_pMeshMngr->GetVertexList("Shield"), "Shield");
 
 	//creating bounding spheres for a placeholder model, the sword, the shield, and the cow
-	m_pBSCow = m_pBoundingObjectMngr->GetBoundingObject(0);
-	m_pBSMain = m_pBoundingObjectMngr->GetBoundingObject(1);
-	m_pBSword = m_pBoundingObjectMngr->GetBoundingObject(1);
-	m_pBShield = m_pBoundingObjectMngr->GetBoundingObject(2);
+	//m_pBSCow = m_pBoundingObjectMngr->GetBoundingObject(0);
+	//m_pBSMain = m_pBoundingObjectMngr->GetBoundingObject(1);
+	//m_pBSword = m_pBoundingObjectMngr->GetBoundingObject(1);
+	//m_pBShield = m_pBoundingObjectMngr->GetBoundingObject(2);
 
-	matrix4 m4Position2 = glm::translate(vector3(2.5, 0.0, 0.0));
-	m_pMeshMngr->SetModelMatrix(m4Position2, "Cow");
-	m_pBoundingObjectMngr->SetModelMatrix(m_pMeshMngr->GetModelMatrix("Cow"), "Cow");
+	//matrix4 m4Position2 = glm::translate(vector3(2.5, 0.0, 0.0));
+	//m_pMeshMngr->SetModelMatrix(m4Position2, "Cow");
+	//m_pBoundingObjectMngr->SetModelMatrix(m_pMeshMngr->GetModelMatrix("Cow"), "Cow");
 
 
 }
@@ -45,97 +45,54 @@ void AppClass::Update(void)
 {
 	Player.Update();
 	Cow.Update();
+	World.Update();
 
 	//if the current model is the sword, make the main/placeholder model equal the correct model being selected.
 	if (currentModel == "Sword")
 	{
-		m_pBSMain = m_pBSword;
 		Player = GameObject("Zelda\\MasterSword.bto", "Sword", Player.GetPosition());
-
-		if (renderBox)
-		{
-			if (m_pBSMain->IsColliding(m_pBSCow) || Player.GetCollider()->IsColliding(Cow.GetCollider()))
-			{
-				m_pBoundingObjectMngr->DisplayOriented(m_pBoundingObjectMngr->GetIndex("Sword"), RERED);
-				Player.GetCollider()->DisplayOriented(RERED);
-			}
-			else
-			{
-				m_pBoundingObjectMngr->DisplayOriented(m_pBoundingObjectMngr->GetIndex("Sword"), REGREEN);
-				Player.GetCollider()->DisplayOriented(REGREEN);
-			}
-		}
-
-		if (renderAlligned)
-		{
-			if (m_pBSMain->IsColliding(m_pBSCow) || Player.GetCollider()->IsColliding(Cow.GetCollider()))
-			{
-				m_pBoundingObjectMngr->DisplayReAlligned(m_pBoundingObjectMngr->GetIndex("Sword"), RERED);
-				Player.GetCollider()->DisplayReAlligned(RERED);
-			}
-			else
-			{
-				m_pBoundingObjectMngr->DisplayReAlligned(m_pBoundingObjectMngr->GetIndex("Sword"), REGREEN);
-				Player.GetCollider()->DisplayReAlligned(REGREEN);
-			}
-		}
-
-		if (renderSphere)
-		{
-			if (m_pBSMain->IsColliding(m_pBSCow) || Player.GetCollider()->IsColliding(Cow.GetCollider()))
-			{
-				m_pBoundingObjectMngr->DisplaySphere(m_pBoundingObjectMngr->GetIndex("Sword"), RERED);
-				Player.GetCollider()->DisplaySphere(RERED);
-			}
-			else
-			{
-				m_pBoundingObjectMngr->DisplaySphere(m_pBoundingObjectMngr->GetIndex("Sword"), REGREEN);
-				Player.GetCollider()->DisplaySphere(REGREEN);
-			}
-		}
 	}
 	else if (currentModel == "Shield")
 	{
-		m_pBSMain = m_pBShield;
+		Player = GameObject("Zelda\\HylianShield.bto", "Shield", Player.GetPosition());
+	}
 
-		if (renderBox)
+	if (renderBox)
+	{
+		if (Player.GetCollider()->IsColliding(Cow.GetCollider()))
 		{
-			if (m_pBSMain->IsColliding(m_pBSCow))
-			{
-				m_pBoundingObjectMngr->DisplayOriented(m_pBoundingObjectMngr->GetIndex("Shield"), RERED);
-			}
-			else
-			{
-				m_pBoundingObjectMngr->DisplayOriented(m_pBoundingObjectMngr->GetIndex("Shield"), REGREEN);
-			}
+			Player.GetCollider()->DisplayOriented(RERED);
 		}
-
-		if (renderAlligned)
+		else
 		{
-			if (m_pBSMain->IsColliding(m_pBSCow))
-			{
-				m_pBoundingObjectMngr->DisplayReAlligned(m_pBoundingObjectMngr->GetIndex("Shield"), RERED);
-			}
-			else
-			{
-				m_pBoundingObjectMngr->DisplayReAlligned(m_pBoundingObjectMngr->GetIndex("Shield"), REGREEN);
-			}
-		}
-
-		if (renderSphere)
-		{
-			if (m_pBSMain->IsColliding(m_pBSCow))
-			{
-				m_pBoundingObjectMngr->DisplaySphere(m_pBoundingObjectMngr->GetIndex("Shield"), RERED);
-			}
-			else
-			{
-				m_pBoundingObjectMngr->DisplaySphere(m_pBoundingObjectMngr->GetIndex("Shield"), REGREEN);
-			}
+			Player.GetCollider()->DisplayOriented(REGREEN);
 		}
 	}
 
-	m_pBoundingObjectMngr->DisplayReAlligned(m_pBoundingObjectMngr->GetIndex("Cow"), REGREEN);
+	if (renderAlligned)
+	{
+		if (Player.GetCollider()->IsColliding(Cow.GetCollider()))
+		{
+			Player.GetCollider()->DisplayReAlligned(RERED);
+		}
+		else
+		{
+			Player.GetCollider()->DisplayReAlligned(REGREEN);
+		}
+	}
+
+	if (renderSphere)
+	{
+		if (Player.GetCollider()->IsColliding(Cow.GetCollider()))
+		{
+			Player.GetCollider()->DisplaySphere(RERED);
+		}
+		else
+		{
+			Player.GetCollider()->DisplaySphere(REGREEN);
+		}
+	}
+
 	Cow.GetCollider()->DisplayReAlligned(REGREEN);
 
 	//Update the system's time
@@ -144,15 +101,12 @@ void AppClass::Update(void)
 	//Update the mesh manager's time without updating for collision detection
 	m_pMeshMngr->Update();
 
-	m_pBoundingObjectMngr->Update();
-
 	//camera follows player
 	//m_pCameraMngr->SetTarget(m_pBSMain->GetCenterGlobal(), -1);
 
 	//collision resolution
-	if (m_pBSCow->IsColliding(m_pBSMain) || Cow.GetCollider()->IsColliding(Player.GetCollider()))
+	if (Cow.GetCollider()->IsColliding(Player.GetCollider()))
 	{
-		m_pBoundingObjectMngr->DisplayReAlligned(m_pBoundingObjectMngr->GetIndex("Cow"), RERED);
 		Cow.GetCollider()->DisplayReAlligned(RERED);
 	}
 
@@ -174,11 +128,10 @@ void AppClass::Update(void)
 	float fPercentage = MapValue(fTimer, 0.0f, 3.0f, 0.0f, 1.0f);
 	vector3 v3Current = glm::lerp(v3Start, v3End, fPercentage);
 	matrix4 mTranslation = glm::translate(v3Current);
-
+	/*
 	//set the translate to create the transform matrix
 	matrix4 m4Transform = glm::translate(m_v3Position) * ToMatrix4(m_qArcBall);
 	m_pMeshMngr->SetModelMatrix(m4Transform, currentModel); //set the matrix to the model
-	m_pBSMain->SetModelMatrix(m_pMeshMngr->GetModelMatrix(currentModel));
 		
 
 	m_pMeshMngr->SetModelMatrix(mTranslation, "Cow");
@@ -189,12 +142,13 @@ void AppClass::Update(void)
 		fTimer = 0.0f;
 		std::swap(v3Start, v3End);
 	}
-
+	*/
 	//Adds all loaded instance to the render list
 	m_pMeshMngr->AddSkyboxToRenderList();
 
-	m_pMeshMngr->AddInstanceToRenderList(currentModel);
-	m_pMeshMngr->AddInstanceToRenderList("Cow");
+	m_pMeshMngr->AddInstanceToRenderList(Player.GetName());
+	m_pMeshMngr->AddInstanceToRenderList(World.GetName());
+	m_pMeshMngr->AddInstanceToRenderList(Cow.GetName());
 
 	//Indicate the FPS
 	int nFPS = m_pSystem->GetFPS();

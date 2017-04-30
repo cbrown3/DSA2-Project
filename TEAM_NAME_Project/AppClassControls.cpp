@@ -46,13 +46,13 @@ void AppClass::ProcessKeyboard(void)
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
 	{
-		m_v3Position += vector3(-0.1f, 0.0f, 0.0f);
+		m_v3Position = vector3(-0.1f, 0.0f, 0.0f);
 		m_pCameraMngr->MoveSideways(-0.1f);
 		Player.translate(m_v3Position);
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
 	{
-		m_v3Position += vector3(0.1f, 0.0f, 0.0f);
+		m_v3Position = vector3(0.1f, 0.0f, 0.0f);
 		m_pCameraMngr->MoveSideways(0.1f);
 		Player.translate(m_v3Position);
 	}
@@ -61,13 +61,13 @@ void AppClass::ProcessKeyboard(void)
 	{
 		if (!bModifier)
 		{
-			m_v3Position += vector3(0.0f, 0.0f, -0.1f);
+			m_v3Position = vector3(0.0f, 0.0f, -0.1f);
 			m_pCameraMngr->SetPosition(m_pCameraMngr->GetPosition() + vector3(0.0f, 0.0f, -0.1f), -1);
 			Player.translate(m_v3Position);
 		}
 		else
 		{
-			m_v3Position += vector3(0.0f, 0.1f, 0.0f);
+			m_v3Position = vector3(0.0f, 0.1f, 0.0f);
 			Player.translate(m_v3Position);
 			m_pCameraMngr->MoveVertical(0.1f);
 		}
@@ -77,20 +77,23 @@ void AppClass::ProcessKeyboard(void)
 	{
 		if (!bModifier)
 		{
-			m_v3Position += vector3(0.0f, 0.0f, 0.1f);
+			m_v3Position = vector3(0.0f, 0.0f, 0.1f);
 			m_pCameraMngr->SetPosition(m_pCameraMngr->GetPosition() + vector3(0.0f, 0.0f, 0.1f), -1);
 			Player.translate(m_v3Position);
 		}
 		else
 		{
-			m_v3Position += vector3(0.0f, -0.1f, 0.0f);
-			Player.translate(m_v3Position);
-			m_pCameraMngr->MoveVertical(-0.1f);
-
 			//logic for stopping movement downward, for the ground
- 			if (m_pBSMain->GetModelMatrix()[3][2] < 0)
+			if (Player.GetPosition().y < 0)
 			{
-
+				Player.translate(vector3(0.0f, 0.1f, 0.0f));
+				m_pCameraMngr->MoveVertical(0.1f);
+			}
+			else
+			{
+				m_v3Position = vector3(0.0f, -0.1f, 0.0f);
+				Player.translate(m_v3Position);
+				m_pCameraMngr->MoveVertical(-0.1f);
 			}
 		}
 	}
