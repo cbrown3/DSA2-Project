@@ -201,6 +201,7 @@ void AppClass::Update(void)
 	m_pMeshMngr->PrintLine("			Q/E: Move Camera Down/Up");
 	m_pMeshMngr->Print("Number Keys: Change Model");
 	m_pMeshMngr->PrintLine("			Hold RMB: Rotate Camera");
+	m_pMeshMngr->Print("Shift: Boost Camera Movement");
 
 	/*
 	m_pMeshMngr->Print("FPS:");
