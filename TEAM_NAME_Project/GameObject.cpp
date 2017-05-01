@@ -101,6 +101,8 @@ void GameObject::calcTransformMatrix()
 
 void GameObject::Update()
 {
+	rigidBody.state.slowDown();
+
 	calcTransformMatrix();
 	SetMatrix();
 }
