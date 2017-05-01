@@ -48,7 +48,7 @@ void AppClass::ProcessKeyboard(void)
 	{
 		m_v3Position = vector3(-0.1f, 0.0f, 0.0f); //Needs to be named that apparantly? 
 		Player.RigidTrans(m_v3Position); //This way it acts as a constant acceleration. Will tweak later for actual stuff
-		m_pCameraMngr->MoveSideways(Player.rigidBody.state.velocity.x); // camera will follow t Player instead of static movement
+		//m_pCameraMngr->MoveSideways(Player.rigidBody.state.velocity.x); // camera will follow t Player instead of static movement
 	}
 	else
 	{
@@ -58,7 +58,7 @@ void AppClass::ProcessKeyboard(void)
 	{
 		m_v3Position = vector3(0.1f, 0.0f, 0.0f); //Needs to be named that apparantly?
 		Player.RigidTrans(m_v3Position); //This way it acts as a constant acceleration. Will tweak later for actual stuff
-		m_pCameraMngr->MoveSideways(Player.rigidBody.state.velocity.x); // camera will follow t Player instead of static movement
+		//m_pCameraMngr->MoveSideways(Player.rigidBody.state.velocity.x); // camera will follow t Player instead of static movement
 	}
 	else
 	{
@@ -71,13 +71,13 @@ void AppClass::ProcessKeyboard(void)
 		{
 			m_v3Position = vector3(0.0f, 0.0f, -0.1f); //Needs to be named that apparantly?
 			Player.RigidTrans(m_v3Position); //This way it acts as a constant acceleration. Will tweak later for actual stuff
-			m_pCameraMngr->SetPosition(m_pCameraMngr->GetPosition() + Player.rigidBody.state.velocity, -1);// camera will follow t Player instead of static movement
+			//m_pCameraMngr->SetPosition(m_pCameraMngr->GetPosition() + Player.rigidBody.state.velocity, -1);// camera will follow t Player instead of static movement
 		}
 		else
 		{
 			m_v3Position = vector3(0.0f, 0.1f, 0.0f); //Needs to be named that apparantly?
 			Player.RigidTrans(m_v3Position); //This way it acts as a constant acceleration. Will tweak later for actual stuff
-			m_pCameraMngr->MoveVertical(Player.rigidBody.state.velocity.y);
+			//m_pCameraMngr->MoveVertical(Player.rigidBody.state.velocity.y);
 		}
 	}
 	else
@@ -91,7 +91,7 @@ void AppClass::ProcessKeyboard(void)
 		{
 			m_v3Position = vector3(0.0f, 0.0f, 0.1f); //Needs to be named that apparantly?
 			Player.RigidTrans(m_v3Position); //This way it acts as a constant acceleration. Will tweak later for actual stuff
-			m_pCameraMngr->SetPosition(m_pCameraMngr->GetPosition() + Player.rigidBody.state.velocity, -1);// camera will follow t Player instead of static movement
+			//m_pCameraMngr->SetPosition(m_pCameraMngr->GetPosition() + Player.rigidBody.state.velocity, -1);// camera will follow t Player instead of static movement
 		}
 		else
 		{
@@ -99,12 +99,12 @@ void AppClass::ProcessKeyboard(void)
 			if (Player.GetPosition().y < 0)
 			{
 				Player.RigidTrans(vector3(0.0f, 0.1f, 0.0f));
-				m_pCameraMngr->MoveVertical(Player.rigidBody.state.velocity.y);
+				//m_pCameraMngr->MoveVertical(Player.rigidBody.state.velocity.y);
 			}
 			else
 			{
 				Player.RigidTrans(vector3(0.0f, -0.1f, 0.0f));
-				m_pCameraMngr->MoveVertical(Player.rigidBody.state.velocity.y);
+				//m_pCameraMngr->MoveVertical(Player.rigidBody.state.velocity.y);
 			}
 		}
 	}
@@ -186,11 +186,11 @@ void AppClass::ProcessKeyboard(void)
 #pragma region Load Models
 	//if you press Num 1, it will select the current model as the Master Sword
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num1))
-		currentModel = "Sword";
+		currentModel = "Ninja";
 
 	//if you press Num 2, it will select the current model as the Hylian Shield
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num2))
-		currentModel = "Shield";
+		currentModel = "Substitute";
 
 	//if you press Space, it will load in a random model
 	/*if (sf::Keyboard::isKeyPressed(sf::Keyboard::P))
@@ -203,7 +203,7 @@ void AppClass::ProcessKeyboard(void)
 #pragma region Switch Colliding Boxes
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::I))
 	{
-		if (currentModel == "Sword")
+		if (currentModel == "Ninja")
 		{
 			if (renderBox)
 			{
@@ -214,7 +214,7 @@ void AppClass::ProcessKeyboard(void)
 				renderBox = true;
 			}
 		}
-		if (currentModel == "Shield")
+		if (currentModel == "Substitute")
 		{
 			if (renderBox)
 			{
@@ -229,7 +229,7 @@ void AppClass::ProcessKeyboard(void)
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::O))
 	{
-		if (currentModel == "Sword")
+		if (currentModel == "Ninja")
 		{
 			if (renderAlligned)
 			{
@@ -240,7 +240,7 @@ void AppClass::ProcessKeyboard(void)
 				renderAlligned = true;
 			}
 		}
-		if (currentModel == "Shield")
+		if (currentModel == "Substitute")
 		{
 			if (renderAlligned)
 			{
@@ -255,7 +255,7 @@ void AppClass::ProcessKeyboard(void)
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::P))
 	{
-		if (currentModel == "Sword")
+		if (currentModel == "Ninja")
 		{
 			if (renderSphere)
 			{
@@ -266,7 +266,7 @@ void AppClass::ProcessKeyboard(void)
 				renderSphere = true;
 			}
 		}
-		if (currentModel == "Shield")
+		if (currentModel == "Substitute")
 		{
 			if (renderSphere)
 			{

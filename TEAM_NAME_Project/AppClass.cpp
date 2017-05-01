@@ -10,19 +10,19 @@ void AppClass::InitVariables(void)
 	m_pCameraMngr->SetCameraMode(CAMPERSP);
 	m_pCameraMngr->MoveVertical(4.0, -1);
 	//Load a model onto the Mesh manager
-	m_pMeshMngr->LoadModel("Zelda\\MasterSword.bto", "Sword");
-	m_pMeshMngr->LoadModel("Zelda\\HylianShield.bto", "Shield");
+	m_pMeshMngr->LoadModel("ninja.obj", "Ninja");
+	m_pMeshMngr->LoadModel("substitute.fbx", "Substitute");
 	m_pMeshMngr->LoadModel("Minecraft\\Cow.bto", "Cow");
 	m_pMeshMngr->LoadModel("Chess\\pawn(orange).obj", "Pawn");
-	m_pMeshMngr->LoadModel("world.fbx", "World");
+	m_pMeshMngr->LoadModel("gym.fbx", "World");
 
 	/*GAMEOBJECT SYSTEM*/
-	Player = GameObject("Zelda\\MasterSword.bto", "Main");
+	Player = GameObject("ninja.obj", "Main");
 	World = GameObject("world.fbx", "World");
 	Cow = GameObject("Minecraft\\Cow.bto", "Cow", vector3(2.5f, 0.0f, 0.0f));
 
 	//set intial current model
-	currentModel = "Sword";
+	currentModel = "Ninja";
 	//m_pBoundingObjectMngr = MyBoundingObjectManager::GetInstance();
 	//m_pBoundingObjectMngr->AddObject(m_pMeshMngr->GetVertexList("Cow"), "Cow");
 	//m_pBoundingObjectMngr->AddObject(m_pMeshMngr->GetVertexList("Sword"), "Sword");
@@ -48,13 +48,13 @@ void AppClass::Update(void)
 	World.Update();
 
 	//if the current model is the sword, make the main/placeholder model equal the correct model being selected.
-	if (currentModel == "Sword")
+	if (currentModel == "Ninja")
 	{
-		Player = GameObject("Zelda\\MasterSword.bto", "Sword", Player.GetPosition());
+		Player = GameObject("ninja.obj", "Ninja", Player.GetPosition());
 	}
-	else if (currentModel == "Shield")
+	else if (currentModel == "Substitute")
 	{
-		Player = GameObject("Zelda\\HylianShield.bto", "Shield", Player.GetPosition());
+		Player = GameObject("substitute.fbx", "Substitute", Player.GetPosition());
 	}
 
 	if (renderBox)
