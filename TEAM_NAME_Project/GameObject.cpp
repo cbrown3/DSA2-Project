@@ -65,6 +65,7 @@ GameObject::GameObject(String filePath, String name, vector3 position)
 void GameObject::translate(vector3 translation)
 {
 	rigidBody.state.position += translation;
+	position += translation;
 }
 
 void GameObject::scale(vector3 scale)
