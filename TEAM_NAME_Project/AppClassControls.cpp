@@ -50,20 +50,12 @@ void AppClass::ProcessKeyboard(void)
 		Player.RigidTrans(m_v3Position); //This way it acts as a constant acceleration. Will tweak later for actual stuff
 		//m_pCameraMngr->MoveSideways(Player.rigidBody.state.velocity.x); // camera will follow t Player instead of static movement
 	}
-	else
-	{
-		Player.rigidBody.state.slowDown(); //Slows the object
-	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
 	{
 		m_v3Position = vector3(0.1f, 0.0f, 0.0f); //Needs to be named that apparantly?
 		Player.RigidTrans(m_v3Position); //This way it acts as a constant acceleration. Will tweak later for actual stuff
 		//m_pCameraMngr->MoveSideways(Player.rigidBody.state.velocity.x); // camera will follow t Player instead of static movement
 
-	}
-	else
-	{
-		Player.rigidBody.state.slowDown(); //Slows the object
 	}
 	//if the camera is orthographic, move in the negative z axis, if not, move in the positive y axis
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
@@ -83,10 +75,6 @@ void AppClass::ProcessKeyboard(void)
 			//m_pCameraMngr->MoveVertical(Player.rigidBody.state.velocity.y);
 
 		}
-	}
-	else
-	{
-		Player.rigidBody.state.slowDown(); //Slows the object
 	}
 	//if the camera is orthographic, move in the positive z axis, if not, move in the negative y axis
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
@@ -117,10 +105,6 @@ void AppClass::ProcessKeyboard(void)
 
 			}
 		}
-	}
-	else
-	{
-		Player.rigidBody.state.slowDown(); //Slows the object
 	}
 #pragma endregion
 
