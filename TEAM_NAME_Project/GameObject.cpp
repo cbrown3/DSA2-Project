@@ -10,7 +10,11 @@ GameObject::GameObject()
 	rigidBody = RigidBody();
 
 #pragma region Josh_McMahan_Additions_April_30th
+<<<<<<< HEAD
 	
+=======
+
+>>>>>>> 685f6bf8cb160c83ed5ab3a5d65797609235ede2
 #pragma endregion
 
 	position = vector3();
@@ -29,6 +33,13 @@ GameObject::GameObject(String filePath, String name)
 
 	rigidBody = RigidBody();
 
+<<<<<<< HEAD
+=======
+#pragma region Josh_McMahan_Additions_April_30th
+
+#pragma endregion
+
+>>>>>>> 685f6bf8cb160c83ed5ab3a5d65797609235ede2
 	position = rigidBody.state.position; //Position is held by the states position
 	size = vector3(1.0f, 1.0f, 1.0f);
 	rotation = vector3();
@@ -45,6 +56,12 @@ GameObject::GameObject(String filePath, String name, vector3 position)
 
 	rigidBody = RigidBody();
 
+<<<<<<< HEAD
+=======
+#pragma region Josh_McMahan_Additions_April_30th
+
+#pragma endregion
+>>>>>>> 685f6bf8cb160c83ed5ab3a5d65797609235ede2
 
 	this->position = position;
 	size = vector3(1.0f, 1.0f, 1.0f);
@@ -107,7 +124,14 @@ void GameObject::calcTransformMatrix()
 void GameObject::Update()
 {
 #pragma region Josh_McMahan_Additions_April_30th
+<<<<<<< HEAD
 	//Removed because it should update every frame anyway in app Controls
+=======
+	//This is for modifying the fancy physics stuff - Josh
+	//All I do is call the two methods with the appropriate forces that are static to this method. They are created locally and will never, ever, leave this scope! EVER!!!!
+	//If you somehow use these s_v3's anywhere else outside of this method you are DOING SOMETHING WRONG!!!!! - Josh
+
+>>>>>>> 685f6bf8cb160c83ed5ab3a5d65797609235ede2
 #pragma endregion
 	calcTransformMatrix();
 	SetMatrix();
