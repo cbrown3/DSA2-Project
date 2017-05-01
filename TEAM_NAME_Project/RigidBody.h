@@ -82,17 +82,17 @@ public:
 		{
 			if (velocity.x > 0)
 			{
-				velocity.x -= 0.01f;
+				velocity.x -= 0.005f;
 			}
 
 			if (velocity.y > 0)
 			{
-				velocity.y -= 0.01f;
+				velocity.y -= 0.005f;
 			}
 
 			if (velocity.z > 0)
 			{
-				velocity.z -= 0.01f;
+				velocity.z -= 0.005f;
 			}
 		};
 	};
