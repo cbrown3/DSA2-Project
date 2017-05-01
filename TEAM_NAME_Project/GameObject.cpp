@@ -56,13 +56,6 @@ GameObject::GameObject(String filePath, String name, vector3 position)
 
 	rigidBody = RigidBody();
 
-<<<<<<< HEAD
-=======
-#pragma region Josh_McMahan_Additions_April_30th
-
-#pragma endregion
->>>>>>> 685f6bf8cb160c83ed5ab3a5d65797609235ede2
-
 	this->position = position;
 	size = vector3(1.0f, 1.0f, 1.0f);
 	rotation = vector3();
