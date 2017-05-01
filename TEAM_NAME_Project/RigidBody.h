@@ -1,5 +1,6 @@
-//PHYSICS by Joshua McMahan
-//ReEngine code from Alberto Bobadilla - included just in case
+//PHYSICS by Joshua McMahan - Literally all of it (Kill Me Plz)
+//very, VERY, lightweight. Should not depend on any external dependecias at all, (Aside from OpenGL)
+//ReEngine code from Alberto Bobadilla - included just in case, but not used at all.
 
 #ifndef __RIGIDBODY_H_
 #define __RIGIDBODY_H_
@@ -63,9 +64,9 @@ public:
 		float inertia; //
 		float inverseInertia; //inverse of the inertia
 
-		void recalculate()
+		void recalculate() //Calculates all, and I mean ALL of the important bits that are used for the dooblydoo. If you don't call this, you better be hard coding this shit somewhere!
 		{
-			velocity = momentum*inverseMass; //calculate velocity
+			velocity = momentum*inverseMass; //calculate velocity. Commented temp.
 
 			angularVelocity = angularMomentum*inverseInertia; //calculate angular velocity
 
@@ -75,6 +76,24 @@ public:
 			glm::quat q(0, angularVelocity.x, angularVelocity.y, angularVelocity.z); //temp quat too store angular velocity as to affect spin
 
 			spin = 0.5f * q * orientation; //calculate spin
+		};
+
+		void slowDown() //Used to slow down the object if no key is pressed. Should run every frame that the object is not at a standstill
+		{
+			if (velocity.x > 0)
+			{
+				velocity.x -= 0.01f;
+			}
+
+			if (velocity.y > 0)
+			{
+				velocity.y -= 0.01f;
+			}
+
+			if (velocity.z > 0)
+			{
+				velocity.z -= 0.01f;
+			}
 		};
 	};
 

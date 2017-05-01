@@ -22,6 +22,9 @@ class MyBoundingBoxClass
 	vector3 m_v3MinG;
 	vector3 m_v3SizeG;
 
+	//Adding a Rigid Body to the bounding box
+	RigidBody m_RB;
+
 private:
 
 	void Release();

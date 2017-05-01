@@ -43,60 +43,137 @@ void AppClass::ProcessKeyboard(void)
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::E))
 		m_pCameraMngr->MoveVertical(fSpeed);
 
-
+#pragma region Joshua_McMahan_Additions_April_30th_TEST_COMMANDS
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
 	{
-		m_v3Position = vector3(-0.1f, 0.0f, 0.0f);
-		m_pCameraMngr->MoveSideways(-0.1f);
-		Player.translate(m_v3Position);
+		m_v3Position = vector3(-0.1f, 0.0f, 0.0f); //Needs to be named that apparantly? 
+		Player.RigidTrans(m_v3Position); //This way it acts as a constant acceleration. Will tweak later for actual stuff
+		m_pCameraMngr->MoveSideways(Player.rigidBody.state.velocity.x); // camera will follow t Player instead of static movement
+	}
+	else
+	{
+		Player.rigidBody.state.slowDown(); //Slows the object
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
 	{
-		m_v3Position = vector3(0.1f, 0.0f, 0.0f);
-		m_pCameraMngr->MoveSideways(0.1f);
-		Player.translate(m_v3Position);
+		m_v3Position = vector3(0.1f, 0.0f, 0.0f); //Needs to be named that apparantly?
+		Player.RigidTrans(m_v3Position); //This way it acts as a constant acceleration. Will tweak later for actual stuff
+		m_pCameraMngr->MoveSideways(Player.rigidBody.state.velocity.x); // camera will follow t Player instead of static movement
+	}
+	else
+	{
+		Player.rigidBody.state.slowDown(); //Slows the object
 	}
 	//if the camera is orthographic, move in the negative z axis, if not, move in the positive y axis
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
 	{
 		if (!bModifier)
 		{
-			m_v3Position = vector3(0.0f, 0.0f, -0.1f);
-			m_pCameraMngr->SetPosition(m_pCameraMngr->GetPosition() + vector3(0.0f, 0.0f, -0.1f), -1);
-			Player.translate(m_v3Position);
+			m_v3Position = vector3(0.0f, 0.0f, -0.1f); //Needs to be named that apparantly?
+			Player.RigidTrans(m_v3Position); //This way it acts as a constant acceleration. Will tweak later for actual stuff
+			m_pCameraMngr->SetPosition(m_pCameraMngr->GetPosition() + Player.rigidBody.state.velocity, -1);// camera will follow t Player instead of static movement
 		}
 		else
 		{
-			m_v3Position = vector3(0.0f, 0.1f, 0.0f);
-			Player.translate(m_v3Position);
-			m_pCameraMngr->MoveVertical(0.1f);
+			m_v3Position = vector3(0.0f, 0.1f, 0.0f); //Needs to be named that apparantly?
+			Player.RigidTrans(m_v3Position); //This way it acts as a constant acceleration. Will tweak later for actual stuff
+			m_pCameraMngr->MoveVertical(Player.rigidBody.state.velocity.y);
 		}
+	}
+	else
+	{
+		Player.rigidBody.state.slowDown(); //Slows the object
 	}
 	//if the camera is orthographic, move in the positive z axis, if not, move in the negative y axis
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
 	{
 		if (!bModifier)
 		{
-			m_v3Position = vector3(0.0f, 0.0f, 0.1f);
-			m_pCameraMngr->SetPosition(m_pCameraMngr->GetPosition() + vector3(0.0f, 0.0f, 0.1f), -1);
-			Player.translate(m_v3Position);
+			m_v3Position = vector3(0.0f, 0.0f, 0.1f); //Needs to be named that apparantly?
+			Player.RigidTrans(m_v3Position); //This way it acts as a constant acceleration. Will tweak later for actual stuff
+			m_pCameraMngr->SetPosition(m_pCameraMngr->GetPosition() + Player.rigidBody.state.velocity, -1);// camera will follow t Player instead of static movement
 		}
 		else
 		{
 			//logic for stopping movement downward, for the ground
 			if (Player.GetPosition().y < 0)
 			{
-				Player.translate(vector3(0.0f, 0.1f, 0.0f));
-				m_pCameraMngr->MoveVertical(0.1f);
+				Player.RigidTrans(vector3(0.0f, 0.1f, 0.0f));
+				m_pCameraMngr->MoveVertical(Player.rigidBody.state.velocity.y);
 			}
 			else
 			{
-				m_v3Position = vector3(0.0f, -0.1f, 0.0f);
-				Player.translate(m_v3Position);
-				m_pCameraMngr->MoveVertical(-0.1f);
+				Player.RigidTrans(vector3(0.0f, -0.1f, 0.0f));
+				m_pCameraMngr->MoveVertical(Player.rigidBody.state.velocity.y);
 			}
 		}
 	}
+	else
+	{
+		Player.rigidBody.state.slowDown(); //Slows the object
+	}
+#pragma endregion
+
+//	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
+//	{
+//		m_v3Position = vector3(-0.1f, 0.0f, 0.0f);
+//		m_pCameraMngr->MoveSideways(-0.1f);
+//		Player.translate(m_v3Position);
+//		Player.rigidBody.state.recalculate();
+//	}
+//	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
+//	{
+//		m_v3Position = vector3(0.1f, 0.0f, 0.0f);
+//		m_pCameraMngr->MoveSideways(0.1f);
+//		Player.translate(m_v3Position);
+//		Player.rigidBody.state.recalculate();
+//	}
+//	//if the camera is orthographic, move in the negative z axis, if not, move in the positive y axis
+//	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
+//	{
+//		if (!bModifier)
+//		{
+//			m_v3Position = vector3(0.0f, 0.0f, -0.1f);
+//			m_pCameraMngr->SetPosition(m_pCameraMngr->GetPosition() + vector3(0.0f, 0.0f, -0.1f), -1);
+//			Player.translate(m_v3Position);
+//			Player.rigidBody.state.recalculate();
+//		}
+//		else
+//		{
+//			m_v3Position = vector3(0.0f, 0.1f, 0.0f);
+//			Player.translate(m_v3Position);
+//			m_pCameraMngr->MoveVertical(0.1f);
+//			Player.rigidBody.state.recalculate();
+//		}
+//	}
+//	//if the camera is orthographic, move in the positive z axis, if not, move in the negative y axis
+//	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
+//	{
+//		if (!bModifier)
+//		{
+//			m_v3Position = vector3(0.0f, 0.0f, 0.1f);
+//			m_pCameraMngr->SetPosition(m_pCameraMngr->GetPosition() + vector3(0.0f, 0.0f, 0.1f), -1);
+//			Player.translate(m_v3Position);
+//			Player.rigidBody.state.recalculate();
+//		}
+//		else
+//		{
+//			//logic for stopping movement downward, for the ground
+//			if (Player.GetPosition().y < 0)
+//			{
+//				Player.translate(vector3(0.0f, 0.1f, 0.0f));
+//				Player.rigidBody.state.recalculate();
+//				m_pCameraMngr->MoveVertical(0.1f);
+//			}
+//			else
+//			{
+//				m_v3Position = vector3(0.0f, -0.1f, 0.0f);
+//				Player.translate(m_v3Position);
+//				Player.rigidBody.state.recalculate();
+//				m_pCameraMngr->MoveVertical(-0.1f);
+//			}
+//		}
+//	}
 #pragma endregion
 
 #pragma region Other Actions

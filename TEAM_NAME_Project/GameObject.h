@@ -10,7 +10,6 @@ class GameObject
 	String name;
 	String filePath;
 	MyBoundingBoxClass* collider;
-	RigidBody rigidBody;
 	
 	vector3 position;
 	vector3 size;
@@ -18,6 +17,14 @@ class GameObject
 	matrix4 transformMatrix;
 
 public:
+	RigidBody rigidBody;
+#pragma region Josh_McMahan_Additions_April_30th
+	//Creation of the static in scope variables. Ala the forces
+	static glm::vec3 s_v3PhysTransVec;
+	static glm::vec3 s_v3PhysRotVec;
+	glm::vec3 m_v3Vel;
+#pragma endregion
+
 	GameObject();
 	GameObject(String filePath, String name);
 	GameObject(String filePath, String name, vector3 position);
@@ -25,6 +32,13 @@ public:
 	void translate(vector3 translation);
 	void scale(vector3 size);
 	void rotate(vector3 rotation);
+
+#pragma region Josh_McMahan_Additions_April_30th
+	//Stuff for physics
+	void RigidTrans(vector3 ForceArg);
+	void RigidRotate(vector3 RotationArg);
+#pragma endregion
+
 	void calcTransformMatrix(); //calculate transform matrix based on pos and rot
 
 	void Update(); //for physics
