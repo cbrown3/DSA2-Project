@@ -1,0 +1,27 @@
+newmtl ninja1:color
+illum 4
+Kd 0.00 0.00 0.00
+Ka 0.20 0.20 0.20
+Tf 1.00 1.00 1.00
+map_Kd ninjyakarada_alb.0.png
+Ni 1.00
+Ks 0.00 0.00 0.00
+Ns 0.00
+newmtl ninja1:eye
+illum 4
+Kd 0.00 0.00 0.00
+Ka 0.20 0.20 0.20
+Tf 1.00 1.00 1.00
+map_Kd ninjyaeye_alb.png
+Ni 1.00
+Ks 0.00 0.00 0.00
+Ns 0.00
+newmtl ninja1:head
+illum 4
+Kd 0.00 0.00 0.00
+Ka 0.20 0.20 0.20
+Tf 1.00 1.00 1.00
+map_Kd ninjyazukin_alb.0.png
+Ni 1.00
+Ks 0.00 0.00 0.00
+Ns 0.00

@@ -10,14 +10,14 @@ void AppClass::InitVariables(void)
 	m_pCameraMngr->SetCameraMode(CAMPERSP);
 	m_pCameraMngr->MoveVertical(4.0, -1);
 	//Load a model onto the Mesh manager
-	m_pMeshMngr->LoadModel("ninja.obj", "Ninja");
+	m_pMeshMngr->LoadModel("ninja.fbx", "Ninja");
 	m_pMeshMngr->LoadModel("substitute.fbx", "Substitute");
 	m_pMeshMngr->LoadModel("Minecraft\\Cow.bto", "Cow");
 	m_pMeshMngr->LoadModel("Chess\\pawn(orange).obj", "Pawn");
 	m_pMeshMngr->LoadModel("gym.fbx", "World");
 
 	/*GAMEOBJECT SYSTEM*/
-	Player = GameObject("ninja.obj", "Main");
+	Player = GameObject("ninja.fbx", "Main");
 	World = GameObject("world.fbx", "World");
 	Cow = GameObject("Minecraft\\Cow.bto", "Cow", vector3(2.5f, 0.0f, 0.0f));
 
@@ -50,7 +50,7 @@ void AppClass::Update(void)
 	//if the current model is the sword, make the main/placeholder model equal the correct model being selected.
 	if (currentModel == "Ninja")
 	{
-		Player = GameObject("ninja.obj", "Ninja", Player.GetPosition());
+		Player = GameObject("ninja.fbx", "Ninja", Player.GetPosition());
 	}
 	else if (currentModel == "Substitute")
 	{
