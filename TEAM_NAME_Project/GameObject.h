@@ -18,12 +18,6 @@ class GameObject
 
 public:
 	RigidBody rigidBody;
-#pragma region Josh_McMahan_Additions_April_30th
-	//Creation of the static in scope variables. Ala the forces
-	static glm::vec3 s_v3PhysTransVec;
-	static glm::vec3 s_v3PhysRotVec;
-	glm::vec3 m_v3Vel;
-#pragma endregion
 
 	GameObject();
 	GameObject(String filePath, String name);
