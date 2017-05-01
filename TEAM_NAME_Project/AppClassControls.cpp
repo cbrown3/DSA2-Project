@@ -59,6 +59,7 @@ void AppClass::ProcessKeyboard(void)
 		m_v3Position = vector3(0.1f, 0.0f, 0.0f); //Needs to be named that apparantly?
 		Player.RigidTrans(m_v3Position); //This way it acts as a constant acceleration. Will tweak later for actual stuff
 		//m_pCameraMngr->MoveSideways(Player.rigidBody.state.velocity.x); // camera will follow t Player instead of static movement
+
 	}
 	else
 	{
@@ -72,12 +73,15 @@ void AppClass::ProcessKeyboard(void)
 			m_v3Position = vector3(0.0f, 0.0f, -0.1f); //Needs to be named that apparantly?
 			Player.RigidTrans(m_v3Position); //This way it acts as a constant acceleration. Will tweak later for actual stuff
 			//m_pCameraMngr->SetPosition(m_pCameraMngr->GetPosition() + Player.rigidBody.state.velocity, -1);// camera will follow t Player instead of static movement
+
 		}
 		else
 		{
 			m_v3Position = vector3(0.0f, 0.1f, 0.0f); //Needs to be named that apparantly?
 			Player.RigidTrans(m_v3Position); //This way it acts as a constant acceleration. Will tweak later for actual stuff
+
 			//m_pCameraMngr->MoveVertical(Player.rigidBody.state.velocity.y);
+
 		}
 	}
 	else
@@ -91,7 +95,9 @@ void AppClass::ProcessKeyboard(void)
 		{
 			m_v3Position = vector3(0.0f, 0.0f, 0.1f); //Needs to be named that apparantly?
 			Player.RigidTrans(m_v3Position); //This way it acts as a constant acceleration. Will tweak later for actual stuff
+
 			//m_pCameraMngr->SetPosition(m_pCameraMngr->GetPosition() + Player.rigidBody.state.velocity, -1);// camera will follow t Player instead of static movement
+
 		}
 		else
 		{
@@ -99,12 +105,16 @@ void AppClass::ProcessKeyboard(void)
 			if (Player.GetPosition().y < 0)
 			{
 				Player.RigidTrans(vector3(0.0f, 0.1f, 0.0f));
+
 				//m_pCameraMngr->MoveVertical(Player.rigidBody.state.velocity.y);
+
 			}
 			else
 			{
 				Player.RigidTrans(vector3(0.0f, -0.1f, 0.0f));
+
 				//m_pCameraMngr->MoveVertical(Player.rigidBody.state.velocity.y);
+
 			}
 		}
 	}

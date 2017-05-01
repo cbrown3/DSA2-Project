@@ -9,10 +9,6 @@ GameObject::GameObject()
 
 	rigidBody = RigidBody();
 
-#pragma region Josh_McMahan_Additions_April_30th
-
-#pragma endregion
-
 	position = vector3();
 	size = vector3(1.0f, 1.0f, 1.0f);
 	rotation = vector3();
@@ -29,10 +25,6 @@ GameObject::GameObject(String filePath, String name)
 
 	rigidBody = RigidBody();
 
-#pragma region Josh_McMahan_Additions_April_30th
-
-#pragma endregion
-
 	position = rigidBody.state.position; //Position is held by the states position
 	size = vector3(1.0f, 1.0f, 1.0f);
 	rotation = vector3();
@@ -48,10 +40,6 @@ GameObject::GameObject(String filePath, String name, vector3 position)
 	collider = new MyBoundingBoxClass(m_pMeshMngr->GetVertexList(name));
 
 	rigidBody = RigidBody();
-
-#pragma region Josh_McMahan_Additions_April_30th
-
-#pragma endregion
 
 	this->position = position;
 	size = vector3(1.0f, 1.0f, 1.0f);
@@ -113,12 +101,6 @@ void GameObject::calcTransformMatrix()
 
 void GameObject::Update()
 {
-#pragma region Josh_McMahan_Additions_April_30th
-	//This is for modifying the fancy physics stuff - Josh
-	//All I do is call the two methods with the appropriate forces that are static to this method. They are created locally and will never, ever, leave this scope! EVER!!!!
-	//If you somehow use these s_v3's anywhere else outside of this method you are DOING SOMETHING WRONG!!!!! - Josh
-
-#pragma endregion
 	calcTransformMatrix();
 	SetMatrix();
 }
