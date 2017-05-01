@@ -64,7 +64,7 @@ GameObject::GameObject(String filePath, String name, vector3 position)
 
 void GameObject::translate(vector3 translation)
 {
-	position += translation;
+	rigidBody.state.position += translation;
 }
 
 void GameObject::scale(vector3 scale)
@@ -90,7 +90,7 @@ void GameObject::RigidTrans(vector3 ForceArg) //Takes in a force and applies it 
 void GameObject::RigidRotate(vector3 RotationArg) //Takes in a Roation arg that is essentially a force and applies it to the object's orientation. Need to be better by affecting inertia and such. - Josh
 {
 	rigidBody.state.angularVelocity += RotationArg; //Fix to make better later - Josh (MAKE A QUAT LATER PLZ)
-	rotate(glm::vec3(rigidBody.state.orientation));
+	rotate(glm::vec3(rigidBody.state.orientation.x, rigidBody.state.orientation.y, rigidBody.state.orientation.z));
 }
 #pragma endregion
 
