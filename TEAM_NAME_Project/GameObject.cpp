@@ -10,8 +10,7 @@ GameObject::GameObject()
 	rigidBody = RigidBody();
 
 #pragma region Josh_McMahan_Additions_April_30th
-	s_v3PhysTransVec = glm::vec3();
-	s_v3PhysRotVec = glm::vec3();
+
 #pragma endregion
 
 	position = vector3();
@@ -31,8 +30,7 @@ GameObject::GameObject(String filePath, String name)
 	rigidBody = RigidBody();
 
 #pragma region Josh_McMahan_Additions_April_30th
-	s_v3PhysTransVec = glm::vec3();
-	s_v3PhysRotVec = glm::vec3();
+
 #pragma endregion
 
 	position = rigidBody.state.position; //Position is held by the states position
@@ -52,8 +50,7 @@ GameObject::GameObject(String filePath, String name, vector3 position)
 	rigidBody = RigidBody();
 
 #pragma region Josh_McMahan_Additions_April_30th
-	s_v3PhysTransVec = glm::vec3();
-	s_v3PhysRotVec = glm::vec3();
+
 #pragma endregion
 
 	this->position = position;
@@ -120,8 +117,7 @@ void GameObject::Update()
 	//This is for modifying the fancy physics stuff - Josh
 	//All I do is call the two methods with the appropriate forces that are static to this method. They are created locally and will never, ever, leave this scope! EVER!!!!
 	//If you somehow use these s_v3's anywhere else outside of this method you are DOING SOMETHING WRONG!!!!! - Josh
-	RigidTrans(s_v3PhysTransVec);
-	RigidRotate(s_v3PhysRotVec);
+
 #pragma endregion
 	calcTransformMatrix();
 	SetMatrix();
