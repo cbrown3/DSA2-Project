@@ -71,6 +71,14 @@ void GameObject::RigidTrans(vector3 ForceArg) //Takes in a force and applies it 
 {
 	rigidBody.state.velocity += ForceArg; //Ugh, should be affecting the momentum - Josh
 	translate(rigidBody.state.velocity);
+#pragma region Michael_Additions_May_4th
+	if (position.x >= 20.0f) position.x = 20.0f; //Upper limit for the model's x-position.
+	if (position.y >= 20.0f) position.y = 20.0f; //Upper limit for the model's y-position.
+	if (position.z >= 20.0f) position.z = 20.0f; //Upper limit for the model's z-position.
+	if (position.x <= -20.0f) position.x = -20.0f; //Lower limit for the model's x-position.
+	if (position.y <= -20.0f) position.y = -20.0f; //Lower limit for the model's y-position.
+	if (position.z <= -20.0f) position.z = -20.0f; //Lower limit for the model's z-position.
+#pragma endregion
 }
 
 void GameObject::RigidRotate(vector3 RotationArg) //Takes in a Roation arg that is essentially a force and applies it to the object's orientation. Need to be better by affecting inertia and such. - Josh
