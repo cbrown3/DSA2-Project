@@ -90,3 +90,38 @@ void AppClass::Release(void)
 	SafeDelete(m_pRoot);
 	super::Release(); //release the memory of the inherited fields
 }
+
+
+void getModels(ModelManagerSingleton* m_pMeshMngr) {
+
+	int numModels = m_pMeshMngr->GetInstanceCount();
+	for (int i = 0; i < numModels; i++) {
+		InstanceClass* model = m_pMeshMngr->GetInstanceByIndex(i);
+
+		//do whatever needs to be done with model here
+
+	}
+
+}
+
+//test node class
+struct Node {
+	Node* parent;
+	Node* children[8];
+
+	Node() {};
+};
+
+//visit all nodes in the tree
+void traverse(Node* root) {
+
+	//do whatever code needs to be done here
+
+	//check if at end of branch
+	if (root->children == nullptr) return;
+
+	//else check all children
+	for (int i = 0; i < 8; i++) {
+		traverse(root->children[i]);
+	}
+}
