@@ -1,14 +1,6 @@
 #include "OcTreeClass.h"
 
 
-OcTreeClass::OcTreeClass(uint a_nMaxLevel, uint a_nIdealBOCount)
-{
-}
-
-OcTreeClass::OcTreeClass(vector3 a_v3Center, float a_fSize)
-{
-}
-
 OcTreeClass::OcTreeClass(OcTreeClass const & other)
 {
 }
@@ -18,107 +10,88 @@ OcTreeClass & OcTreeClass::operator=(OcTreeClass const & other)
 	// TODO: insert return statement here
 }
 
+OcTreeClass::OcTreeClass()
+{
+}
+
+OcTreeClass::OcTreeClass(std::vector<Node*> parents)
+{
+}
+
+OcTreeClass::OcTreeClass(std::vector<Node*> parents, std::vector<Node*> children)
+{
+}
+
 OcTreeClass::~OcTreeClass()
 {
 }
 
-void OcTreeClass::Swap(OcTreeClass & other)
+void OcTreeClass::ToggleVisibility()
 {
 }
 
-float OcTreeClass::GetSize(void)
+void OcTreeClass::Recalculate()
 {
-	return 0.0f;
 }
 
-vector3 OcTreeClass::GetCenterGlobal(void)
+vector3 OcTreeClass::GetOctantMin()
 {
 	return vector3();
 }
 
-vector3 OcTreeClass::GetMinGlobal(void)
+vector3 OcTreeClass::GetOctantMax()
 {
 	return vector3();
 }
 
-vector3 OcTreeClass::GetMaxGlobal(void)
+vector3 OcTreeClass::GetOctantCenter()
 {
 	return vector3();
-}
-
-bool OcTreeClass::IsColliding(uint a_nBOIndex)
-{
-	return false;
-}
-
-void OcTreeClass::Display(uint a_nIndex, vector3 a_v3Color)
-{
 }
 
 void OcTreeClass::Display(vector3 a_v3Color)
 {
 }
 
-void OcTreeClass::DisplayLeafs(vector3 a_v3Color)
-{
-}
-
-void OcTreeClass::ClearBOList(void)
-{
-}
-
-void OcTreeClass::Subdivide(void)
-{
-}
-
-OcTreeClass * OcTreeClass::GetChild(uint a_nChild)
-{
-	return nullptr;
-}
-
-OcTreeClass * OcTreeClass::GetParent(void)
-{
-	return nullptr;
-}
-
-bool OcTreeClass::IsLeaf(void)
+bool OcTreeClass::IsColliding(std::vector<Node*> nodeList)
 {
 	return false;
 }
 
-bool OcTreeClass::ContainsMoreThan(uint a_nBOs)
-{
-	return false;
-}
-
-void OcTreeClass::KillBranches(void)
+void OcTreeClass::ClearBOList()
 {
 }
 
-void OcTreeClass::ConstructTree(uint a_nMaxLevel)
+Node* OcTreeClass::GetChild(uint a_nChild)
+{
+	return nullptr;
+}
+
+OcTreeClass * OcTreeClass::GetSelf()
+{
+	return this;
+}
+
+void OcTreeClass::KillBranches()
 {
 }
 
-void OcTreeClass::AssignIDtoBO(void)
+void OcTreeClass::AssignIDtoBO()
 {
 }
 
-void OcTreeClass::CheckCollisions(int a_nBODisplay)
+void OcTreeClass::CheckCollisions(bool showCollision)
 {
 }
 
-void OcTreeClass::Release(void)
+void OcTreeClass::Release()
 {
 }
 
-void OcTreeClass::Init(void)
+void OcTreeClass::Init()
 {
 }
 
-void OcTreeClass::TraverseForCollisions(int a_nBODisplay)
-{
-}
-
-void OcTreeClass::ConstructList(void)
+void OcTreeClass::TraverseForCollisions(bool showCollision)
 {
 }
