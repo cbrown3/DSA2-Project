@@ -8,6 +8,8 @@ Date: 2015/09 (Last Modified on: 15/11)
 #include "RE\ReEngAppClass.h"
 #include <SFML\Graphics.hpp>
 
+#include "OcTreeClass.h"
+
 using namespace ReEng; //Using ReEng namespace to use all the classes in the dll
 
 class AppClass : public ReEngAppClass
@@ -18,6 +20,8 @@ class AppClass : public ReEngAppClass
 	vector3 m_v3ClickedOn = ZERO_V3;
 	matrix4 m_m4Camera;
 	OctantClass* m_pRoot;
+	OcTreeClass* m_octree;
+
 public:
 	typedef ReEngAppClass super;
 

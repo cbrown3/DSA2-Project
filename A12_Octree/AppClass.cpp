@@ -9,7 +9,7 @@ void AppClass::InitVariables(void)
 	//Set the camera at a position other than the default
 	m_pCameraMngr->SetPositionTargetAndView(vector3(0.0f, 2.5f, 150.0f), vector3(0.0f, 2.5f, 11.0f), REAXISY);
 
-	m_nInstances = 3500;
+	m_nInstances = 2500;
 	int nSquare = static_cast<int>(std::sqrt(m_nInstances));
 	m_nInstances = nSquare * nSquare;
 	for (int i = 0; i < nSquare; i++)
@@ -24,10 +24,12 @@ void AppClass::InitVariables(void)
 	}
 
 	//for (int n = 0; n < 25; n++)
-	//	m_pMeshMngr->LoadModel("Minecraft\\Steve.ato", "Plane", false, glm::translate(vector3(-n, -n, 0)));
+	//m_pMeshMngr->LoadModel("Minecraft\\Steve.ato", "Plane", false, glm::translate(vector3(-n, -n, 0)));
 
 	SafeDelete(m_pRoot);
 	m_pRoot = new OctantClass(3, 3);
+
+
 	
 	m_v3ClickedOn = ZERO_V3;
 }
