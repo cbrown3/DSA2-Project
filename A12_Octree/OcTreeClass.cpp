@@ -1,12 +1,6 @@
 #include "OcTreeClass.h"
 
 
-
-OcTreeClass::OcTreeClass()
-{
-}
-
-
 OcTreeClass::OcTreeClass(uint a_nMaxLevel, uint a_nIdealBOCount)
 {
 }

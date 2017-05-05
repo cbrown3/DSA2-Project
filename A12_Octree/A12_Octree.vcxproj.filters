@@ -13,6 +13,7 @@
     <ClCompile Include="OcTreeClass.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Node.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AppClass.h">
@@ -24,6 +25,7 @@
     <ClInclude Include="OcTreeClass.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Node.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Source Files">
