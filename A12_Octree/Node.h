@@ -16,13 +16,25 @@ class Node
 public:
 
 	//creates node from center
-	Node(vector3 a_center);
+	Node(vector3 a_parentMin, vector3 a_parentMax, vector3 a_center);
 
 	//sets center of node
-	void setCenter();
+	void setCenter(vector3 a_center);
+
+	//sets max of node
+	void setMax(vector3 a_max);
+
+	//sets min of node
+	void setMin(vector3 a_min);
 
 	//gets center of node
 	vector3 getCenter();
+
+	//gets min of node
+	vector3 getMin();
+
+	//gets max of node
+	vector3 getMax();
 
 	//set the children nodes
 	void setChildren(Node* nodes);
