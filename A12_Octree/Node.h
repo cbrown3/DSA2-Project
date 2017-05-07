@@ -1,13 +1,15 @@
 #pragma once
 
 #include "RE\ReEngAppClass.h"
+using std::vector;
 
 class Node
 {
+	Node* parent;
+	vector<Node*> children; //children nodes
 
-	std::vector<Node*> children; //children nodes
-
-	std::vector<String*> modelList; //list of names of all models in node
+	vector<String*> modelList; //list of names of all models in node
+	BOManagerSingleton* m_pBomMngr;
 
 	vector3 nodeCenter;
 	vector3 nodeMin;
