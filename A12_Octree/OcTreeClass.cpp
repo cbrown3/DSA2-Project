@@ -68,7 +68,14 @@ void OcTreeClass::Display(vector3 a_v3Color) //Josh
 {
 	if (m_bVisible)
 	{
-		m_MeshMngr->AddCubeToRenderList(matrix4(), a_v3Color, WIRE);
+		for (int i = 0; i < m_m4OctantList.size; i++)
+		{
+			m_MeshMngr->AddCubeToRenderList(m_m4OctantList[i], a_v3Color, WIRE);
+		}
+	}
+	if (!m_bVisible)
+	{
+		m_MeshMngr->ClearRenderList(); //Not what is needed, but clears everything. Need to clear one thing at a time.
 	}
 }
 
