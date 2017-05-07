@@ -16,6 +16,11 @@ class OcTreeClass
 	vector3 octantMax;
 	vector3 octantCenter;
 
+#pragma region Josh_Additions
+	bool m_bVisible;
+	glm::mat4 m_m4OctantList[32];
+#pragma endregion
+
 public:
 
 	OcTreeClass();

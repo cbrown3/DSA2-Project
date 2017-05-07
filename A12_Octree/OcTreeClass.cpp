@@ -16,6 +16,13 @@ OcTreeClass::OcTreeClass()
 
 OcTreeClass::OcTreeClass(std::vector<Node*> parents)
 {
+	//Extra Code that needs added.
+	for (int i = 0; i < m_m4OctantList.size; i++)
+	{
+		//Commented out, theory code glm::mat4 baseMat = glm::translate(GetChild(i)->getCenter()) * glm::scale(vector3(1,1,1) * 2.0f); 
+
+		//Commented out, theory code m_m4OctantList[i] = baseMat;
+	}
 }
 
 OcTreeClass::OcTreeClass(std::vector<Node*> parents, std::vector<Node*> children)
@@ -26,31 +33,43 @@ OcTreeClass::~OcTreeClass()
 {
 }
 
-void OcTreeClass::ToggleVisibility()
+void OcTreeClass::ToggleVisibility() //Josh
 {
+	if (m_bVisible)
+	{
+		m_bVisible = false;
+	}
+	if (!m_bVisible)
+	{
+		m_bVisible = true;
+	}
 }
 
 void OcTreeClass::Recalculate()
 {
 }
 
-vector3 OcTreeClass::GetOctantMin()
+vector3 OcTreeClass::GetOctantMin() //Josh
 {
-	return vector3();
+	return octantMin;
 }
 
-vector3 OcTreeClass::GetOctantMax()
+vector3 OcTreeClass::GetOctantMax() //Josh
 {
-	return vector3();
+	return octantMax;
 }
 
-vector3 OcTreeClass::GetOctantCenter()
+vector3 OcTreeClass::GetOctantCenter() //Josh
 {
-	return vector3();
+	return octantCenter;
 }
 
-void OcTreeClass::Display(vector3 a_v3Color)
+void OcTreeClass::Display(vector3 a_v3Color) //Josh
 {
+	if (m_bVisible)
+	{
+		m_MeshMngr->AddCubeToRenderList(matrix4(), a_v3Color, WIRE);
+	}
 }
 
 bool OcTreeClass::IsColliding(std::vector<Node*> nodeList)
@@ -62,9 +81,9 @@ void OcTreeClass::ClearBOList()
 {
 }
 
-Node* OcTreeClass::GetChild(uint a_nChild)
+Node* OcTreeClass::GetChild(uint a_nChild) //Josh
 {
-	return nullptr;
+	return childrenNodes[a_nChild];
 }
 
 OcTreeClass * OcTreeClass::GetSelf()
