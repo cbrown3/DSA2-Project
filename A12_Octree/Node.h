@@ -29,6 +29,8 @@ public:
 	//sets min of node
 	void setMin(vector3 a_min);
 
+	Node(vector3 a_center);
+
 	//gets center of node
 	vector3 getCenter();
 
@@ -40,6 +42,8 @@ public:
 
 	//set the children nodes
 	void setChildren(Node* nodes);
+
+	void addChild(Node * node);
 
 	void updateModelList();
 

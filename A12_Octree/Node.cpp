@@ -40,6 +40,15 @@ void Node::setMin(vector3 a_min)
 	nodeMin = a_min;
 }
 
+Node::Node(vector3 a_center)
+{
+}
+
+void Node::setCenter(vector3 center)
+{
+	nodeCenter = center;
+}
+
 vector3 Node::getCenter()
 {
 	return nodeCenter;
