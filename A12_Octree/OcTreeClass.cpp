@@ -24,17 +24,19 @@ OcTreeClass::OcTreeClass()
 	idList = std::vector<int>();
 
 	octreeNode = new Node();
+
+	for (int i = 0; i < m_m4OctantList.size; i++)
+	{
+		glm::mat4 baseMat = glm::translate(GetChild(i)->getCenter()) * glm::scale(vector3(1,1,1) * 2.0f); 
+
+		m_m4OctantList[i] = baseMat;
+	}
 }
 
 OcTreeClass::OcTreeClass(std::vector<Node*> parents)
 {
 	//Extra Code that needs added.
-	for (int i = 0; i < m_m4OctantList.size; i++)
-	{
-		//Commented out, theory code glm::mat4 baseMat = glm::translate(GetChild(i)->getCenter()) * glm::scale(vector3(1,1,1) * 2.0f); 
-
-		//Commented out, theory code m_m4OctantList[i] = baseMat;
-	}
+	
 }
 
 OcTreeClass::OcTreeClass(std::vector<Node*> parents, std::vector<Node*> children)
@@ -83,12 +85,12 @@ void OcTreeClass::Display(vector3 a_v3Color) //Josh
 	{
 		for (int i = 0; i < m_m4OctantList.size; i++)
 		{
-			m_MeshMngr->AddCubeToRenderList(m_m4OctantList[i], a_v3Color, WIRE);
+			m_pMeshMngr->AddCubeToRenderList(m_m4OctantList[i], a_v3Color, WIRE);
 		}
 	}
 	if (!m_bVisible)
 	{
-		m_MeshMngr->ClearRenderList(); //Not what is needed, but clears everything. Need to clear one thing at a time.
+		m_pMeshMngr->ClearRenderList(); //Not what is needed, but clears everything. Need to clear one thing at a time.
 	}
 }
 
@@ -101,14 +103,11 @@ void OcTreeClass::ClearBOList()
 {
 }
 
-<<<<<<< HEAD
-=======
 Node* OcTreeClass::GetChild(uint a_nChild) //Josh
 {
 	return childrenNodes[a_nChild];
 }
 
->>>>>>> origin/master
 OcTreeClass * OcTreeClass::GetSelf()
 {
 	return this;

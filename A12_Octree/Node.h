@@ -4,12 +4,10 @@
 
 class Node
 {
-	Node* parent; //parent node
-	Node* children; //children nodes
 
-	String* modelList; //list of names of all models in node
-	int modelCount; //ammount of models in node
-	int nodeId;
+	std::vector<Node*> children; //children nodes
+
+	std::vector<String*> modelList; //list of names of all models in node
 
 	vector3 nodeCenter;
 	vector3 nodeMin;
@@ -17,23 +15,19 @@ class Node
 
 public:
 
-	//constructors
-	Node();
-
+	//creates node from center
 	Node(vector3 a_center);
 
+	//sets center of node
 	void setCenter();
 
-	//set the parent node
-	void setParent(Node* parent);
+	//gets center of node
+	vector3 getCenter();
 
 	//set the children nodes
 	void setChildren(Node* nodes);
 
 	void updateModelList();
-
-	//get current number of models in node
-	int getModelCount();
 
 	//check if node has children
 	bool hasChildren();

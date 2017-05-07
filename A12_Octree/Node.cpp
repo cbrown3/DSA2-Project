@@ -1,36 +1,36 @@
 #include "Node.h"
 
 
-
-Node::Node()
-{
-	parent = nullptr;
-	children = nullptr;
-	modelList = nullptr;
-	modelCount = 0;
-}
-
 Node::~Node()
 {
-	SafeDelete(parent);
-	delete[] children;
+	for (int i = 0; i < children.size; i++)
+	{
+		delete children[i];
+	}
+
+	for (int i = 0; i < modelList.size; i++)
+	{
+		delete modelList[i];
+	}
 }
 
 Node::Node(vector3 a_center)
 {
+	children = std::vector<Node*>();
+	modelList = std::vector<String*>();
+
+	nodeCenter = vector3(0, 0, 0);
+	nodeCenter = vector3(0, 0, 0);
+	nodeCenter = vector3(0, 0, 0);
 }
 
 void Node::setCenter()
 {
 }
 
-void Node::setParent(Node * parent)
+vector3 Node::getCenter()
 {
-	if (this->parent != nullptr) {
-		delete this->parent;
-		this->parent = parent;
-	}
-	else this->parent = parent;
+	return nodeCenter;
 }
 
 void Node::setChildren(Node * nodes)
@@ -44,11 +44,6 @@ void Node::setChildren(Node * nodes)
 
 void Node::updateModelList()
 {
-}
-
-int Node::getModelCount()
-{
-	return modelCount;
 }
 
 bool Node::hasChildren()

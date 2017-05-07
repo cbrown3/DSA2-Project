@@ -15,14 +15,12 @@ class OcTreeClass
 	vector3 octantMax;
 	vector3 octantCenter;
 
-<<<<<<< HEAD
 	Node* octreeNode;
-=======
+
 #pragma region Josh_Additions
 	bool m_bVisible;
-	glm::mat4 m_m4OctantList[32];
+	std::vector<glm::mat4> m_m4OctantList;
 #pragma endregion
->>>>>>> origin/master
 
 public:
 
@@ -63,8 +61,6 @@ private:
 	void ClearBOList();
 
 	void KillBranches();
-
-	void AssignIDtoBO();
 
 	void CheckCollisions(bool showCollision);
 };
