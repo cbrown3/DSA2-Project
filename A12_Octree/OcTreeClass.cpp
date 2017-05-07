@@ -23,7 +23,7 @@ OcTreeClass::OcTreeClass()
 
 	idList = std::vector<int>();
 
-	octreeNode = new Node(vector3(0,0,0));
+	octreeNode = new Node(vector3(0, 0, 0), vector3(0, 0, 0), vector3(0, 0, 0));
 
 	for (int i = 0; i < m_m4OctantList.size; i++)
 	{
@@ -130,10 +130,6 @@ void OcTreeClass::Release() //Michael's code
 	delete octreeNode;
 	m_pBOMngr->ReleaseInstance();
 	m_pMeshMngr->ReleaseInstance();
-}
-
-void OcTreeClass::Init()
-{
 }
 
 void OcTreeClass::TraverseForCollisions(bool showCollision)
