@@ -1,15 +1,15 @@
 #pragma once
 
 #include "RE\ReEngAppClass.h"
+using std::vector;
 
 class Node
 {
-	Node* parent; //parent node
-	Node* children; //children nodes
+	Node* parent;
+	vector<Node*> children; //children nodes
 
-	String* modelList; //list of names of all models in node
-	int modelCount; //ammount of models in node
-	int nodeId;
+	vector<String*> modelList; //list of names of all models in node
+	BOManagerSingleton* m_pBomMngr;
 
 	vector3 nodeCenter;
 	vector3 nodeMin;
@@ -17,23 +17,35 @@ class Node
 
 public:
 
-	//constructors
-	Node();
+	//creates node from center
+	Node(vector3 a_parentMin, vector3 a_parentMax, vector3 a_center);
+
+	//sets center of node
+	void setCenter(vector3 a_center);
+
+	//sets max of node
+	void setMax(vector3 a_max);
+
+	//sets min of node
+	void setMin(vector3 a_min);
 
 	Node(vector3 a_center);
 
-	void setCenter();
+	//gets center of node
+	vector3 getCenter();
 
-	//set the parent node
-	void setParent(Node* parent);
+	//gets min of node
+	vector3 getMin();
+
+	//gets max of node
+	vector3 getMax();
 
 	//set the children nodes
 	void setChildren(Node* nodes);
 
-	void updateModelList();
+	void addChild(Node * node);
 
-	//get current number of models in node
-	int getModelCount();
+	void updateModelList();
 
 	//check if node has children
 	bool hasChildren();

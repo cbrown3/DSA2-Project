@@ -19,8 +19,12 @@ class OcTreeClass
 
 #pragma region Josh_Additions
 	bool m_bVisible;
+<<<<<<< HEAD
 	std::vector<glm::mat4> m_m4OctantList[32];
 	std::vector<glm::vec3> m_v3PointList = std::vector<glm::vec3>();
+=======
+	std::vector<glm::mat4> m_m4OctantList;
+>>>>>>> 0b6f4cbdd63f02bab61a22aa45e30abec27476d8
 #pragma endregion
 
 public:
@@ -34,8 +38,6 @@ public:
 	~OcTreeClass();
 
 private:
-
-	void Init();
 
 	void TraverseForCollisions(bool showCollision);
 
@@ -61,9 +63,7 @@ private:
 
 	void ClearBOList();
 
-	void KillBranches();
-
-	void AssignIDtoBO();
+	void KillBranches(Node* target);
 
 	void CheckCollisions(bool showCollision);
 };

@@ -23,18 +23,27 @@ OcTreeClass::OcTreeClass()
 
 	idList = std::vector<int>();
 
-	octreeNode = new Node();
+	octreeNode = new Node(vector3(0, 0, 0), vector3(0, 0, 0), vector3(0, 0, 0));
+
+<<<<<<< HEAD
+OcTreeClass::OcTreeClass(std::vector<Node*> parents)
+{
+	//Extra Code that needs added.
+	for (int i = 0; i < m_m4OctantList->size(); i++)
+=======
+	for (int i = 0; i < m_m4OctantList.size; i++)
+>>>>>>> 0b6f4cbdd63f02bab61a22aa45e30abec27476d8
+	{
+		glm::mat4 baseMat = glm::translate(GetChild(i)->getCenter()) * glm::scale(vector3(1,1,1) * 2.0f); 
+
+		m_m4OctantList[i] = baseMat;
+	}
 }
 
 OcTreeClass::OcTreeClass(std::vector<Node*> parents)
 {
 	//Extra Code that needs added.
-	for (int i = 0; i < m_m4OctantList->size(); i++)
-	{
-		//Commented out, theory code glm::mat4 baseMat = glm::translate(GetChild(i)->getCenter()) * glm::scale(vector3(1,1,1) * 2.0f); 
-
-		//Commented out, theory code m_m4OctantList[i] = baseMat;
-	}
+	
 }
 
 OcTreeClass::OcTreeClass(std::vector<Node*> parents, std::vector<Node*> children)
@@ -91,7 +100,11 @@ void OcTreeClass::Display(vector3 a_v3Color) //Josh
 	{
 		for (int i = 0; i < m_m4OctantList->size(); i++)
 		{
+<<<<<<< HEAD
 			m_pMeshMngr->AddCubeToRenderList(m_m4OctantList->at(i), a_v3Color, WIRE);
+=======
+			m_pMeshMngr->AddCubeToRenderList(m_m4OctantList[i], a_v3Color, WIRE);
+>>>>>>> 0b6f4cbdd63f02bab61a22aa45e30abec27476d8
 		}
 	}
 	if (!m_bVisible)
@@ -119,20 +132,23 @@ OcTreeClass * OcTreeClass::GetSelf()
 	return this;
 }
 
-void OcTreeClass::KillBranches()
+void OcTreeClass::KillBranches(Node* target)
 {
+	target->setChildren(nullptr); //Michael's code
 }
 
 void OcTreeClass::CheckCollisions(bool showCollision)
 {
 }
 
-void OcTreeClass::Release()
+void OcTreeClass::Release() //Michael's code
 {
-}
-
-void OcTreeClass::Init()
-{
+	for (int i = 0; i < childrenNodes.size; i++) {
+		delete childrenNodes[i];
+	}
+	delete octreeNode;
+	m_pBOMngr->ReleaseInstance();
+	m_pMeshMngr->ReleaseInstance();
 }
 
 void OcTreeClass::TraverseForCollisions(bool showCollision)
