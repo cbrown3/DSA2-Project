@@ -12,6 +12,18 @@ OcTreeClass & OcTreeClass::operator=(OcTreeClass const & other)
 
 OcTreeClass::OcTreeClass()
 {
+	m_pBOMngr = BOManagerSingleton::GetInstance();
+	m_pMeshMngr = MeshManagerSingleton::GetInstance();
+
+	octantCenter = vector3(0, 0, 0);
+	octantMin = vector3(-70, -70, -70);
+	octantMax = vector3(70, 70, 70);
+
+	childrenNodes = std::vector<Node*>();
+
+	idList = std::vector<int>();
+
+	octreeNode = new Node();
 }
 
 OcTreeClass::OcTreeClass(std::vector<Node*> parents)
@@ -24,6 +36,7 @@ OcTreeClass::OcTreeClass(std::vector<Node*> parents, std::vector<Node*> children
 
 OcTreeClass::~OcTreeClass()
 {
+	delete this;
 }
 
 void OcTreeClass::ToggleVisibility()
@@ -62,21 +75,12 @@ void OcTreeClass::ClearBOList()
 {
 }
 
-Node* OcTreeClass::GetChild(uint a_nChild)
-{
-	return nullptr;
-}
-
 OcTreeClass * OcTreeClass::GetSelf()
 {
 	return this;
 }
 
 void OcTreeClass::KillBranches()
-{
-}
-
-void OcTreeClass::AssignIDtoBO()
 {
 }
 

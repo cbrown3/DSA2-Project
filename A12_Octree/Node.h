@@ -9,66 +9,36 @@ class Node
 
 	String* modelList; //list of names of all models in node
 	int modelCount; //ammount of models in node
+	int nodeId;
+
+	vector3 nodeCenter;
+	vector3 nodeMin;
+	vector3 nodeMax;
 
 public:
 
 	//constructors
-	Node() {
-		parent = nullptr;
-		children = nullptr;
-		modelList = nullptr;
-		modelCount = 0;
-	};
+	Node();
 
-	Node(Node* parent) {
-		this->parent = parent;
-		children = nullptr;
-		modelList = nullptr;
-		modelCount = 0;
-	}
+	Node(vector3 a_center);
 
-	Node(Node* parent, Node* children) {
-		this->parent = parent;
-		this->children = children;
-		modelList = nullptr;
-		modelCount = 0;
-	}
+	void setCenter();
 
 	//set the parent node
-	void setParent(Node* parent) {
-		if (this->parent != nullptr) {
-			delete this->parent;
-			this->parent = parent;
-		}
-		else this->parent = parent;
-	}
+	void setParent(Node* parent);
 
 	//set the children nodes
-	void setChildren(Node* nodes) {
-		if (children != nullptr) {
-			delete[] children;
-			children = nodes;
-		}
-		else children = nodes;
-	}
+	void setChildren(Node* nodes);
 
-	void updateModelList() {
-
-	}
+	void updateModelList();
 
 	//get current number of models in node
-	int getModelCount() { return modelCount; }
+	int getModelCount();
 
 	//check if node has children
-	bool hasChildren() { 
-		if (children == nullptr) return false;
-		else return true;
-	}
+	bool hasChildren();
 
 	//destructor
-	~Node() {
-		SafeDelete(parent);
-		delete [] children;
-	};
+	~Node();
 };
 
