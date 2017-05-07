@@ -58,7 +58,7 @@ private:
 
 	void ClearBOList();
 
-	void KillBranches();
+	void KillBranches(Node* target);
 
 	void CheckCollisions(bool showCollision);
 };

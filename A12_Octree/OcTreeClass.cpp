@@ -113,16 +113,23 @@ OcTreeClass * OcTreeClass::GetSelf()
 	return this;
 }
 
-void OcTreeClass::KillBranches()
+void OcTreeClass::KillBranches(Node* target)
 {
+	target->setChildren(nullptr); //Michael's code
 }
 
 void OcTreeClass::CheckCollisions(bool showCollision)
 {
 }
 
-void OcTreeClass::Release()
+void OcTreeClass::Release() //Michael's code
 {
+	for (int i = 0; i < childrenNodes.size; i++) {
+		delete childrenNodes[i];
+	}
+	delete octreeNode;
+	m_pBOMngr->ReleaseInstance();
+	m_pMeshMngr->ReleaseInstance();
 }
 
 void OcTreeClass::Init()
