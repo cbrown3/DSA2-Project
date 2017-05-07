@@ -7,14 +7,22 @@
 class OcTreeClass
 {
 	BOManagerSingleton* m_pBOMngr = nullptr;
-	MeshManagerSingleton* m_MeshMngr = nullptr;
-	std::vector<Node*> parentNodes; //holds subdivisions of the bounding (children of Octree, parent of smaller nodes)
+	MeshManagerSingleton* m_pMeshMngr = nullptr;
 	std::vector<Node*> childrenNodes; //holds subdivisions of the bounding (children of Nodes)
 	std::vector<int> idList; //list of node ids
 
 	vector3 octantMin;
 	vector3 octantMax;
 	vector3 octantCenter;
+
+<<<<<<< HEAD
+	Node* octreeNode;
+=======
+#pragma region Josh_Additions
+	bool m_bVisible;
+	glm::mat4 m_m4OctantList[32];
+#pragma endregion
+>>>>>>> origin/master
 
 public:
 
