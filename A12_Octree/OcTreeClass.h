@@ -21,6 +21,9 @@ class OcTreeClass
 	bool m_bVisible;
 
 	std::vector<glm::mat4> m_m4OctantList[32];
+
+	std::vector<glm::mat4> m_m4OctantList;
+
 	std::vector<glm::vec3> m_v3PointList = std::vector<glm::vec3>();
 
 	std::vector<glm::mat4> m_m4OctantList;
@@ -29,10 +32,6 @@ class OcTreeClass
 public:
 
 	OcTreeClass();
-
-	OcTreeClass(std::vector<Node*> parents);
-
-	OcTreeClass(std::vector<Node*> parents, std::vector<Node*> children);
 
 	~OcTreeClass();
 

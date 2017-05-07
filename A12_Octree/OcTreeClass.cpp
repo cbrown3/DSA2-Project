@@ -1,7 +1,7 @@
 #include "OcTreeClass.h"
 
 
-OcTreeClass::OcTreeClass()
+OcTreeClass::OcTreeClass()//Chris
 {
 	m_pBOMngr = BOManagerSingleton::GetInstance();
 	m_pMeshMngr = MeshManagerSingleton::GetInstance();
@@ -24,8 +24,15 @@ OcTreeClass::OcTreeClass()
 	}
 }
 
-OcTreeClass::~OcTreeClass()
+OcTreeClass::~OcTreeClass()//Danielle
 {
+	m_pBOMngr->ReleaseInstance();
+	m_pMeshMngr->ReleaseInstance();
+	for (int i = 0; i < childrenNodes.size(); i++) {
+		delete childrenNodes[i];
+	}
+	delete octreeNode;
+
 	delete this;
 }
 
@@ -84,8 +91,9 @@ void OcTreeClass::Display(vector3 a_v3Color) //Josh
 	}
 }
 
-void OcTreeClass::ClearBOList()
+void OcTreeClass::ClearBOList()//Danielle
 {
+	m_pBOMngr->ReleaseInstance();
 }
 
 Node* OcTreeClass::GetChild(uint a_nChild) //Josh
