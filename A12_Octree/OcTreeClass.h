@@ -19,12 +19,11 @@ class OcTreeClass
 
 #pragma region Josh_Additions
 	bool m_bVisible;
-<<<<<<< HEAD
+
 	std::vector<glm::mat4> m_m4OctantList[32];
 	std::vector<glm::vec3> m_v3PointList = std::vector<glm::vec3>();
-=======
+
 	std::vector<glm::mat4> m_m4OctantList;
->>>>>>> 0b6f4cbdd63f02bab61a22aa45e30abec27476d8
 #pragma endregion
 
 public:
@@ -54,8 +53,6 @@ private:
 	vector3 GetOctantCenter();
 
 	void Display(vector3 a_v3Color);
-
-	bool IsColliding(std::vector<Node*> nodeList);
 
 	Node* GetChild(uint a_nChild);
 

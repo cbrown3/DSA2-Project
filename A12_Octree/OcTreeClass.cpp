@@ -1,15 +1,6 @@
 #include "OcTreeClass.h"
 
 
-OcTreeClass::OcTreeClass(OcTreeClass const & other)
-{
-}
-
-OcTreeClass & OcTreeClass::operator=(OcTreeClass const & other)
-{
-	// TODO: insert return statement here
-}
-
 OcTreeClass::OcTreeClass()
 {
 	m_pBOMngr = BOManagerSingleton::GetInstance();
@@ -25,29 +16,12 @@ OcTreeClass::OcTreeClass()
 
 	octreeNode = new Node(vector3(0, 0, 0), vector3(0, 0, 0), vector3(0, 0, 0));
 
-<<<<<<< HEAD
-OcTreeClass::OcTreeClass(std::vector<Node*> parents)
-{
-	//Extra Code that needs added.
-	for (int i = 0; i < m_m4OctantList->size(); i++)
-=======
 	for (int i = 0; i < m_m4OctantList.size; i++)
->>>>>>> 0b6f4cbdd63f02bab61a22aa45e30abec27476d8
 	{
-		glm::mat4 baseMat = glm::translate(GetChild(i)->getCenter()) * glm::scale(vector3(1,1,1) * 2.0f); 
+		glm::mat4 baseMat = glm::translate(GetChild(i)->getCenter()) * glm::scale(vector3(1, 1, 1) * 2.0f);
 
 		m_m4OctantList[i] = baseMat;
 	}
-}
-
-OcTreeClass::OcTreeClass(std::vector<Node*> parents)
-{
-	//Extra Code that needs added.
-	
-}
-
-OcTreeClass::OcTreeClass(std::vector<Node*> parents, std::vector<Node*> children)
-{
 }
 
 OcTreeClass::~OcTreeClass()
@@ -98,24 +72,16 @@ void OcTreeClass::Display(vector3 a_v3Color) //Josh
 {
 	if (m_bVisible)
 	{
-		for (int i = 0; i < m_m4OctantList->size(); i++)
+		for (int i = 0; i < m_m4OctantList.size; i++)
 		{
-<<<<<<< HEAD
-			m_pMeshMngr->AddCubeToRenderList(m_m4OctantList->at(i), a_v3Color, WIRE);
-=======
+			m_pMeshMngr->AddCubeToRenderList(m_m4OctantList.at(i), a_v3Color, WIRE);
 			m_pMeshMngr->AddCubeToRenderList(m_m4OctantList[i], a_v3Color, WIRE);
->>>>>>> 0b6f4cbdd63f02bab61a22aa45e30abec27476d8
 		}
 	}
 	if (!m_bVisible)
 	{
 		m_pMeshMngr->ClearRenderList(); //Not what is needed, but clears everything. Need to clear one thing at a time.
 	}
-}
-
-bool OcTreeClass::IsColliding(std::vector<Node*> nodeList)
-{
-	return false;
 }
 
 void OcTreeClass::ClearBOList()

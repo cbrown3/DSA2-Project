@@ -40,9 +40,7 @@ public:
 	//gets max of node
 	vector3 getMax();
 
-	//set the children nodes
-	void setChildren(Node* nodes);
-
+	//add the children nodes
 	void addChild(Node * node);
 
 	void updateModelList();

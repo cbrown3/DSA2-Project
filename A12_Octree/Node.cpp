@@ -65,13 +65,8 @@ vector3 Node::getMax()
 	return nodeMax;
 }
 
-void Node::setChildren(Node * nodes)
-
+void Node::addChild(Node* node)
 {
-
-}
-
-void Node::addChild(Node* node) {
 	children.push_back(node);
 }
 
