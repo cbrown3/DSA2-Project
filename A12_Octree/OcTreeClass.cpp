@@ -29,7 +29,7 @@ OcTreeClass::OcTreeClass()
 OcTreeClass::OcTreeClass(std::vector<Node*> parents)
 {
 	//Extra Code that needs added.
-	for (int i = 0; i < m_m4OctantList.size; i++)
+	for (int i = 0; i < m_m4OctantList->size(); i++)
 	{
 		//Commented out, theory code glm::mat4 baseMat = glm::translate(GetChild(i)->getCenter()) * glm::scale(vector3(1,1,1) * 2.0f); 
 
@@ -58,8 +58,16 @@ void OcTreeClass::ToggleVisibility() //Josh
 	}
 }
 
-void OcTreeClass::Recalculate()
+void OcTreeClass::CalculateOcTree() //Josh
 {
+	glm::vec3 halfCenter(octantCenter.x / 2, octantCenter.y / 2, octantCenter.z / 2);
+	glm::vec3 fourthCenter(octantCenter.x / 4, octantCenter.y / 4, octantCenter.z / 4);
+
+	glm::vec3 point1 = octantCenter - halfCenter;
+	glm::vec3 point2 = octantCenter - fourthCenter;
+
+	glm::vec3 point3 = octantCenter + halfCenter;
+	glm::vec3 point4 = octantCenter + fourthCenter;
 }
 
 vector3 OcTreeClass::GetOctantMin() //Josh
@@ -81,14 +89,14 @@ void OcTreeClass::Display(vector3 a_v3Color) //Josh
 {
 	if (m_bVisible)
 	{
-		for (int i = 0; i < m_m4OctantList.size; i++)
+		for (int i = 0; i < m_m4OctantList->size(); i++)
 		{
-			m_MeshMngr->AddCubeToRenderList(m_m4OctantList[i], a_v3Color, WIRE);
+			m_pMeshMngr->AddCubeToRenderList(m_m4OctantList->at(i), a_v3Color, WIRE);
 		}
 	}
 	if (!m_bVisible)
 	{
-		m_MeshMngr->ClearRenderList(); //Not what is needed, but clears everything. Need to clear one thing at a time.
+		m_pMeshMngr->ClearRenderList(); //Not what is needed, but clears everything. Need to clear one thing at a time.
 	}
 }
 
@@ -101,14 +109,11 @@ void OcTreeClass::ClearBOList()
 {
 }
 
-<<<<<<< HEAD
-=======
 Node* OcTreeClass::GetChild(uint a_nChild) //Josh
 {
 	return childrenNodes[a_nChild];
 }
 
->>>>>>> origin/master
 OcTreeClass * OcTreeClass::GetSelf()
 {
 	return this;
