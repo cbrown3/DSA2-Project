@@ -2,12 +2,15 @@
 
 #include "RE\ReEngAppClass.h"
 
+using std::vector;
+
 class Node
 {
 	Node* parent; //parent node
 	Node* children; //children nodes
 
-	String* modelList; //list of names of all models in node
+	BOManagerSingleton* m_pBomMngr;
+	vector<String> modelList; //list of names of all models in node
 	int modelCount; //ammount of models in node
 
 public:
@@ -16,21 +19,21 @@ public:
 	Node() {
 		parent = nullptr;
 		children = nullptr;
-		modelList = nullptr;
+		modelList = vector<String>();
 		modelCount = 0;
 	};
 
 	Node(Node* parent) {
 		this->parent = parent;
 		children = nullptr;
-		modelList = nullptr;
+		modelList = vector<String>();
 		modelCount = 0;
 	}
 
 	Node(Node* parent, Node* children) {
 		this->parent = parent;
 		this->children = children;
-		modelList = nullptr;
+		modelList = vector<String>();
 		modelCount = 0;
 	}
 
@@ -53,7 +56,35 @@ public:
 	}
 
 	void updateModelList() {
+		vector<String> possibleModels = parent->modelList;
+		
+		vector<String> containedModels = vector<String>();
 
+		for (int i = 0; i < possibleModels.size(); i++) {
+			//check if each model is contained in node 
+			BoundingObjectClass* model = m_pBomMngr->GetBoundingObject(possibleModels[i]);
+			bool isColliding = true;
+
+			//check aabb collisions with octant
+
+			vector3 max = model->GetAABBMax;
+			vector3 min = model->GetAABBMin;
+
+			//check top
+			//if ()
+
+
+				//check bottom
+
+				//check left
+
+				//check right
+
+				if (isColliding) containedModels.push_back(possibleModels[i]);
+		}
+
+
+		modelList = containedModels;
 	}
 
 	//get current number of models in node
