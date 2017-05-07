@@ -23,7 +23,7 @@ OcTreeClass::OcTreeClass()
 
 	idList = std::vector<int>();
 
-	octreeNode = new Node();
+	octreeNode = new Node(vector3(0,0,0));
 
 	for (int i = 0; i < m_m4OctantList.size; i++)
 	{

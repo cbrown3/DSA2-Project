@@ -34,8 +34,6 @@ public:
 
 private:
 
-	void Init();
-
 	void TraverseForCollisions(bool showCollision);
 
 	void Release();
