@@ -114,3 +114,11 @@ bool Node::hasChildren()
 	if (children.size > 0) return true;
 	else return false;
 }
+
+void Node::deleteChildren() //Michael's code
+{
+	for (int i = 0; i < children.size; i++)
+	{
+		delete children[i];
+	}
+}

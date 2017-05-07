@@ -108,7 +108,7 @@ OcTreeClass * OcTreeClass::GetSelf()
 
 void OcTreeClass::KillBranches(Node* target)
 {
-	target->setChildren(nullptr); //Michael's code
+	target->deleteChildren(); //Michael's code
 }
 
 void OcTreeClass::CheckCollisions(bool showCollision)

@@ -48,6 +48,9 @@ public:
 	//check if node has children
 	bool hasChildren();
 
+	//deletes all of the children
+	void deleteChildren();
+
 	//destructor
 	~Node();
 };
