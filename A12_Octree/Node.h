@@ -15,10 +15,15 @@ class Node
 	vector3 nodeMin;
 	vector3 nodeMax;
 
+	bool active;
 public:
 
 	//creates node from center
 	Node(vector3 a_parentMin, vector3 a_parentMax, vector3 a_center);
+
+	Node(Node * parent);
+
+	void PlaceInTree(vector3 center);
 
 	//sets center of node
 	void setCenter(vector3 a_center);
@@ -40,10 +45,18 @@ public:
 	//gets max of node
 	vector3 getMax();
 
+	Node * getParent();
+
 	//add the children nodes
 	void addChild(Node * node);
 
+	std::vector<String*> getModels();
+
+	std::vector<Node*> getChildren();
+
 	void updateModelList();
+
+	bool IsActive();
 
 	//check if node has children
 	bool hasChildren();

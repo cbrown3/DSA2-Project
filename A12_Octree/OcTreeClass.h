@@ -17,6 +17,8 @@ class OcTreeClass
 
 	Node* octreeNode;
 
+	std::vector<Node*> activeNodes; //nodes to check for collisions [non-empty enpoint nodes]
+
 #pragma region Josh_Additions
 	bool m_bVisible;
 
@@ -32,6 +34,8 @@ class OcTreeClass
 public:
 
 	OcTreeClass();
+
+	void Subdivide(Node * root);
 
 	~OcTreeClass();
 
@@ -60,6 +64,8 @@ private:
 	void ClearBOList();
 
 	void KillBranches(Node* target);
+
+	void UpdateModelLists(Node * root);
 
 	void CheckCollisions(bool showCollision);
 };

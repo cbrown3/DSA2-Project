@@ -14,7 +14,7 @@ OcTreeClass::OcTreeClass()//Chris
 
 	idList = std::vector<int>();
 
-	octreeNode = new Node(vector3(0, 0, 0), vector3(0, 0, 0), vector3(0, 0, 0));
+	octreeNode = new Node(octantMin, octantMax, octantCenter);
 
 	for (int i = 0; i < m_m4OctantList.size; i++)
 	{
@@ -22,6 +22,70 @@ OcTreeClass::OcTreeClass()//Chris
 
 		m_m4OctantList[i] = baseMat;
 	}
+
+	//build tree
+	Subdivide(octreeNode);
+
+	//subdivide layer1 endpoints
+	std::vector<Node*> layer1 = octreeNode->getChildren();
+	for (int i = 0; i < layer1.size(); i++) {
+		if (!layer1[i]->hasChildren)
+			Subdivide(layer1[i]);
+	}
+
+	//re-calculate tree 
+	UpdateModelLists(octreeNode);
+
+	//check collisions [show colliding bounding boxes if bool is true]
+	CheckCollisions(m_bVisible);
+}
+
+void OcTreeClass::Subdivide(Node* root) {
+	
+	//*assuming octree is square
+	float halfWidth = root->getMin.x;
+	vector3 origin = root->getCenter();
+
+	//[z+]____M  [z-]____M     z
+	//  |1_|2_|    |5_|6_|     | / y
+	//  |3_|4_|    |7_|8_|	   |/___x
+	// m          m
+
+	//make all the children nodes
+	Node* node1 = new Node(root);
+	node1->PlaceInTree( vector3( origin.x - halfWidth, origin.y - halfWidth, origin.z + halfWidth) );
+
+	Node* node2 = new Node(root);
+	node2->PlaceInTree(vector3(origin.x + halfWidth, origin.y - halfWidth, origin.z + halfWidth));
+
+	Node* node3 = new Node(root);
+	node3->PlaceInTree(vector3(origin.x - halfWidth, origin.y + halfWidth, origin.z + halfWidth));
+
+	Node* node4 = new Node(root);
+	node4->PlaceInTree(vector3(origin.x + halfWidth, origin.y + halfWidth, origin.z + halfWidth));
+
+
+	Node* node5 = new Node(root);
+	node5->PlaceInTree(vector3(origin.x - halfWidth, origin.y - halfWidth, origin.z - halfWidth));
+
+	Node* node6 = new Node(root);
+	node6->PlaceInTree(vector3(origin.x + halfWidth, origin.y - halfWidth, origin.z - halfWidth));
+
+	Node* node7 = new Node(root);
+	node7->PlaceInTree(vector3(origin.x - halfWidth, origin.y + halfWidth, origin.z - halfWidth));
+
+	Node* node8 = new Node(root);
+	node8->PlaceInTree(vector3(origin.x + halfWidth, origin.y + halfWidth, origin.z - halfWidth));
+
+	//add children to root
+	root->addChild(node1);
+	root->addChild(node2);
+	root->addChild(node3);
+	root->addChild(node4);
+	root->addChild(node5);
+	root->addChild(node6);
+	root->addChild(node7);
+	root->addChild(node8);
 }
 
 OcTreeClass::~OcTreeClass()//Danielle
@@ -111,8 +175,90 @@ void OcTreeClass::KillBranches(Node* target)
 	target->deleteChildren(); //Michael's code
 }
 
+
+//recurse through tree and update model lists and active node list
+void OcTreeClass::UpdateModelLists(Node* root) {
+	
+	//update model lists
+	root->updateModelList();
+
+	//check if at end of branch
+	if (root->getChildren().size() == 0) {
+		//if it has models in it add to active list
+		if (root->IsActive()) activeNodes.push_back(root);
+	}
+
+	//else check all children nodes
+	else {
+		for (int i = 0; i < root->getChildren().size(); i++) {
+			UpdateModelLists(root->getChildren[i]);
+		}
+	}
+}
+
+//calculate all model collisions in active nodes [show colliding bounding boxes if bool is true]
 void OcTreeClass::CheckCollisions(bool showCollision)
 {
+	vector<String*> models;
+	BoundingObjectClass* model;
+	BoundingObjectClass*otherModel;
+	vector3 max;
+	vector3 min;
+
+	vector3 otherMax;
+	vector3 otherMin;
+
+	//check collisions in calculated active nodes
+	for (int i = 0; i < activeNodes.size(); i++) {
+
+		//for each endnode with models check collisions
+		if (activeNodes[i]->IsActive && !activeNodes[i]->hasChildren) {
+			
+			models = activeNodes[i]->getParent()->getModels();
+
+			//check collisions for contained models
+			for (int j = 0; j < models.size(); j++) {
+				//check if each model is collising 
+				model = m_pBOMngr->GetBoundingObject(*models[i]);
+				
+				for (int k = j; k < models.size(); k++) {
+					otherModel = m_pBOMngr->GetBoundingObject(*models[k]);
+
+					bool isColliding = true;
+
+					//check model aabb collisions with other model
+					max = model->GetAABBMax;
+					min = model->GetAABBMin;
+
+					otherMin = otherModel->GetAABBMin;
+					otherMax = otherModel->GetAABBMax;
+
+					//Check for X
+					if (max.x < otherMin.x)
+						isColliding = false;
+					else if (min.x > otherMax.x)
+						isColliding = false;
+
+					//Check for Y
+					else if (max.y < otherMin.y)
+						isColliding = false;
+					else if (min.y > otherMax.y)
+						isColliding = false;
+
+					//Check for Z
+					else if (max.z < otherMin.z)
+						isColliding = false;
+					else if (min.z > otherMax.z)
+						isColliding = false;
+
+					//if is colliding show collision
+					if (isColliding && showCollision) {
+						model->SetVisibleAABB(true);
+					}
+				} //check agains other models
+			} //check each model
+		} //check each node
+	}
 }
 
 void OcTreeClass::Release() //Michael's code

@@ -23,6 +23,29 @@ Node::Node(vector3 a_parentMin, vector3 a_parentMax, vector3 a_center)
 	nodeCenter = a_center;
 	nodeMin = a_parentMin;
 	nodeMax = a_parentMax;
+
+	active = true;
+}
+
+Node::Node(Node* parent)
+{
+	children = std::vector<Node*>();
+	modelList = std::vector<String*>();
+
+	//take the parent's center and make the node from it
+	nodeCenter = parent->nodeCenter;
+	nodeMin = parent->nodeMin;
+	nodeMax = parent->nodeMax;
+
+	this->parent = parent;
+
+	active = true;
+}
+
+void Node::PlaceInTree(vector3 center) {
+	nodeCenter = center;
+	nodeMin = vector3(nodeMin.x / 2, nodeMin.y / 2, nodeMin.z / 2);
+	nodeMax = vector3(nodeMax.x / 2, nodeMax.y / 2, nodeMax.z / 2);
 }
 
 void Node::setCenter(vector3 a_center)
@@ -70,6 +93,13 @@ void Node::addChild(Node* node)
 	children.push_back(node);
 }
 
+std::vector<String*> Node::getModels() {
+	return modelList;
+}
+
+std::vector<Node*> Node::getChildren() {
+	return this->children;
+}
 void Node::updateModelList()
 {
 	vector<String*> possibleModels = parent->modelList;
@@ -107,6 +137,13 @@ void Node::updateModelList()
 	}
 
 	modelList = containedModels;
+
+	//deactivate if no models in node
+	if (modelList.size() == 0) active = false;
+}
+
+bool Node::IsActive() {
+	return active;
 }
 
 bool Node::hasChildren()
