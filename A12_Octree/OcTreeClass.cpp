@@ -23,6 +23,9 @@ OcTreeClass::OcTreeClass()//Chris
 		m_m4OctantList[i] = baseMat;
 	}
 
+#pragma region danielle_additions
+	activeNodes = std::vector<Node*>();
+
 	//build tree
 	Subdivide(octreeNode);
 
@@ -38,9 +41,12 @@ OcTreeClass::OcTreeClass()//Chris
 
 	//check collisions [show colliding bounding boxes if bool is true]
 	CheckCollisions(m_bVisible);
+
+#pragma endregion
 }
 
-void OcTreeClass::Subdivide(Node* root) {
+void OcTreeClass::Subdivide(Node* root) //danielle
+{
 	
 	//*assuming octree is square
 	float halfWidth = root->getMin.x;
@@ -177,7 +183,8 @@ void OcTreeClass::KillBranches(Node* target)
 
 
 //recurse through tree and update model lists and active node list
-void OcTreeClass::UpdateModelLists(Node* root) {
+void OcTreeClass::UpdateModelLists(Node* root) //danielle
+{
 	
 	//update model lists
 	root->updateModelList();
@@ -197,11 +204,11 @@ void OcTreeClass::UpdateModelLists(Node* root) {
 }
 
 //calculate all model collisions in active nodes [show colliding bounding boxes if bool is true]
-void OcTreeClass::CheckCollisions(bool showCollision)
+void OcTreeClass::CheckCollisions(bool showCollision) //danielle
 {
 	vector<String*> models;
 	BoundingObjectClass* model;
-	BoundingObjectClass*otherModel;
+	BoundingObjectClass* otherModel;
 	vector3 max;
 	vector3 min;
 
@@ -266,6 +273,10 @@ void OcTreeClass::Release() //Michael's code
 	for (int i = 0; i < childrenNodes.size; i++) {
 		delete childrenNodes[i];
 	}
+	for (int i = 0; i < activeNodes.size(); i++) {
+		delete activeNodes[i]
+	} //danielle
+
 	delete octreeNode;
 	m_pBOMngr->ReleaseInstance();
 	m_pMeshMngr->ReleaseInstance();
