@@ -21,8 +21,8 @@ Node::Node(vector3 a_parentMin, vector3 a_parentMax, vector3 a_center)
 
 	//take the parent's center and make the node from it
 	nodeCenter = a_center;
-	nodeMin = a_parentMin;
-	nodeMax = a_parentMax;
+	nodeMin = vector3(a_parentMin.x / 2, a_parentMin.y / 2, a_parentMin.z / 2);
+	nodeMax = vector3(a_parentMax.x / 2, a_parentMax.y / 2, a_parentMax.z / 2);
 
 	active = true;
 }

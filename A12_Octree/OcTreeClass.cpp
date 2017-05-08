@@ -123,11 +123,32 @@ void OcTreeClass::CalculateOcTree() //Josh
 	glm::vec3 halfCenter(octantCenter.x / 2, octantCenter.y / 2, octantCenter.z / 2);
 	glm::vec3 fourthCenter(octantCenter.x / 4, octantCenter.y / 4, octantCenter.z / 4);
 
-	glm::vec3 point1 = octantCenter - halfCenter;
-	glm::vec3 point2 = octantCenter - fourthCenter;
 
-	glm::vec3 point3 = octantCenter + halfCenter;
-	glm::vec3 point4 = octantCenter + fourthCenter;
+	//[z+]____M  [z-]____M     z
+	//  |1_|2_|    |5_|6_|     | / y
+	//  |3_|4_|    |7_|8_|	   |/___x
+	// m          m
+
+	//top half of cube
+	glm::vec3 p_point1 = vector3(halfCenter.x, halfCenter.y * 3, halfCenter.z * 3);
+	glm::vec3 p_point2 = vector3(halfCenter.x * 3, halfCenter.y * 3, halfCenter.z * 3);
+	glm::vec3 p_point3 = vector3(halfCenter.x, halfCenter.y, halfCenter.z * 3);
+	glm::vec3 p_point4 = vector3(halfCenter.x * 3, halfCenter.y, halfCenter.z * 3);
+
+	//bottom half of cube
+	glm::vec3 p_point5 = vector3(halfCenter.x, halfCenter.y * 3, halfCenter.z);
+	glm::vec3 p_point6 = vector3(halfCenter.x * 3, halfCenter.y * 3, halfCenter.z);
+	glm::vec3 p_point7 = vector3(halfCenter.x, halfCenter.y, halfCenter.z);
+	glm::vec3 p_point8 = vector3(halfCenter.x * 3, halfCenter.y, halfCenter.z);
+
+	octreeNode->addChild(new Node(octantMin, octantMax, p_point1));
+	octreeNode->addChild(new Node(octantMin, octantMax, p_point2));
+	octreeNode->addChild(new Node(octantMin, octantMax, p_point3));
+	octreeNode->addChild(new Node(octantMin, octantMax, p_point4));
+	octreeNode->addChild(new Node(octantMin, octantMax, p_point5));
+	octreeNode->addChild(new Node(octantMin, octantMax, p_point6));
+	octreeNode->addChild(new Node(octantMin, octantMax, p_point7));
+	octreeNode->addChild(new Node(octantMin, octantMax, p_point8));
 }
 
 vector3 OcTreeClass::GetOctantMin() //Josh
