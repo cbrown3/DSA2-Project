@@ -108,66 +108,7 @@ void AppClass::ProcessKeyboard(void)
 	}
 #pragma endregion
 
-//	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
-//	{
-//		m_v3Position = vector3(-0.1f, 0.0f, 0.0f);
-//		m_pCameraMngr->MoveSideways(-0.1f);
-//		Player.translate(m_v3Position);
-//		Player.rigidBody.state.recalculate();
-//	}
-//	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
-//	{
-//		m_v3Position = vector3(0.1f, 0.0f, 0.0f);
-//		m_pCameraMngr->MoveSideways(0.1f);
-//		Player.translate(m_v3Position);
-//		Player.rigidBody.state.recalculate();
-//	}
-//	//if the camera is orthographic, move in the negative z axis, if not, move in the positive y axis
-//	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
-//	{
-//		if (!bModifier)
-//		{
-//			m_v3Position = vector3(0.0f, 0.0f, -0.1f);
-//			m_pCameraMngr->SetPosition(m_pCameraMngr->GetPosition() + vector3(0.0f, 0.0f, -0.1f), -1);
-//			Player.translate(m_v3Position);
-//			Player.rigidBody.state.recalculate();
-//		}
-//		else
-//		{
-//			m_v3Position = vector3(0.0f, 0.1f, 0.0f);
-//			Player.translate(m_v3Position);
-//			m_pCameraMngr->MoveVertical(0.1f);
-//			Player.rigidBody.state.recalculate();
-//		}
-//	}
-//	//if the camera is orthographic, move in the positive z axis, if not, move in the negative y axis
-//	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
-//	{
-//		if (!bModifier)
-//		{
-//			m_v3Position = vector3(0.0f, 0.0f, 0.1f);
-//			m_pCameraMngr->SetPosition(m_pCameraMngr->GetPosition() + vector3(0.0f, 0.0f, 0.1f), -1);
-//			Player.translate(m_v3Position);
-//			Player.rigidBody.state.recalculate();
-//		}
-//		else
-//		{
-//			//logic for stopping movement downward, for the ground
-//			if (Player.GetPosition().y < 0)
-//			{
-//				Player.translate(vector3(0.0f, 0.1f, 0.0f));
-//				Player.rigidBody.state.recalculate();
-//				m_pCameraMngr->MoveVertical(0.1f);
-//			}
-//			else
-//			{
-//				m_v3Position = vector3(0.0f, -0.1f, 0.0f);
-//				Player.translate(m_v3Position);
-//				Player.rigidBody.state.recalculate();
-//				m_pCameraMngr->MoveVertical(-0.1f);
-//			}
-//		}
-//	}
+
 #pragma endregion
 
 #pragma region Other Actions
@@ -247,31 +188,6 @@ void AppClass::ProcessKeyboard(void)
 		}
 	};
 
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::P))
-	{
-		if (currentModel == "Ninja")
-		{
-			if (renderSphere)
-			{
-				renderSphere = false;
-			}
-			else
-			{
-				renderSphere = true;
-			}
-		}
-		if (currentModel == "Substitute")
-		{
-			if (renderSphere)
-			{
-				renderSphere = false;
-			}
-			else
-			{
-				renderSphere = true;
-			}
-		}
-	};
 #pragma endregion
 
 }

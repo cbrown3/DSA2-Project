@@ -10,10 +10,10 @@ void AppClass::InitVariables(void)
 	m_pCameraMngr->SetCameraMode(CAMPERSP);
 	m_pCameraMngr->MoveVertical(4.0, -1);
 	//Load a model onto the Mesh manager
-	m_pMeshMngr->LoadModel("ninja.fbx", "Ninja");
-	m_pMeshMngr->LoadModel("substitute.fbx", "Substitute");
-	m_pMeshMngr->LoadModel("Minecraft\\Cow.bto", "Cow");
-	m_pMeshMngr->LoadModel("Chess\\pawn(orange).obj", "Pawn");
+	//m_pMeshMngr->LoadModel("ninja.fbx", "Ninja");
+	//m_pMeshMngr->LoadModel("substitute.fbx", "Substitute");
+	//m_pMeshMngr->LoadModel("Minecraft\\Cow.bto", "Cow");
+	//m_pMeshMngr->LoadModel("Chess\\pawn(orange).obj", "Pawn");
 	m_pMeshMngr->LoadModel("gym.fbx", "World");
 
 	/*GAMEOBJECT SYSTEM*/
@@ -23,30 +23,11 @@ void AppClass::InitVariables(void)
 
 	//set intial current model
 	currentModel = "Ninja";
-	//m_pBoundingObjectMngr = MyBoundingObjectManager::GetInstance();
-	//m_pBoundingObjectMngr->AddObject(m_pMeshMngr->GetVertexList("Cow"), "Cow");
-	//m_pBoundingObjectMngr->AddObject(m_pMeshMngr->GetVertexList("Sword"), "Sword");
-	//m_pBoundingObjectMngr->AddObject(m_pMeshMngr->GetVertexList("Shield"), "Shield");
-
-	//creating bounding spheres for a placeholder model, the sword, the shield, and the cow
-	//m_pBSCow = m_pBoundingObjectMngr->GetBoundingObject(0);
-	//m_pBSMain = m_pBoundingObjectMngr->GetBoundingObject(1);
-	//m_pBSword = m_pBoundingObjectMngr->GetBoundingObject(1);
-	//m_pBShield = m_pBoundingObjectMngr->GetBoundingObject(2);
-
-	//matrix4 m4Position2 = glm::translate(vector3(2.5, 0.0, 0.0));
-	//m_pMeshMngr->SetModelMatrix(m4Position2, "Cow");
-	//m_pBoundingObjectMngr->SetModelMatrix(m_pMeshMngr->GetModelMatrix("Cow"), "Cow");
-
 
 }
 
 void AppClass::Update(void)
 {
-	Player.Update();
-	Cow.Update();
-	World.Update();
-
 	//if the current model is the sword, make the main/placeholder model equal the correct model being selected.
 	if (currentModel == "Ninja")
 	{
@@ -57,15 +38,31 @@ void AppClass::Update(void)
 		Player = GameObject("substitute.fbx", "Substitute", Player.GetPosition());
 	}
 
+	//Update the system's time
+	m_pSystem->UpdateTime();
+
+	//Update the mesh manager's time without updating for collision detection
+	m_pMeshMngr->Update();
+
+	Player.Update();
+	Cow.Update();
+	World.Update();
+
+	Cow.GetCollider()->SetModelMatrix(Cow.GetTransformMatrix());
+	Player.GetCollider()->SetModelMatrix(Player.GetTransformMatrix());
+
+#pragma region Collision Resolution
 	if (renderBox)
 	{
 		if (Player.GetCollider()->IsColliding(Cow.GetCollider()))
 		{
 			Player.GetCollider()->DisplayOriented(RERED);
+			Cow.GetCollider()->DisplayOriented(RERED);
 		}
 		else
 		{
 			Player.GetCollider()->DisplayOriented(REGREEN);
+			Cow.GetCollider()->DisplayOriented(REGREEN);
 		}
 	}
 
@@ -74,41 +71,20 @@ void AppClass::Update(void)
 		if (Player.GetCollider()->IsColliding(Cow.GetCollider()))
 		{
 			Player.GetCollider()->DisplayReAlligned(RERED);
+			Cow.GetCollider()->DisplayReAlligned(RERED);
 		}
 		else
 		{
 			Player.GetCollider()->DisplayReAlligned(REGREEN);
+			Cow.GetCollider()->DisplayReAlligned(REGREEN);
 		}
 	}
 
-	if (renderSphere)
-	{
-		if (Player.GetCollider()->IsColliding(Cow.GetCollider()))
-		{
-			Player.GetCollider()->DisplaySphere(RERED);
-		}
-		else
-		{
-			Player.GetCollider()->DisplaySphere(REGREEN);
-		}
-	}
+#pragma endregion
 
-	Cow.GetCollider()->DisplayReAlligned(REGREEN);
-
-	//Update the system's time
-	m_pSystem->UpdateTime();
-
-	//Update the mesh manager's time without updating for collision detection
-	m_pMeshMngr->Update();
 
 	//camera follows player
 	//m_pCameraMngr->SetTarget(m_pBSMain->GetCenterGlobal(), -1);
-
-	//collision resolution
-	if (Cow.GetCollider()->IsColliding(Player.GetCollider()))
-	{
-		Cow.GetCollider()->DisplayReAlligned(RERED);
-	}
 
 	//First person camera movement
 	if (m_bFPC == true)
