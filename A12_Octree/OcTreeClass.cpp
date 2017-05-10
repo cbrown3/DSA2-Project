@@ -16,7 +16,7 @@ OcTreeClass::OcTreeClass()//Chris
 
 	octreeNode = new Node(octantMin, octantMax, octantCenter);
 
-	for (int i = 0; i < m_m4OctantList.size; i++)
+	for (int i = 0; i < m_m4OctantList.size(); i++)
 	{
 		glm::mat4 baseMat = glm::translate(GetChild(i)->getCenter()) * glm::scale(vector3(1, 1, 1) * 2.0f);
 
@@ -32,7 +32,7 @@ OcTreeClass::OcTreeClass()//Chris
 	//subdivide layer1 endpoints
 	std::vector<Node*> layer1 = octreeNode->getChildren();
 	for (int i = 0; i < layer1.size(); i++) {
-		if (!layer1[i]->hasChildren)
+		if (layer1[i]->hasChildren() == false)
 			Subdivide(layer1[i]);
 	}
 
@@ -49,7 +49,7 @@ void OcTreeClass::Subdivide(Node* root) //danielle
 {
 	
 	//*assuming octree is square
-	float halfWidth = root->getMin.x;
+	float halfWidth = root->getMin().x;
 	vector3 origin = root->getCenter();
 
 	//[z+]____M  [z-]____M     z
@@ -170,7 +170,7 @@ void OcTreeClass::Display(vector3 a_v3Color) //Josh
 {
 	if (m_bVisible)
 	{
-		for (int i = 0; i < m_m4OctantList.size; i++)
+		for (int i = 0; i < m_m4OctantList.size(); i++)
 		{
 			m_pMeshMngr->AddCubeToRenderList(m_m4OctantList.at(i), a_v3Color, WIRE);
 			m_pMeshMngr->AddCubeToRenderList(m_m4OctantList[i], a_v3Color, WIRE);
@@ -219,7 +219,7 @@ void OcTreeClass::UpdateModelLists(Node* root) //danielle
 	//else check all children nodes
 	else {
 		for (int i = 0; i < root->getChildren().size(); i++) {
-			UpdateModelLists(root->getChildren[i]);
+			UpdateModelLists(root->getChildren()[i]);
 		}
 	}
 }
@@ -240,7 +240,7 @@ void OcTreeClass::CheckCollisions(bool showCollision) //danielle
 	for (int i = 0; i < activeNodes.size(); i++) {
 
 		//for each endnode with models check collisions
-		if (activeNodes[i]->IsActive && !activeNodes[i]->hasChildren) {
+		if (activeNodes[i]->IsActive() && activeNodes[i]->hasChildren() == false) {
 			
 			models = activeNodes[i]->getParent()->getModels();
 
@@ -255,11 +255,11 @@ void OcTreeClass::CheckCollisions(bool showCollision) //danielle
 					bool isColliding = true;
 
 					//check model aabb collisions with other model
-					max = model->GetAABBMax;
-					min = model->GetAABBMin;
+					max = model->GetAABBMax();
+					min = model->GetAABBMin();
 
-					otherMin = otherModel->GetAABBMin;
-					otherMax = otherModel->GetAABBMax;
+					otherMin = otherModel->GetAABBMin();
+					otherMax = otherModel->GetAABBMax();
 
 					//Check for X
 					if (max.x < otherMin.x)
@@ -291,11 +291,11 @@ void OcTreeClass::CheckCollisions(bool showCollision) //danielle
 
 void OcTreeClass::Release() //Michael's code
 {
-	for (int i = 0; i < childrenNodes.size; i++) {
+	for (int i = 0; i < childrenNodes.size(); i++) {
 		delete childrenNodes[i];
 	}
 	for (int i = 0; i < activeNodes.size(); i++) {
-		delete activeNodes[i]
+		delete activeNodes[i];
 	} //danielle
 
 	delete octreeNode;

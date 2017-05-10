@@ -47,4 +47,7 @@
       <Filter>Resource Files</Filter>
     </ResourceCompile>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="A12_Octree.vcxproj.user" />
+  </ItemGroup>
 </Project>

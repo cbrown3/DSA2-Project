@@ -120,6 +120,9 @@ xcopy "$(SolutionDir)include\RE\Shaders" "$(SolutionDir)_Binary\Shaders" /y</Com
   <ItemGroup>
     <ResourceCompile Include="..\res\BTO.rc" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="A12_Octree.vcxproj.user" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

@@ -29,6 +29,8 @@ void AppClass::InitVariables(void)
 	SafeDelete(m_pRoot);
 	m_pRoot = new OctantClass(3, 3);
 
+	//initialize the octree
+	m_octree = new OcTreeClass();
 
 	
 	m_v3ClickedOn = ZERO_V3;
@@ -88,5 +90,6 @@ void AppClass::Display(void)
 void AppClass::Release(void)
 {
 	SafeDelete(m_pRoot);
+	SafeDelete(m_octree);
 	super::Release(); //release the memory of the inherited fields
 }

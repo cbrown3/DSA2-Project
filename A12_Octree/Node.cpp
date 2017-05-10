@@ -3,12 +3,12 @@
 
 Node::~Node()
 {
-	for (int i = 0; i < children.size; i++)
+	for (int i = 0; i < children.size(); i++)
 	{
 		delete children[i];
 	}
 
-	for (int i = 0; i < modelList.size; i++)
+	for (int i = 0; i < modelList.size(); i++)
 	{
 		delete modelList[i];
 	}
@@ -67,11 +67,6 @@ Node::Node(vector3 a_center)
 {
 }
 
-void Node::setCenter(vector3 center)
-{
-	nodeCenter = center;
-}
-
 vector3 Node::getCenter()
 {
 	return nodeCenter;
@@ -88,6 +83,11 @@ vector3 Node::getMax()
 	return nodeMax;
 }
 
+Node * Node::getParent()
+{
+	return parent;
+}
+
 void Node::addChild(Node* node)
 {
 	children.push_back(node);
@@ -102,7 +102,7 @@ std::vector<Node*> Node::getChildren() {
 }
 void Node::updateModelList()
 {
-	vector<String*> possibleModels = parent->modelList;
+	vector<String*> possibleModels = parent->getModels();
 	vector<String*> containedModels = vector<String*>();
 
 	for (int i = 0; i < possibleModels.size(); i++) {
@@ -111,8 +111,8 @@ void Node::updateModelList()
 		bool isColliding = true;
 
 		//check model aabb collisions with octant
-		vector3 max = model->GetAABBMax;
-		vector3 min = model->GetAABBMin;
+		vector3 max = model->GetAABBMax();
+		vector3 min = model->GetAABBMin();
 
 		//Check for X
 		if (max.x < nodeMin.x)
@@ -148,13 +148,13 @@ bool Node::IsActive() {
 
 bool Node::hasChildren()
 {
-	if (children.size > 0) return true;
+	if (children.size() > 0) return true;
 	else return false;
 }
 
 void Node::deleteChildren() //Michael's code
 {
-	for (int i = 0; i < children.size; i++)
+	for (int i = 0; i < children.size(); i++)
 	{
 		delete children[i];
 	}

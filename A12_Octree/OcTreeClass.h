@@ -2,7 +2,8 @@
 
 #include "RE\ReEngAppClass.h"
 #include "Node.h"
-#include "RE\Physics\BOManagerSingleton.h"namespace ReEng;
+#include "RE\Physics\BOManagerSingleton.h"
+using namespace ReEng;
 
 class OcTreeClass
 {
@@ -22,13 +23,9 @@ class OcTreeClass
 #pragma region Josh_Additions
 	bool m_bVisible;
 
-	std::vector<glm::mat4> m_m4OctantList[32];
-
 	std::vector<glm::mat4> m_m4OctantList;
 
 	std::vector<glm::vec3> m_v3PointList = std::vector<glm::vec3>();
-
-	std::vector<glm::mat4> m_m4OctantList;
 #pragma endregion
 
 public:
