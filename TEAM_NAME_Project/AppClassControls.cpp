@@ -48,12 +48,14 @@ void AppClass::ProcessKeyboard(void)
 	{
 		m_v3Position = vector3(-0.01f, 0.0f, 0.0f); //Needs to be named that apparantly? 
 		Player.RigidTrans(m_v3Position); //This way it acts as a constant acceleration. Will tweak later for actual stuff
+		//Player.RigidRotate(m_v3Position);
 		//m_pCameraMngr->MoveSideways(Player.rigidBody.state.velocity.x); // camera will follow t Player instead of static movement
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
 	{
 		m_v3Position = vector3(0.01f, 0.0f, 0.0f); //Needs to be named that apparantly?
 		Player.RigidTrans(m_v3Position); //This way it acts as a constant acceleration. Will tweak later for actual stuff
+		//Player.RigidRotate(m_v3Position);
 		//m_pCameraMngr->MoveSideways(Player.rigidBody.state.velocity.x); // camera will follow t Player instead of static movement
 
 	}
@@ -83,7 +85,7 @@ void AppClass::ProcessKeyboard(void)
 		{
 			m_v3Position = vector3(0.0f, 0.0f, 0.01f); //Needs to be named that apparantly?
 			Player.RigidTrans(m_v3Position); //This way it acts as a constant acceleration. Will tweak later for actual stuff
-
+			//Player.RigidRotate(m_v3Position);
 			//m_pCameraMngr->SetPosition(m_pCameraMngr->GetPosition() + Player.rigidBody.state.velocity, -1);// camera will follow t Player instead of static movement
 
 		}

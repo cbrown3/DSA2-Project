@@ -38,7 +38,6 @@ class AppClass : public ReEngAppClass
 	MyBoundingBoxClass* m_pBSword;
 	MyBoundingBoxClass* m_pBShield;
 
-
 public:
 	typedef ReEngAppClass super;
 	/*

@@ -27,7 +27,7 @@ GameObject::GameObject(String filePath, String name)
 
 	position = rigidBody.state.position; //Position is held by the states position
 	size = vector3(1.0f, 1.0f, 1.0f);
-	rotation = vector3();
+	rotation = glm::vec3(rigidBody.state.orientation.x, rigidBody.state.orientation.y, rigidBody.state.orientation.z);
 	transformMatrix = IDENTITY_M4;
 }
 
@@ -44,6 +44,24 @@ GameObject::GameObject(String filePath, String name, vector3 position)
 	this->position = position;
 	size = vector3(1.0f, 1.0f, 1.0f);
 	rotation = vector3();
+	//transformMatrix = glm::translate(position) * glm::scale(size) * glm::rotate(0.0f, rotation);
+	transformMatrix = IDENTITY_M4;
+}
+
+GameObject::GameObject(String filePath, String name, vector3 position, vector3 rotation)
+{
+	m_pMeshMngr = MeshManagerSingleton::GetInstance();
+	m_pMeshMngr->LoadModel(filePath, name);
+
+	this->name = name;
+	collider = new MyBoundingBoxClass(m_pMeshMngr->GetVertexList(name));
+
+	rigidBody = RigidBody();
+
+	this->position = position;
+	this->size = vector3(1.0f, 1.0f, 1.0f);
+	this->rotation = rotation;
+	//transformMatrix = glm::translate(position) * glm::scale(size) * glm::rotate(0.0f, rotation);
 	transformMatrix = IDENTITY_M4;
 }
 
@@ -60,6 +78,9 @@ void GameObject::scale(vector3 scale)
 
 void GameObject::rotate(vector3 rotation)
 {
+	rigidBody.state.orientation.x += rotation.x;
+	rigidBody.state.orientation.y += rotation.y;
+	rigidBody.state.orientation.z += rotation.z;
 	this->rotation += rotation;
 
 	//maybe make separate method that will rotate this way? 
@@ -76,7 +97,7 @@ void GameObject::RigidTrans(vector3 ForceArg) //Takes in a force and applies it 
 void GameObject::RigidRotate(vector3 RotationArg) //Takes in a Roation arg that is essentially a force and applies it to the object's orientation. Need to be better by affecting inertia and such. - Josh
 {
 	rigidBody.state.angularVelocity += RotationArg; //Fix to make better later - Josh (MAKE A QUAT LATER PLZ)
-	rotate(glm::vec3(rigidBody.state.orientation.x, rigidBody.state.orientation.y, rigidBody.state.orientation.z));
+	rotate(rigidBody.state.angularVelocity);
 }
 #pragma endregion
 
@@ -102,9 +123,12 @@ void GameObject::calcTransformMatrix()
 void GameObject::Update()
 {
 	rigidBody.state.slowDown();
+	rigidBody.state.continueToRotate();
 
 	calcTransformMatrix();
 	SetMatrix();
+
+	collider->SetModelMatrix(transformMatrix);
 }
 
 void GameObject::SetMatrix()

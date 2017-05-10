@@ -22,6 +22,7 @@ public:
 	GameObject();
 	GameObject(String filePath, String name);
 	GameObject(String filePath, String name, vector3 position);
+	GameObject(String filePath, String name, vector3 position, vector3 rotation);
 
 	void translate(vector3 translation);
 	void scale(vector3 size);

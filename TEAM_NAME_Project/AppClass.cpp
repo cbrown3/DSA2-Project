@@ -31,11 +31,11 @@ void AppClass::Update(void)
 	//if the current model is the sword, make the main/placeholder model equal the correct model being selected.
 	if (currentModel == "Ninja")
 	{
-		Player = GameObject("ninja.fbx", "Ninja", Player.GetPosition());
+		Player = GameObject("ninja.fbx", "Ninja", Player.GetPosition(), Player.GetRotation());
 	}
 	else if (currentModel == "Substitute")
 	{
-		Player = GameObject("substitute.fbx", "Substitute", Player.GetPosition());
+		Player = GameObject("substitute.fbx", "Substitute", Player.GetPosition(), Player.GetRotation());
 	}
 
 	//Update the system's time
@@ -47,9 +47,6 @@ void AppClass::Update(void)
 	Player.Update();
 	Cow.Update();
 	World.Update();
-
-	Cow.GetCollider()->SetModelMatrix(Cow.GetTransformMatrix());
-	Player.GetCollider()->SetModelMatrix(Player.GetTransformMatrix());
 
 #pragma region Collision Resolution
 	if (renderBox)
@@ -92,33 +89,8 @@ void AppClass::Update(void)
 
 	//Call the arcball method
 	ArcBall();
-	ToMatrix4( m_qArcBall);
+	ToMatrix4(m_qArcBall);
 
-	//Object Movement
-	static float fTimer = 0.0f;
-	static int nClock = m_pSystem->GenClock();
-	float fDeltaTime = static_cast<float>(m_pSystem->LapClock(nClock));
-	fTimer += fDeltaTime;
-	static vector3 v3Start = vector3(3.0, 0.0, 0.0);
-	static vector3 v3End = vector3(5.0, 0.0, 0.0);
-	float fPercentage = MapValue(fTimer, 0.0f, 3.0f, 0.0f, 1.0f);
-	vector3 v3Current = glm::lerp(v3Start, v3End, fPercentage);
-	matrix4 mTranslation = glm::translate(v3Current);
-	/*
-	//set the translate to create the transform matrix
-	matrix4 m4Transform = glm::translate(m_v3Position) * ToMatrix4(m_qArcBall);
-	m_pMeshMngr->SetModelMatrix(m4Transform, currentModel); //set the matrix to the model
-		
-
-	m_pMeshMngr->SetModelMatrix(mTranslation, "Cow");
-	m_pBSCow->SetModelMatrix(m_pMeshMngr->GetModelMatrix("Cow"));
-
-	if (fPercentage > 1.0f)
-	{
-		fTimer = 0.0f;
-		std::swap(v3Start, v3End);
-	}
-	*/
 	//Adds all loaded instance to the render list
 	m_pMeshMngr->AddSkyboxToRenderList();
 

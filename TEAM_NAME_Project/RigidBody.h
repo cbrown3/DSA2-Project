@@ -1,4 +1,4 @@
-//PHYSICS by Joshua McMahan - Literally all of it (Kill Me Plz)
+//PHYSICS by Joshua McMahan - Literally all of it
 //very, VERY, lightweight. Should not depend on any external dependecias at all, (Aside from OpenGL)
 //ReEngine code from Alberto Bobadilla - included just in case, but not used at all.
 
@@ -8,7 +8,7 @@
 #include "RE\ReEngAppClass.h"
 #include <SFML\Graphics.hpp>
 
-using namespace ReEng; //Using ReEng namespace to use all the classes in the dll
+using namespace ReEng; //Using ReEng namespace to use all the classes in the dll. I dont use it here, but have it just in case
 
 class RigidBody
 {
@@ -70,8 +70,8 @@ public:
 
 			angularVelocity = angularMomentum*inverseInertia; //calculate angular velocity
 
-			//I need to normalize the orientation. this is the equation, but i need to just do something like orientation.normalize but that is not here. Working on a work around.
-			//orientation = (orientation.x + orientation.y + orientation.z + orientation.w)/(sqrt((orientation.x*orientation.x) + (orientation.y*orientation.y) + (orientation.z*orientation.z) + (orientation.w*orientation.w)));
+															  //I need to normalize the orientation. this is the equation, but i need to just do something like orientation.normalize but that is not here. Working on a work around.
+															  //orientation = (orientation.x + orientation.y + orientation.z + orientation.w)/(sqrt((orientation.x*orientation.x) + (orientation.y*orientation.y) + (orientation.z*orientation.z) + (orientation.w*orientation.w)));
 
 			glm::quat q(0, angularVelocity.x, angularVelocity.y, angularVelocity.z); //temp quat too store angular velocity as to affect spin
 
@@ -94,6 +94,174 @@ public:
 			{
 				velocity.z -= 0.005f;
 			}
+		};
+
+#pragma region CheckOrien
+		void checkOrienX() //Checks Orientation for the next method, continuteToRotate
+		{
+			if (orientation.x == 0 || orientation.x == 90 || orientation.x == 180 || orientation.x == 270 || orientation.x >= 360)
+			{
+				if (orientation.x >= 360)
+				{
+					orientation.x = 0;
+				}
+				return;
+			}
+
+			if (orientation.x > 0 && orientation.x < 45)
+			{
+				orientation.x -= 1;
+				return;
+			}
+			if (orientation.x > 45 && orientation.x < 90)
+			{
+				orientation.x += 1;
+				return;
+			}
+			if (orientation.x > 90 && orientation.x < 135)
+			{
+				orientation.x -= 1;
+				return;
+			}
+			if (orientation.x > 135 && orientation.x < 180)
+			{
+				orientation.x += 1;
+				return;
+			}
+			if (orientation.x > 180 && orientation.x < 225)
+			{
+				orientation.x -= 1;
+				return;
+			}
+			if (orientation.x > 225 && orientation.x < 270)
+			{
+				orientation.x += 1;
+				return;
+			}
+			if (orientation.x > 270 && orientation.x < 315)
+			{
+				orientation.x -= 1;
+				return;
+			}
+			if (orientation.x > 315 && orientation.x < 360)
+			{
+				orientation.x += 1;
+				return;
+			}
+		};
+		void checkOrienY()
+		{
+			//Items for y
+			if (orientation.y == 0 || orientation.y == 90 || orientation.y == 180 || orientation.y == 270 || orientation.y >= 360)
+			{
+				if (orientation.y >= 360)
+				{
+					orientation.y = 0;
+				}
+				return;
+			}
+
+			if (orientation.y > 0 && orientation.y < 45)
+			{
+				orientation.y -= 1;
+				return;
+			}
+			if (orientation.y > 45 && orientation.y < 90)
+			{
+				orientation.y += 1;
+				return;
+			}
+			if (orientation.y > 90 && orientation.y < 135)
+			{
+				orientation.y -= 1;
+				return;
+			}
+			if (orientation.y > 135 && orientation.y < 180)
+			{
+				orientation.y += 1;
+				return;
+			}
+			if (orientation.y > 180 && orientation.y < 225)
+			{
+				orientation.y -= 1;
+				return;
+			}
+			if (orientation.y > 225 && orientation.y < 270)
+			{
+				orientation.y += 1;
+				return;
+			}
+			if (orientation.y > 270 && orientation.y < 315)
+			{
+				orientation.y -= 1;
+				return;
+			}
+			if (orientation.y > 315 && orientation.y < 360)
+			{
+				orientation.y += 1;
+				return;
+			}
+		};
+		void checkOrienZ()
+		{
+			//Items for z
+			if (orientation.z == 0 || orientation.z == 90 || orientation.z == 180 || orientation.z == 270 || orientation.z >= 360)
+			{
+				if (orientation.z >= 360)
+				{
+					orientation.z = 0;
+				}
+				return;
+			}
+
+			if (orientation.z > 0 && orientation.z < 45)
+			{
+				orientation.z -= 1;
+				return;
+			}
+			if (orientation.z > 45 && orientation.z < 90)
+			{
+				orientation.z += 1;
+				return;
+			}
+			if (orientation.z > 90 && orientation.z < 135)
+			{
+				orientation.z -= 1;
+				return;
+			}
+			if (orientation.z > 135 && orientation.z < 180)
+			{
+				orientation.z += 1;
+				return;
+			}
+			if (orientation.z > 180 && orientation.z < 225)
+			{
+				orientation.z -= 1;
+				return;
+			}
+			if (orientation.z > 225 && orientation.z < 270)
+			{
+				orientation.z += 1;
+				return;
+			}
+			if (orientation.z > 270 && orientation.z < 315)
+			{
+				orientation.z -= 1;
+				return;
+			}
+			if (orientation.z > 315 && orientation.z < 360)
+			{
+				orientation.z += 1;
+				return;
+			}
+		};
+#pragma endregion
+
+		void continueToRotate() //Used to see if the object has fully rotated to a certain 90* point. Only 90 since we are workming with box collisions
+		{
+			checkOrienX();
+			checkOrienY();
+			checkOrienZ();
 		};
 	};
 
@@ -142,7 +310,7 @@ public:
 	{
 		Derivative a, b, c, d; //temp values
 
-		//Evaluate all of the derivatives
+							   //Evaluate all of the derivatives
 		a = Evaluate(state, t, 0.0f, Derivative());
 		b = Evaluate(state, t, dt*0.5f, a);
 		c = Evaluate(state, t, dt*0.5f, b);
