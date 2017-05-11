@@ -50,13 +50,6 @@ class AppClass : public ReEngAppClass
 	quaternion orientation;
 	GameObject Player;
 	GameObject World;
-	GameObject Cow;
-
-	MyBoundingObjectManager* m_pBoundingObjectMngr; // manager for bounding box objects
-	MyBoundingBoxClass* m_pBSMain;
-	MyBoundingBoxClass* m_pBSCow;
-	MyBoundingBoxClass* m_pBSword;
-	MyBoundingBoxClass* m_pBShield;
 
 	enum MODELNAMES { ninja, substitute, snail, bus};
 	std::vector<MODEL> MODELS;

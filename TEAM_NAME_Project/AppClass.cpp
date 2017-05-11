@@ -11,9 +11,6 @@ void AppClass::InitVariables(void)
 	//Set the camera position in orthographic position
 	m_pCameraMngr->SetCameraMode(CAMPERSP);
 	m_pCameraMngr->MoveVertical(4.0, -1);
-	//Load a model onto the Mesh manager
-
-	//m_pMeshMngr->LoadModel("gym.fbx", "World");
 
 #pragma region danielle_additions
 
@@ -43,7 +40,6 @@ void AppClass::InitVariables(void)
 	/*GAMEOBJECT SYSTEM*/
 	Player = GameObject(currentModel.path, currentModel.name);
 	World = GameObject("gym.fbx", "World");
-	Cow = GameObject("Minecraft\\Cow.bto", "Cow", vector3(2.5f, 0.0f, 0.0f));
 
 }
 
@@ -58,40 +54,7 @@ void AppClass::Update(void)
 	m_pMeshMngr->Update();
 
 	Player.Update();
-	Cow.Update();
 	World.Update();
-
-#pragma region Collision Resolution
-	if (renderBox)
-	{
-		if (Player.GetCollider()->IsColliding(Cow.GetCollider()))
-		{
-			Player.GetCollider()->DisplayOriented(RERED);
-			Cow.GetCollider()->DisplayOriented(RERED);
-		}
-		else
-		{
-			Player.GetCollider()->DisplayOriented(REGREEN);
-			Cow.GetCollider()->DisplayOriented(REGREEN);
-		}
-	}
-
-	if (renderAlligned)
-	{
-		if (Player.GetCollider()->IsColliding(Cow.GetCollider()))
-		{
-			Player.GetCollider()->DisplayReAlligned(RERED);
-			Cow.GetCollider()->DisplayReAlligned(RERED);
-		}
-		else
-		{
-			Player.GetCollider()->DisplayReAlligned(REGREEN);
-			Cow.GetCollider()->DisplayReAlligned(REGREEN);
-		}
-	}
-
-#pragma endregion
-
 
 	//camera follows player
 	//m_pCameraMngr->SetTarget(m_pBSMain->GetCenterGlobal(), -1);
@@ -109,15 +72,11 @@ void AppClass::Update(void)
 
 	m_pMeshMngr->AddInstanceToRenderList(Player.GetName());
 	m_pMeshMngr->AddInstanceToRenderList(World.GetName());
-	m_pMeshMngr->AddInstanceToRenderList(Cow.GetName());
 
 #pragma region danielle_additions
 
 	//add all models to render list
 	for (int i = 0; i < gameObjectList.size(); i++) {
-
-		//if (renderBox) gameObjectList[i]->GetCollider()->DisplayOriented(REYELLOW);
-		//if (renderAlligned) gameObjectList[i]->GetCollider()->DisplayReAlligned(REYELLOW);
 		
 		//check collisions with player
 		if (Player.GetCollider()->IsColliding(gameObjectList[i]->GetCollider()))
@@ -162,12 +121,15 @@ void AppClass::Update(void)
 	//Print info on the screen
 	m_pMeshMngr->PrintLine("");//Add a line on top
 	m_pMeshMngr->Print(m_pSystem->GetAppName(), REYELLOW);
-	m_pMeshMngr->PrintLine("                 Up/Down: Move Model Forward/Backward");
-	m_pMeshMngr->Print("Current Player Model: " + currentModel.name);
-	m_pMeshMngr->PrintLine("          Left/Right: Move Model Left/Right");
-	m_pMeshMngr->Print("Shift + Up/Down: Move Model Up/Down");
-	m_pMeshMngr->PrintLine("           Number Keys: Change Model");
-	m_pMeshMngr->Print("Hold RMB: Rotate Camera");
+	m_pMeshMngr->PrintLine("                  Up/Down: Move Model Forward/Backward", REBLUE);
+	m_pMeshMngr->Print("Current Player Model: " + currentModel.name, REBLUE);
+	m_pMeshMngr->PrintLine("            Left/Right: Move Model Left/Right", REBLUE);
+	m_pMeshMngr->Print("Space: Jump", REBLUE);
+	m_pMeshMngr->PrintLine("                                 I/O: Switch Between BO Boxes", REBLUE);
+	m_pMeshMngr->Print("Tab: Change Model", REBLUE);
+	m_pMeshMngr->PrintLine("                                  Enter: Spawn in Model", REBLUE);
+	m_pMeshMngr->Print("Backspace: Clear Models", REBLUE);
+	m_pMeshMngr->PrintLine("                          Hold RMB: Rotate Camera", REBLUE);
 
 	/*
 	m_pMeshMngr->Print("FPS:");
@@ -188,28 +150,31 @@ void AppClass::Display(void)
 
 void AppClass::Release(void)
 {
-	m_pBoundingObjectMngr->ReleaseInstance();
 	super::Release(); //release the memory of the inherited fields
-	for (int i = 0; i < gameObjectList.size(); i++) {
+	for (int i = 0; i < gameObjectList.size(); i++)
+	{
 		delete gameObjectList[i];
 	}
 }
 #pragma region danielle_additions
 
 //update the players current model
-void AppClass::UpdateCurrentModel() {
+void AppClass::UpdateCurrentModel()
+{
 	Player.SetModel(currentModel.name);
 }
 
 //cycle through models to place
-void AppClass::CycleModels() {
+void AppClass::CycleModels()
+{
 	modelIndex++; modelIndex = modelIndex % 4;
 	currentModel = MODELS[modelIndex];
 	UpdateCurrentModel();
 }
 
 //spawn a model instance
-void AppClass::SpawnModel(vector3 position) {
+void AppClass::SpawnModel(vector3 position)
+{
 	String nm = currentModel.name + "_";
 	GameObject* temp = new GameObject(currentModel.path, nm + std::to_string(ID), position);
 	
@@ -219,8 +184,10 @@ void AppClass::SpawnModel(vector3 position) {
 }
 
 //clear all model instances 
-void AppClass::ClearModels() {
-	for (int i = 0; i < gameObjectList.size(); i++) {
+void AppClass::ClearModels()
+{
+	for (int i = 0; i < gameObjectList.size(); i++)
+	{
 		delete gameObjectList[i];
 	}
 	gameObjectList.clear();
