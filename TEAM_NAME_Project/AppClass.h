@@ -15,6 +15,28 @@ Date: 2015/09 (Last Modified on: 15/11)
 
 using namespace ReEng; //Using ReEng namespace to use all the classes in the dll
 
+static int ID;
+
+struct MODEL {
+	String name;
+	String path;
+
+	MODEL() {
+		name = "none"; path = "none";
+	}
+
+	MODEL(String path, String name) {
+		this->name = name;
+		this->path = path;
+		ModelManagerSingleton::GetInstance()->LoadModel(path, name);
+	}
+
+	void setModel(String path, String name) {
+		this->name = name;
+		this->path = path;
+	}
+};
+
 
 class AppClass : public ReEngAppClass
 {
@@ -22,8 +44,6 @@ class AppClass : public ReEngAppClass
 	bool renderBox;
 	bool renderAlligned;
 	bool renderSphere;
-	String  currentModel;
-	String* modelNames;
 	vector3 m_v3Position;
 	float mass;
 	RigidBody rBody;
@@ -38,6 +58,12 @@ class AppClass : public ReEngAppClass
 	MyBoundingBoxClass* m_pBSword;
 	MyBoundingBoxClass* m_pBShield;
 
+	enum MODELNAMES { ninja, substitute, snail, bus};
+	std::vector<MODEL> MODELS;
+	MODEL  currentModel;
+	int modelIndex;
+
+	std::vector<GameObject*> gameObjectList;
 public:
 	typedef ReEngAppClass super;
 	/*
@@ -112,6 +138,10 @@ public:
 	OUTPUT: ---
 	*/
 	virtual void Release(void) final;
+	void UpdateCurrentModel();
+	void CycleModels();
+	void SpawnModel(vector3 position);
+	void ClearModels();
 };
 /*
 USAGE:

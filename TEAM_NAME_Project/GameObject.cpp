@@ -157,6 +157,15 @@ MyBoundingBoxClass* GameObject::GetCollider()
 	return collider;
 }
 
+void GameObject::SetModel(String modelName) {
+
+	m_pMeshMngr = MeshManagerSingleton::GetInstance();
+
+	this->name = modelName;
+	collider = new MyBoundingBoxClass(m_pMeshMngr->GetVertexList(name));
+
+}
+
 RigidBody GameObject::GetRigidBody()
 {
 	return rigidBody;

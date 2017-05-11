@@ -8,7 +8,8 @@ void AppClass::ProcessKeyboard(void)
 #pragma region ON_KEY_PRESS_RELEASE
 	static bool	bLastF1 = false, bLastF2 = false, bLastF3 = false, bLastF4 = false, bLastF5 = false,
 				bLastF6 = false, bLastF7 = false, bLastF8 = false, bLastF9 = false, bLastF10 = false,
-				bLastEscape = false, bLastF = false;
+				bLastEscape = false, bLastF = false, bLastTab = false, bLastI = false, bLastO =false,
+				bLastSpace = false, bLastBackSpace = false;
 #define ON_KEY_PRESS_RELEASE(key, pressed_action, released_action){  \
 			bool pressed = sf::Keyboard::isKeyPressed(sf::Keyboard::key);			\
 			if(pressed){											\
@@ -121,13 +122,9 @@ void AppClass::ProcessKeyboard(void)
 #pragma endregion
 
 #pragma region Load Models
-	//if you press Num 1, it will select the current model as the Master Sword
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num1))
-		currentModel = "Ninja";
 
-	//if you press Num 2, it will select the current model as the Hylian Shield
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num2))
-		currentModel = "Substitute";
+	//cycle models on tab
+	ON_KEY_PRESS_RELEASE(Tab, NULL, CycleModels());
 
 	//if you press Space, it will load in a random model
 	/*if (sf::Keyboard::isKeyPressed(sf::Keyboard::P))
@@ -138,57 +135,34 @@ void AppClass::ProcessKeyboard(void)
 #pragma endregion
 
 #pragma region Switch Colliding Boxes
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::I))
-	{
-		if (currentModel == "Ninja")
+	ON_KEY_PRESS_RELEASE(I, NULL, {
+	if (renderBox)
 		{
-			if (renderBox)
-			{
-				renderBox = false;
-			}
-			else
-			{
-				renderBox = true;
-			}
+			renderBox = false;
 		}
-		if (currentModel == "Substitute")
+		else
 		{
-			if (renderBox)
-			{
-				renderBox = false;
-			}
-			else
-			{
-				renderBox = true;
-			}
+			renderBox = true;
 		}
-	};
 
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::O))
-	{
-		if (currentModel == "Ninja")
+	});
+
+	ON_KEY_PRESS_RELEASE(O, NULL, {
+
+		if (renderAlligned)
 		{
-			if (renderAlligned)
-			{
-				renderAlligned = false;
-			}
-			else
-			{
-				renderAlligned = true;
-			}
+			renderAlligned = false;
 		}
-		if (currentModel == "Substitute")
+		else
 		{
-			if (renderAlligned)
-			{
-				renderAlligned = false;
-			}
-			else
-			{
-				renderAlligned = true;
-			}
+			renderAlligned = true;
 		}
-	};
+
+	});
+
+	ON_KEY_PRESS_RELEASE(Space, NULL, SpawnModel( vector3(rand() % 10 - 5, 0, rand() % 10 - 5)) );
+
+	ON_KEY_PRESS_RELEASE(BackSpace, NULL, ClearModels());
 
 #pragma endregion
 

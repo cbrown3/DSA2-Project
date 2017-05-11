@@ -44,6 +44,7 @@ public:
 	vector3 GetRotation();
 
 	MyBoundingBoxClass* GetCollider();
+	void SetModel(String modelName);
 	RigidBody GetRigidBody();
 	String GetName();
 
