@@ -16,6 +16,7 @@ Date: 2015/09 (Last Modified on: 15/11)
 using namespace ReEng; //Using ReEng namespace to use all the classes in the dll
 
 static int ID;
+static int numModels;
 
 struct MODEL {
 	String name;
@@ -29,6 +30,7 @@ struct MODEL {
 		this->name = name;
 		this->path = path;
 		ModelManagerSingleton::GetInstance()->LoadModel(path, name);
+		numModels++;
 	}
 
 	void setModel(String path, String name) {

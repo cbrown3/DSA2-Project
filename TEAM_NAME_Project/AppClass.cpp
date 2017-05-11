@@ -20,6 +20,10 @@ void AppClass::InitVariables(void)
 	MODELS.push_back(MODEL("substitute.fbx", "substitute"));
 	MODELS.push_back(MODEL("snail.fbx", "snail"));
 	MODELS.push_back(MODEL("bus.fbx", "bus"));
+	MODELS.push_back(MODEL("lapras.fbx", "lapras"));
+	MODELS.push_back(MODEL("mushroom.fbx", "mushroom"));
+	MODELS.push_back(MODEL("arwing.fbx", "arwing"));
+	MODELS.push_back(MODEL("keese.fbx", "keese"));
 
 	//set starting model
 	modelIndex = MODELNAMES::ninja;
@@ -166,9 +170,8 @@ void AppClass::UpdateCurrentModel()
 }
 
 //cycle through models to place
-void AppClass::CycleModels()
-{
-	modelIndex++; modelIndex = modelIndex % 4;
+void AppClass::CycleModels() {
+	modelIndex++; modelIndex = modelIndex % MODELS.size();
 	currentModel = MODELS[modelIndex];
 	UpdateCurrentModel();
 }

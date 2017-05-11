@@ -1,0 +1,45 @@
+newmtl keese:cloth
+illum 4
+Kd 0.00 0.00 0.00
+Ka 0.20 0.20 0.20
+Tf 1.00 1.00 1.00
+map_Kd kiesuclothbody_alb.png
+Ni 1.00
+Ks 0.00 0.00 0.00
+Ns 0.00
+newmtl keese:eye
+illum 4
+Kd 0.00 0.00 0.00
+Ka 0.20 0.20 0.20
+Tf 1.00 1.00 1.00
+map_Kd kiesueye_alb.0.png
+Ni 1.00
+Ks 0.00 0.00 0.00
+Ns 0.00
+newmtl keese:rope
+illum 4
+Kd 0.00 0.00 0.00
+Ka 0.20 0.20 0.20
+Tf 1.00 1.00 1.00
+map_Kd kiesurope_alb.png
+Ni 1.00
+Ks 0.00 0.00 0.00
+Ns 0.00
+newmtl keese:tooth
+illum 4
+Kd 0.00 0.00 0.00
+Ka 0.20 0.20 0.20
+Tf 1.00 1.00 1.00
+map_Kd kiesutooth_alb.png
+Ni 1.00
+Ks 0.00 0.00 0.00
+Ns 0.00
+newmtl keese:wing
+illum 4
+Kd 0.00 0.00 0.00
+Ka 0.20 0.20 0.20
+Tf 1.00 1.00 1.00
+map_Kd kiesuwing_alb.png
+Ni 1.00
+Ks 0.00 0.00 0.00
+Ns 0.00
