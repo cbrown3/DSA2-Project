@@ -9,7 +9,7 @@ void AppClass::ProcessKeyboard(void)
 	static bool	bLastF1 = false, bLastF2 = false, bLastF3 = false, bLastF4 = false, bLastF5 = false,
 				bLastF6 = false, bLastF7 = false, bLastF8 = false, bLastF9 = false, bLastF10 = false,
 				bLastEscape = false, bLastF = false, bLastTab = false, bLastI = false, bLastO =false,
-				bLastSpace = false, bLastBackSpace = false;
+				bLastSpace = false, bLastBackSpace = false, bLastReturn = false;
 #define ON_KEY_PRESS_RELEASE(key, pressed_action, released_action){  \
 			bool pressed = sf::Keyboard::isKeyPressed(sf::Keyboard::key);			\
 			if(pressed){											\
@@ -126,11 +126,6 @@ void AppClass::ProcessKeyboard(void)
 	//cycle models on tab
 	ON_KEY_PRESS_RELEASE(Tab, NULL, CycleModels());
 
-	//if you press Space, it will load in a random model
-	/*if (sf::Keyboard::isKeyPressed(sf::Keyboard::P))
-	{
-		m_pBoundingObjectMngr->AddObject()
-	}*/
 
 #pragma endregion
 
@@ -157,12 +152,16 @@ void AppClass::ProcessKeyboard(void)
 		{
 			renderAlligned = true;
 		}
-
+		
 	});
-
-	ON_KEY_PRESS_RELEASE(Space, NULL, SpawnModel( vector3((rand() % 20) - 10, 0, (rand() % 20) - 10)) );
-
+	//spawn model in on enter press
+	ON_KEY_PRESS_RELEASE(Return, NULL, SpawnModel( vector3((rand() % 20) - 10, 10, (rand() % 20) - 10)) );
+	//clear model list on backspace press
 	ON_KEY_PRESS_RELEASE(BackSpace, NULL, ClearModels());
+	ON_KEY_PRESS_RELEASE(Space, {
+		Player.RigidTrans(vector3(0.0f, 0.35f, 0.0f));
+	}, NULL);
+
 
 #pragma endregion
 

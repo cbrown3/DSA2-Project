@@ -64,6 +64,8 @@ public:
 		float inertia; //
 		float inverseInertia; //inverse of the inertia
 
+		float MAX_VEL = 0.002f;
+
 		void recalculate() //Calculates all, and I mean ALL of the important bits that are used for the dooblydoo. If you don't call this, you better be hard coding this shit somewhere!
 		{
 			velocity = momentum*inverseMass; //calculate velocity. Commented temp.
@@ -80,20 +82,24 @@ public:
 
 		void slowDown() //Used to slow down the object if no key is pressed. Should run every frame that the object is not at a standstill
 		{
-			if (velocity.x > 0)
-			{
-				velocity.x -= 0.005f;
-			}
+			//if (velocity.x > 0)
+			//{
+			//	velocity.x -= 0.005f;
+			//}
+			//
+			//if (velocity.y > 0)
+			//{
+			//	velocity.y -= 0.005f;
+			//}
+			//
+			//if (velocity.z > 0)
+			//{
+			//	velocity.z -= 0.005f;
+			//}
 
-			if (velocity.y > 0)
-			{
-				velocity.y -= 0.005f;
-			}
-
-			if (velocity.z > 0)
-			{
-				velocity.z -= 0.005f;
-			}
+			velocity.x *= 0.96f;
+			velocity.y *= 0.96f;
+			velocity.z *= 0.96f;
 		};
 
 #pragma region CheckOrien

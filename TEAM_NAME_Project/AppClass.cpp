@@ -115,10 +115,41 @@ void AppClass::Update(void)
 
 	//add all models to render list
 	for (int i = 0; i < gameObjectList.size(); i++) {
+
+		//if (renderBox) gameObjectList[i]->GetCollider()->DisplayOriented(REYELLOW);
+		//if (renderAlligned) gameObjectList[i]->GetCollider()->DisplayReAlligned(REYELLOW);
+		
+		//check collisions with player
+		if (Player.GetCollider()->IsColliding(gameObjectList[i]->GetCollider()))
+		{
+			Player.GetCollider()->DisplayOriented(RERED);
+			gameObjectList[i]->GetCollider()->DisplayOriented(RERED);
+			gameObjectList[i]->RigidTrans(Player.rigidBody.state.velocity*0.2f);
+		}
+		else
+		{
+			Player.GetCollider()->DisplayOriented(REGREEN);
+			gameObjectList[i]->GetCollider()->DisplayOriented(REGREEN);
+		}
+
+		//check collisions with others
+		for (int j = i+1; j < gameObjectList.size(); j++) {
+			if (gameObjectList[j]->GetCollider()->IsColliding(gameObjectList[i]->GetCollider()))
+			{
+				gameObjectList[i]->GetCollider()->DisplayOriented(RERED);
+				gameObjectList[j]->GetCollider()->DisplayOriented(RERED);
+				gameObjectList[i]->RigidTrans(gameObjectList[j]->rigidBody.state.velocity*0.2f);
+			}
+			else
+			{
+				gameObjectList[i]->GetCollider()->DisplayOriented(REGREEN);
+				gameObjectList[j]->GetCollider()->DisplayOriented(REGREEN);
+			}
+		}
+
+
 		gameObjectList[i]->Update();
-		//FOR NOW: COLLIDER IS YELLOW
-		if (renderBox) gameObjectList[i]->GetCollider()->DisplayOriented(REYELLOW);
-		if (renderAlligned) gameObjectList[i]->GetCollider()->DisplayReAlligned(REYELLOW);
+
 		//add to render
 		m_pMeshMngr->AddInstanceToRenderList(gameObjectList[i]->GetName());
 	}
@@ -182,7 +213,7 @@ void AppClass::SpawnModel(vector3 position) {
 	String nm = currentModel.name + "_";
 	GameObject* temp = new GameObject(currentModel.path, nm + std::to_string(ID), position);
 	
-	if (gameObjectList.size() > 50) gameObjectList.pop_back();
+	if (gameObjectList.size() > 150) ClearModels();
 	gameObjectList.push_back(temp);
 	ID++;
 }

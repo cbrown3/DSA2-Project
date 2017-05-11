@@ -120,6 +120,10 @@ void GameObject::calcTransformMatrix()
 
 void GameObject::Update()
 {
+	if(position.y>0)
+	RigidTrans(vector3(0.0f, -0.01f, 0.0f));
+	else position.y = 0;
+
 	translate(rigidBody.state.velocity);
 	rotate(rigidBody.state.angularVelocity);
 	
