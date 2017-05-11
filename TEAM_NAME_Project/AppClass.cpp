@@ -75,8 +75,8 @@ void AppClass::Update(void)
 #pragma region danielle_additions
 
 	//add all models to render list
-	for (int i = 0; i < gameObjectList.size(); i++) {
-		
+	for (int i = 0; i < gameObjectList.size(); i++)
+	{
 		//check collisions with player
 		if (Player.GetCollider()->IsColliding(gameObjectList[i]->GetCollider()))
 		{
@@ -91,7 +91,8 @@ void AppClass::Update(void)
 		}
 
 		//check collisions with others
-		for (int j = i+1; j < gameObjectList.size(); j++) {
+		for (int j = i+1; j < gameObjectList.size(); j++)
+		{
 			if (gameObjectList[j]->GetCollider()->IsColliding(gameObjectList[i]->GetCollider()))
 			{
 				gameObjectList[i]->GetCollider()->DisplayOriented(RERED);

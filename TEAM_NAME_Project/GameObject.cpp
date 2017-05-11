@@ -121,22 +121,31 @@ void GameObject::calcTransformMatrix()
 void GameObject::Update()
 {
 	if (position.y > 0)
+	{
 		RigidTrans(vector3(0.0f, -0.01f, 0.0f));
-	else position.y = 0;
+	}
+	else
+	{
+		position.y = 0;
+	}
 
-	if (position.x > 16){
+	if (position.x > 16)
+	{
 		rigidBody.state.velocity *= -0.7f;
 		position.x = 16;
 	}
-	if (position.x < -16) {
+	if (position.x < -16)
+	{
 		rigidBody.state.velocity *= -0.7f;
 		position.x = -16;
 	}
-	if (position.z > 16) {
+	if (position.z > 16)
+	{
 		rigidBody.state.velocity *= -0.7f;
 		position.z = 16;
 	}
-	if (position.z < -16) {
+	if (position.z < -16)
+	{
 		rigidBody.state.velocity *= -0.7f;
 		position.z = -16;
 	}
