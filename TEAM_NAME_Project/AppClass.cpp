@@ -28,7 +28,8 @@ void AppClass::InitVariables(void)
 	//create gameobect list for all spawned models
 	gameObjectList = std::vector<GameObject*>();
 
-	for (int i = 0; i < 10; i++) {
+	for (int i = 0; i < 10; i++)
+	{
 		vector3 pos = vector3((rand() % 20)-10, 0, (rand() % 20)-10);
 		GameObject* temp = new GameObject("substitute.fbx", "substitute_"+ID, pos);
 		gameObjectList.push_back(temp);
@@ -45,8 +46,6 @@ void AppClass::InitVariables(void)
 
 void AppClass::Update(void)
 {
-
-
 	//Update the system's time
 	m_pSystem->UpdateTime();
 
@@ -130,6 +129,7 @@ void AppClass::Update(void)
 	m_pMeshMngr->PrintLine("                                  Enter: Spawn in Model", REBLUE);
 	m_pMeshMngr->Print("Backspace: Clear Models", REBLUE);
 	m_pMeshMngr->PrintLine("                          Hold RMB: Rotate Camera", REBLUE);
+	m_pMeshMngr->Print("Number of Models: " + gameObjectList.size(), REBLUE);
 
 	/*
 	m_pMeshMngr->Print("FPS:");
@@ -178,7 +178,7 @@ void AppClass::SpawnModel(vector3 position)
 	String nm = currentModel.name + "_";
 	GameObject* temp = new GameObject(currentModel.path, nm + std::to_string(ID), position);
 	
-	if (gameObjectList.size() > 150) ClearModels();
+	if (gameObjectList.size() > 30) ClearModels();
 	gameObjectList.push_back(temp);
 	ID++;
 }
@@ -191,5 +191,6 @@ void AppClass::ClearModels()
 		delete gameObjectList[i];
 	}
 	gameObjectList.clear();
+	ID = 0;
 }
 #pragma endregion
