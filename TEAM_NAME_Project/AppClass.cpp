@@ -32,7 +32,7 @@ void AppClass::InitVariables(void)
 	gameObjectList = std::vector<GameObject*>();
 
 	for (int i = 0; i < 10; i++) {
-		vector3 pos = vector3(rand() % 10-5, 0, rand() % 10-5);
+		vector3 pos = vector3((rand() % 20)-10, 0, (rand() % 20)-10);
 		GameObject* temp = new GameObject("substitute.fbx", "substitute_"+ID, pos);
 		gameObjectList.push_back(temp);
 		ID++;

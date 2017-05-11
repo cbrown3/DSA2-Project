@@ -91,13 +91,11 @@ void GameObject::rotate(vector3 rotation)
 void GameObject::RigidTrans(vector3 ForceArg) //Takes in a force and applies it to the velocity. Should apply to the acceleration but this is rough code that NEEDS TO BE FIXED!!! - Josh
 {
 	rigidBody.state.velocity += ForceArg; //Ugh, should be affecting the momentum - Josh
-	translate(rigidBody.state.velocity);
 }
 
 void GameObject::RigidRotate(vector3 RotationArg) //Takes in a Roation arg that is essentially a force and applies it to the object's orientation. Need to be better by affecting inertia and such. - Josh
 {
 	rigidBody.state.angularVelocity += RotationArg; //Fix to make better later - Josh (MAKE A QUAT LATER PLZ)
-	rotate(rigidBody.state.angularVelocity);
 }
 #pragma endregion
 
@@ -122,6 +120,9 @@ void GameObject::calcTransformMatrix()
 
 void GameObject::Update()
 {
+	translate(rigidBody.state.velocity);
+	rotate(rigidBody.state.angularVelocity);
+	
 	rigidBody.state.slowDown();
 	rigidBody.state.continueToRotate();
 

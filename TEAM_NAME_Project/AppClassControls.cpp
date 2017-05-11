@@ -160,7 +160,7 @@ void AppClass::ProcessKeyboard(void)
 
 	});
 
-	ON_KEY_PRESS_RELEASE(Space, NULL, SpawnModel( vector3(rand() % 10 - 5, 0, rand() % 10 - 5)) );
+	ON_KEY_PRESS_RELEASE(Space, NULL, SpawnModel( vector3((rand() % 20) - 10, 0, (rand() % 20) - 10)) );
 
 	ON_KEY_PRESS_RELEASE(BackSpace, NULL, ClearModels());
 
