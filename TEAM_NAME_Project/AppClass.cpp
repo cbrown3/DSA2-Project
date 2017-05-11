@@ -43,7 +43,6 @@ void AppClass::InitVariables(void)
 	/*GAMEOBJECT SYSTEM*/
 	Player = GameObject(currentModel.path, currentModel.name);
 	World = GameObject("gym.fbx", "World");
-	Cow = GameObject("Minecraft\\Cow.bto", "Cow", vector3(2.5f, 0.0f, 0.0f));
 
 }
 
@@ -58,39 +57,7 @@ void AppClass::Update(void)
 	m_pMeshMngr->Update();
 
 	Player.Update();
-	Cow.Update();
 	World.Update();
-
-#pragma region Collision Resolution
-	if (renderBox)
-	{
-		if (Player.GetCollider()->IsColliding(Cow.GetCollider()))
-		{
-			Player.GetCollider()->DisplayOriented(RERED);
-			Cow.GetCollider()->DisplayOriented(RERED);
-		}
-		else
-		{
-			Player.GetCollider()->DisplayOriented(REGREEN);
-			Cow.GetCollider()->DisplayOriented(REGREEN);
-		}
-	}
-
-	if (renderAlligned)
-	{
-		if (Player.GetCollider()->IsColliding(Cow.GetCollider()))
-		{
-			Player.GetCollider()->DisplayReAlligned(RERED);
-			Cow.GetCollider()->DisplayReAlligned(RERED);
-		}
-		else
-		{
-			Player.GetCollider()->DisplayReAlligned(REGREEN);
-			Cow.GetCollider()->DisplayReAlligned(REGREEN);
-		}
-	}
-
-#pragma endregion
 
 
 	//camera follows player
@@ -109,7 +76,6 @@ void AppClass::Update(void)
 
 	m_pMeshMngr->AddInstanceToRenderList(Player.GetName());
 	m_pMeshMngr->AddInstanceToRenderList(World.GetName());
-	m_pMeshMngr->AddInstanceToRenderList(Cow.GetName());
 
 #pragma region danielle_additions
 
@@ -166,8 +132,9 @@ void AppClass::Update(void)
 	m_pMeshMngr->Print("Current Player Model: " + currentModel.name);
 	m_pMeshMngr->PrintLine("          Left/Right: Move Model Left/Right");
 	m_pMeshMngr->Print("Shift + Up/Down: Move Model Up/Down");
-	m_pMeshMngr->PrintLine("           Number Keys: Change Model");
+	m_pMeshMngr->PrintLine("           Tab: Change Model");
 	m_pMeshMngr->Print("Hold RMB: Rotate Camera");
+	m_pMeshMngr->Print("Models: "+gameObjectList.size());
 
 	/*
 	m_pMeshMngr->Print("FPS:");
@@ -213,7 +180,7 @@ void AppClass::SpawnModel(vector3 position) {
 	String nm = currentModel.name + "_";
 	GameObject* temp = new GameObject(currentModel.path, nm + std::to_string(ID), position);
 	
-	if (gameObjectList.size() > 150) ClearModels();
+	if (gameObjectList.size() > 30) ClearModels();
 	gameObjectList.push_back(temp);
 	ID++;
 }
@@ -224,5 +191,6 @@ void AppClass::ClearModels() {
 		delete gameObjectList[i];
 	}
 	gameObjectList.clear();
+	ID = 0;
 }
 #pragma endregion
